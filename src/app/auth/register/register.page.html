@@ -6,4 +6,50 @@
 
 <ion-content>
 
+  <ion-item>
+    <ion-label position="stacked">Vorname</ion-label>
+    <ion-input ></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Nachname</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>DHBW</ion-label>
+    <ion-select placeholder="Select One">
+      <ion-select-option value="ma">Heidenheim</ion-select-option>
+      <ion-select-option value="ma">Heilbronn</ion-select-option>
+      <ion-select-option value="ka">Karlsruhe</ion-select-option>
+      <ion-select-option value="ma">Lörrach</ion-select-option>
+      <ion-select-option value="ma">Mannheim</ion-select-option>
+      <ion-select-option value="ma">Mosbach</ion-select-option>
+      <ion-select-option value="ma">Ravensburg</ion-select-option>
+      <ion-select-option value="ma">Stuttgart</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input type="email"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Passwort</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Passwort bestätigen</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+  
+  <ion-button>Registrieren</ion-button>
+
+  <ion-button href="/login">
+    Anmelden
+    <ion-icon slot="end" name="open-outline"></ion-icon>
+  </ion-button>
+
 </ion-content>
