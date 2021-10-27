@@ -6,17 +6,25 @@
 
 <ion-content>
   
-  <ion-item>
-    <ion-label position="stacked">Email</ion-label>
-    <ion-input type="email"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="stacked">Passwort</ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
-  
-  <ion-button>Anmelden</ion-button>
+  <form [formGroup]="form" (ngSubmit)="login()">
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked">Passwort</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="primary" expand="block">Anmelden</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
 
   <ion-button href="/register">
     Registrieren
