@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DHBW-Experts</string>
+    <string name="title_activity_main">DHBW-Experts</string>
+    <string name="package_name">de.dhexp.app</string>
+    <string name="custom_url_scheme">de.dhexp.app</string>
+</resources>
