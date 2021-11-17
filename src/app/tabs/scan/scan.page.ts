@@ -8,21 +8,33 @@ import { Subscription } from 'rxjs';
   styleUrls: ['scan.page.scss']
 })
 export class ScanPage {
-  private sub: Subscription;
+  private nfcSub: Subscription;
 
   constructor(private nfc: NFC) {}
 
   ionViewDidEnter() {
-    let flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
-    this.sub = this.nfc.readerMode(flags).subscribe(this.nfcTagHandler, this.nfcErrHandler);
+    // Subscribe NFC reader
+    const flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
+    this.nfcSub = this.nfc.readerMode(flags).subscribe(this.nfcTagHandler, this.nfcErrHandler);
+  }
+
+  ionViewDidLeave() {
+    // Unsubscribe NFC reader
+    this.nfcSub.unsubscribe();
   }
 
   nfcTagHandler(tag: NfcTag) {
-    const tagId = tag.id;
+    // Prettify tag id
+    const tagId = tag.id.map(i => Math.abs(i).toString(16).toUpperCase().padStart(2, '0')).join(':');
+
     console.log(`NFC: ${tagId}`);
+
+    // TODO: redirect to profile page
   }
 
   nfcErrHandler(err: any) {
     console.log('Error reading tag', err);
+
+    // TODO: show error in UI
   }
 }
