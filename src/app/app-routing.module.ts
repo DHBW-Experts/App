@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule )
+  },  {
+    path: 'verify',
+    loadChildren: () => import('./auth/verify/verify.module').then( m => m.VerifyPageModule)
   }
+
 ];
 @NgModule({
   imports: [

@@ -18,6 +18,9 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
+      }, {
+        path: 'contacts',
+        loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
       },
       {
         path: '',
@@ -30,7 +33,9 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/scan',
     pathMatch: 'full'
-  }
+  },
+
+
 ];
 
 @NgModule({

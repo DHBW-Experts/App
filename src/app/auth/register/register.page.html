@@ -1,63 +1,75 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registrieren</title>
+</head>
+<body>
+<div id="Registrieren">
+  <div id="top-nav">
+    <div id="backArrowDiv"> <img src="img/arrow_back.svg" alt="back" id="back"> </div>
+    <div id="RegistrierenText"> <span style="">Registrieren</span></div>
+  </div>
+  <div id="sign-up" style="overflow:scroll; height: 400px;">
+    <div class="Default_Input" id="Vorname">
+      <div class="Default_Input_Text"> <span>Vorname</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="Nachname">
+      <div class="Default_Input_Text"> <span>Nachname</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="DHBW-Standort">
+      <div class="Default_Input_Text"> <span>DHBW-Standort</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="Email-Adresse">
+      <div class="Default_Input_Text"> <span>DHBW-Email-Adresse</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="Studiengang">
+      <div class="Default_Input_Text"> <span>Studiengang</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="Kurs">
+      <div class="Default_Input_Text"> <span>Kurs</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="Passwort">
+      <div class="Default_Input_Text"> <span>Passwort</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+    <div class="Default_Input" id="Passwort-WDH">
+      <div class="Default_Input_Text"> <span>Passwort-Wiederholung</span></div>
+      <svg class="Default_Input_RectSVG">
+        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+    </div>
+  </div>
+  <div id="bottom-nav">
+    <div id="Default_Button" class="Default_Button">
+      <svg class="Default_Button_RectSVG">
+        <rect class="Default_Button_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
+      </svg>
+      <div class="Default_Button_Text"> <span>Registrieren</span> </div>
+    </div>
+    <div id="AGB_Text"> <span>Mit dem Registrieren akzeptierst du unsere AGBs</span> </div>
+  </div>
+</div>
+</body>
 
-<ion-content>
-
-  <form [formGroup]="form" (ngSubmit)="register()">
-  
-    <ion-item >
-      <ion-label position="stacked">Vorname</ion-label>
-      <ion-input type="text" formControlName="firstname"></ion-input>
-    </ion-item>
-  
-    <ion-item >
-      <ion-label position="stacked">Nachname</ion-label>
-      <ion-input type="text" formControlName="lastname"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>DHBW</ion-label>
-      <ion-select placeholder="Select One" formControlName="dhbw">
-        <ion-select-option value="hm">Heidenheim</ion-select-option>
-        <ion-select-option value="hn">Heilbronn</ion-select-option>
-        <ion-select-option value="ka">Karlsruhe</ion-select-option>
-        <ion-select-option value="lo">Lörrach</ion-select-option>
-        <ion-select-option value="ma">Mannheim</ion-select-option>
-        <ion-select-option value="mo">Mosbach</ion-select-option>
-        <ion-select-option value="ra">Ravensburg</ion-select-option>
-        <ion-select-option value="st">Stuttgart</ion-select-option>
-      </ion-select>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label position="stacked">Passwort</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label position="stacked">Passwort bestätigen</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="primary" expand="block">Registrieren</ion-button>
-      </ion-col>
-    </ion-row>
-  
-  </form>
-  
-  <ion-button href="/login">
-    Anmelden
-    <ion-icon slot="end" name="open-outline"></ion-icon>
-  </ion-button>
-
-</ion-content>

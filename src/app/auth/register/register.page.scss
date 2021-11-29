@@ -1,0 +1,137 @@
+body {
+  padding-bottom: 30%;
+  padding-top: 10%;
+  background-color: white;
+}
+
+#Registrieren {
+    font-family: arial, sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+#back {
+	height: 50px;
+}
+
+
+.Default_Button {
+  position: relative;
+  width: 99%;
+  height: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: visible;
+  cursor: pointer;
+  margin-top: 32px;
+}
+
+.Default_Button_RectSVG{
+  position: absolute;
+  width: 100%;
+  height: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Default_Button_Rect{
+  fill: rgba(178, 0, 45, 1);
+  width: 100%;
+}
+
+
+.Default_Button_Text {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 16.5px;
+  position: absolute;
+  overflow: visible;
+  white-space: nowrap;
+  line-height: 15px;
+  margin-top: -1.5px;
+  text-align: left;
+  font-family: Montserrat, arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+#AGB_Text {
+    top: 20px;
+    position: relative;
+    line-height: 15px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    color: rgba(122,122,122,1);
+    text-align: center;
+	margin-bottom: 20px;
+}
+
+.Default_Input {
+  position: relative;
+  width: 99%;
+  height: 71px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: visible;
+  margin-bottom: 20px;
+}
+
+.Default_Input_RectSVG{
+  position: relative;
+  overflow: visible;
+  width: 100%;
+  height: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Default_Input_Rect{
+  fill: rgba(255, 255, 255, 1);
+  stroke: rgba(122, 122, 122, 1);
+  stroke-width: 1px;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 4;
+  shape-rendering: auto;
+}
+
+.Default_Input_Text{
+    position: relative;
+    white-space: nowrap;
+    line-height: 18px;
+    text-align: left;
+    font-family: Montserrat;
+    font-size: 13px;
+    color: rgba(122,122,122,1);
+    left: 10px;
+    bottom: 5px;
+}
+
+#bottom-nav {
+	background-color: white;
+    position: fixed;
+    bottom: 0px;
+    left: 10%;
+    right: 10%;
+    padding-bottom: 5%;
+}
+
+#RegistrierenText {
+    position: relative;
+    width: 70%;
+    white-space: nowrap;
+    line-height: 54px;
+    text-align: left;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 240%;
+    color: rgba(122,122,122,1);
+	padding-bottom: 5%;
+	padding-top: 1%;
+}
