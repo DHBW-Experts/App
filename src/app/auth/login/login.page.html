@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-
-<head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anmelden</title>
-
-</head>
-<body>
-
-<div id="Anmelden">
-  <div id="Header">
-    <div id="logoDiv"> <img src="logo.svg" alt="logo" id="logo"> </div>
-    <div id="SeparatorLine">
-      <svg class="Pfad_1115" viewBox="0 0 327 4">
-        <path id="Pfad_1115" d="M 0 0 L 327 0"> </path>
-      </svg>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anmelden</title>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="Anmelden">
+      <div id="Header">
+        <div id="logoDiv"><img src="img/logo.svg" alt="logo" id="logo" /></div>
+        <div id="Slogan"><span id="SloganSpan">Vernetze dich und finde Hilfe wann und wo du sie brauchst!</span></div>
+      </div>
+      <div id="SignUpFields">
+        <div class="Default_Input" id="DHBW-E-Mail-Adresse">
+          <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
+          <input type="email" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="Passwort">
+          <div class="Default_Input_Text"><span>Passwort</span></div>
+          <input type="password" class="Default_Input_Field" />
+        </div>
+        <button id="Register_Button" class="Default_Button">Anmelden</button>
+      </div>
+      <button id="RegisterButton"><span>Du hast noch keinen Account? </span><span style="font-style: normal; font-weight: bold; color: rgba(178, 0, 45, 1)">Registrieren</span></button>
     </div>
-    <div id="Slogan"> <span id="SloganSpan">Vernetze dich  und finde Hilfe wann und wo du sie brauchst!</span> </div>
-  </div>
-  <div id="SignUpFields">
-    <div class="Default_Input" id="InputMail">
-      <svg class="Rechteck_1511_w">
-        <rect id="Rechteck_1511_w" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-      <div class="Input_Description"> <span>DHBW-Email-Adresse</span> </div>
-    </div>
-    <div class="Default_Input" id="InputPassword">
-      <svg class="Rechteck_1511">
-        <rect id="Rechteck_1511" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-      <div class="Input_Description"> <span>Passwort</span> </div>
-    </div>
-    <div id="Default_Button" class="Default_Button">
-      <svg class="Rechteck_1469">
-        <rect id="Rechteck_1469" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-      <div id="AnmeldunBtnDescription"> <span>aNMELDEN</span> </div>
-    </div>
-  </div>
-  <div id="Register"> <span>Du hast noch keinen Account? </span><span style="font-style:normal;font-weight:bold;color:rgba(178,0,45,1);">Registrieren</span> </div>
-</div>
-</body>
+  </body>
 

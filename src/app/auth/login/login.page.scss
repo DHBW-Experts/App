@@ -1,16 +1,24 @@
 body {
+  padding-top: 10vh;
+  background-color: white;
+
+}
+input{
   background-color: white;
 }
 
 #Header {
   position: relative;
-	margin-top: 30%;
 }
 
 #logoDiv {
-  height: 100px;
+  height: 15vh;
   text-align: center;
   position: relative;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: rgb(178, 0, 45);
+  margin: 0 10vw;
 }
 
 #logo {
@@ -23,7 +31,7 @@ body {
   width: 100%;
   height: 1px;
   transform: translateX(-50%);
-  margin-top: 5%;
+  margin-top: 4vh;
 }
 
 #Slogan {
@@ -31,24 +39,21 @@ body {
   width: 100%;
   line-height: 21px;
   text-align: center;
-  font-family: Montserrat, arial, sans-serif;
+  font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  color: rgba(122, 122, 122, 1);
+  color: rgb(122, 122, 122);
   position: relative;
   left: 50%;
-  margin-top: 10%;
+  margin-top: 6vh;
 }
 
 #Anmelden {
   position: relative;
-  width: 80%;
   height: 100%;
-  font-family: arial, sans-serif;
-  overflow: hidden;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 #SignUpFields {
@@ -56,7 +61,7 @@ body {
   width: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 15%;
+  margin-top: 8vh;
 }
 
 .Default_Input {
@@ -69,31 +74,63 @@ body {
   margin-bottom: 20px;
 }
 
-.Input_Description {
-  left: 0px;
-  top: 0px;
+.Default_Input:focus-within .Default_Input_Field {
+  border-color: rgb(178, 0, 45);
+}
+
+.Default_Input:focus-within .Default_Input_Text {
+  color: rgb(178, 0, 45);
+}
+
+.Default_Input_Field {
+  width: 100%;
+  height: 45px;
+  border-radius: 9px;
+  border-style: solid;
+  border-color: rgb(170, 170, 170);
+  border-width: 2px;
+  text-indent: 10px;
+  font-size: 15px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.Default_Input_Text {
   position: relative;
   white-space: nowrap;
   line-height: 18px;
-  margin-top: -3px;
   text-align: left;
-  font-family: Montserrat, arial, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  color: rgba(122, 122, 122, 1);
-  margin-bottom: 21px;
+  font-family: Montserrat;
+  font-size: 13px;
+  color: rgb(122, 122, 122);
+  left: 10px;
+  bottom: 5px;
 }
 
-#Default_Button {
+.Default_Button {
   position: relative;
   width: 99%;
   height: 48px;
   left: 50%;
   transform: translateX(-50%);
-  overflow: visible;
   cursor: pointer;
   margin-top: 32px;
+  background-color: rgb(178, 0, 45);
+  border: none;
+  border-radius: 9px;
+  color: white;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.Default_Button:hover {
+  background-color: rgb(130, 0, 32);
 }
 
 #AnmeldunBtnDescription {
@@ -102,21 +139,20 @@ body {
   top: 16.5px;
   position: absolute;
   overflow: visible;
-  width: 79px;
   white-space: nowrap;
   line-height: 15px;
   margin-top: -1.5px;
   text-align: left;
-  font-family: Montserrat, arial, sans-serif;
+  font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
   font-size: 12px;
-  color: rgba(255, 255, 255, 1);
+  color: rgb(255, 255, 255);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
-#Register {
+#RegisterButton {
   left: 50%;
   transform: translateX(-50%);
   position: relative;
@@ -124,197 +160,21 @@ body {
   white-space: nowrap;
   line-height: 18px;
   text-align: center;
-  font-family: Montserrat, arial, sans-serif;
+  font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  color: rgba(122, 122, 122, 1);
-  margin-top: 15%;
+  color: rgb(122, 122, 122);
+  margin-top: 8vh;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
 }
 
-#Rechteck_1469 {
-  fill: rgba(178, 0, 45, 1);
-}
-.Rechteck_1469 {
-  position: absolute;
-  overflow: visible;
-  width: 100%;
-  height: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0px;
-}
-
-#Rechteck_1511 {
-  fill: rgba(255, 255, 255, 1);
-  stroke: rgba(122, 122, 122, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Rechteck_1511 {
-  position: absolute;
-  overflow: visible;
-  width: 100%;
-  height: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 23px;
-}
-
-#Rechteck_1511_w {
-  fill: rgba(255, 255, 255, 1);
-  stroke: rgba(122, 122, 122, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Rechteck_1511_w {
-  position: absolute;
-  overflow: visible;
-  width: 100%;
-  height: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 23px;
-}
-
-#Pfad_1115 {
-  fill: rgba(0, 0, 0, 0);
-  stroke: rgba(178, 0, 45, 1);
-  stroke-width: 4px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-
-.Pfad_1115 {
-  overflow: visible;
-  position: absolute;
-  width: 100%;
-  height: 4px;
-  left: 50%;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-  top: 0px;
-}
-
-#layer1 {
-  position: absolute;
-  transform: translateX(-50%);
-  overflow: visible;
-  left: 50%;
-  width: 100%;
-  height: 80px;
-}
-
-#layer1-9 {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  overflow: visible;
-}
-
-#path84 {
-  fill: rgba(125, 137, 144, 1);
-}
-
-.path84 {
-  overflow: visible;
-  position: absolute;
-  width: 67.837px;
-  height: 64.936px;
-  left: 21.425px;
-  top: 22.415px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#path88 {
-  fill: rgba(226, 0, 26, 1);
-}
-
-.path88 {
-  overflow: visible;
-  position: absolute;
-  width: 67.902px;
-  height: 65.2px;
-  left: 0px;
-  top: 0px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#path100 {
-  fill: rgba(142, 16, 22, 1);
-}
-
-.path100 {
-  overflow: visible;
-  position: absolute;
-  width: 46.477px;
-  height: 42.785px;
-  left: 21.425px;
-  top: 22.415px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#path242 {
-  fill: rgba(226, 0, 26, 1);
-}
-
-.path242 {
-  overflow: visible;
-  position: absolute;
-  width: 68.76px;
-  height: 42.719px;
-  left: 99.679px;
-  top: 6.737px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#text2250 {
-  left: 96.727px;
-  top: 39.917px;
-  position: absolute;
-  overflow: visible;
-  width: 45px;
-  white-space: nowrap;
-  text-align: left;
-  font-family: Calibri, arial, sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 42px;
-  color: rgba(226, 0, 26, 1);
-}
-
-#text3244 {
-  left: 139.553px;
-  top: 39.914px;
-  position: absolute;
-  overflow: visible;
-  width: 104px;
-  white-space: nowrap;
-  text-align: left;
-  font-family: Calibri, arial, sans-serif;
-  font-style: normal;
-  font-weight: lighter;
-  font-size: 42px;
-  color: rgba(93, 105, 113, 1);
-}
-
-#path238 {
-  fill: rgba(93, 105, 113, 1);
-}
-
-.path238 {
-  overflow: visible;
-  position: absolute;
-  width: 71.836px;
-  height: 42.72px;
-  left: 173.281px;
-  top: 6.74px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }

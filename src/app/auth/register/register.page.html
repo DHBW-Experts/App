@@ -1,75 +1,63 @@
 <!DOCTYPE html>
-<head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registrieren</title>
-</head>
-<body>
-<div id="Registrieren">
-  <div id="top-nav">
-    <div id="backArrowDiv"> <img src="img/arrow_back.svg" alt="back" id="back"> </div>
-    <div id="RegistrierenText"> <span style="">Registrieren</span></div>
-  </div>
-  <div id="sign-up" style="overflow:scroll; height: 400px;">
-    <div class="Default_Input" id="Vorname">
-      <div class="Default_Input_Text"> <span>Vorname</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrieren</title>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="Registrieren">
+      <div id="top-nav">
+        <button id="backArrowButton"><img src="img/arrow_back.svg" alt="back" id="back" /></button>
+        <div id="RegistrierenText"><span>Registrieren</span></div>
+      </div>
+      <div id="sign-up" style="overflow: scroll; height:400px"> <!-- todo fix height -->
+        <div class="Default_Input" id="Vorname">
+          <div class="Default_Input_Text"><span>Vorname</span></div>
+          <input type="text" placeholder="Max" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="Nachname">
+          <div class="Default_Input_Text"><span>Nachname</span></div>
+          <input type="text" placeholder="Mustermann" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="DHBW-Standort">
+          <div class="Default_Input_Text"><span>DHBW-Standort</span></div>
+          <input type="text" list="standorte" placeholder="Karlsruhe" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="DHBW-E-Mail-Adresse">
+          <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
+          <input type="email" placeholder="max.mustermann@student.dhbw-karlsruhe.de" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="Studiengang">
+          <div class="Default_Input_Text"><span>Studiengang</span></div>
+          <input type="text" placeholder="Informatik" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="Kurs">
+          <div class="Default_Input_Text"><span>Kurs</span></div>
+          <input type="text" placeholder="TINF20B2" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="Passwort">
+          <div class="Default_Input_Text"><span>Passwort</span></div>
+          <input type="password" class="Default_Input_Field" />
+        </div>
+        <div class="Default_Input" id="Passwort-WDH">
+          <div class="Default_Input_Text"><span>Passwort Wiederholung</span></div>
+          <input type="password" class="Default_Input_Field" />
+        </div>
+      </div>
+      <div id="bottom-nav">
+        <button id="Register_Button" class="Default_Button">Registrieren</button>
+        <div id="AGB_Text"><span>Mit dem Registrieren akzeptierst du unsere AGBs</span></div>
+      </div>
     </div>
-    <div class="Default_Input" id="Nachname">
-      <div class="Default_Input_Text"> <span>Nachname</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-    <div class="Default_Input" id="DHBW-Standort">
-      <div class="Default_Input_Text"> <span>DHBW-Standort</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-    <div class="Default_Input" id="Email-Adresse">
-      <div class="Default_Input_Text"> <span>DHBW-Email-Adresse</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-    <div class="Default_Input" id="Studiengang">
-      <div class="Default_Input_Text"> <span>Studiengang</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-    <div class="Default_Input" id="Kurs">
-      <div class="Default_Input_Text"> <span>Kurs</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-    <div class="Default_Input" id="Passwort">
-      <div class="Default_Input_Text"> <span>Passwort</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-    <div class="Default_Input" id="Passwort-WDH">
-      <div class="Default_Input_Text"> <span>Passwort-Wiederholung</span></div>
-      <svg class="Default_Input_RectSVG">
-        <rect class="Default_Input_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-    </div>
-  </div>
-  <div id="bottom-nav">
-    <div id="Default_Button" class="Default_Button">
-      <svg class="Default_Button_RectSVG">
-        <rect class="Default_Button_Rect" rx="8" ry="8" x="0" y="0" width="100%" height="48"> </rect>
-      </svg>
-      <div class="Default_Button_Text"> <span>Registrieren</span> </div>
-    </div>
-    <div id="AGB_Text"> <span>Mit dem Registrieren akzeptierst du unsere AGBs</span> </div>
-  </div>
-</div>
-</body>
-
+    <datalist id="standorte">
+      <option value="Karlsruhe"></option>
+      <option value="Stuttgart" ></option>
+      <option value="Mannheim" ></option>
+      <option value="Heilbronn" ></option>
+    </datalist>
+  </body>
