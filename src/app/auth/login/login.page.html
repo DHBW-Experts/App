@@ -1,32 +1,55 @@
 <!DOCTYPE html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anmelden</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="css/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="Anmelden">
-      <div id="Header">
-        <div id="logoDiv"><img src="img/logo.svg" alt="logo" id="logo" /></div>
-        <div id="Slogan"><span id="SloganSpan">Vernetze dich und finde Hilfe wann und wo du sie brauchst!</span></div>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmelden</title>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    id="applicationStylesheet"
+    href="css/styles.css"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div id="Anmelden">
+    <div id="Header">
+      <div id="logoDiv"><img src="img/logo.svg" alt="logo" id="logo" /></div>
+      <div id="Slogan">
+        <span id="SloganSpan"
+          >Vernetze dich und finde Hilfe wann und wo du sie brauchst!</span
+        >
       </div>
-      <div id="SignUpFields">
-        <div class="Default_Input" id="DHBW-E-Mail-Adresse">
-          <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
-          <input type="email" class="Default_Input_Field" />
-        </div>
-        <div class="Default_Input" id="Passwort">
-          <div class="Default_Input_Text"><span>Passwort</span></div>
-          <input type="password" class="Default_Input_Field" />
-        </div>
-        <button id="Register_Button" class="Default_Button">Anmelden</button>
-      </div>
-      <button id="RegisterButton"><span>Du hast noch keinen Account? </span><span style="font-style: normal; font-weight: bold; color: rgba(178, 0, 45, 1)">Registrieren</span></button>
     </div>
-  </body>
-
+    <div id="SignUpFields">
+      <div class="Default_Input" id="DHBW-E-Mail-Adresse">
+        <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
+        <input type="email" class="Default_Input_Field" />
+      </div>
+      <div class="Default_Input" id="Passwort">
+        <div class="Default_Input_Text"><span>Passwort</span></div>
+        <input type="password" class="Default_Input_Field" />
+      </div>
+      <button id="Register_Button" class="Default_Button" (click)="login()">
+        Anmelden
+      </button>
+    </div>
+    <button id="RegisterButton">
+      <span>Du hast noch keinen Account? </span
+      ><span
+        style="
+          font-style: normal;
+          font-weight: bold;
+          color: rgba(178, 0, 45, 1);
+        "
+        >Registrieren</span
+      >
+    </button>
+  </div>
+</body>

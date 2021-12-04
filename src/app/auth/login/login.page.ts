@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Persistence } from 'src/app/models/Persistence';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class LoginPage implements OnInit {
   form: FormGroup;
 
-  constructor(public formBuilder: FormBuilder) { }
+  constructor(public formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -23,5 +24,4 @@ export class LoginPage implements OnInit {
   login() {
     console.log('Ab geht der Peter!');
   }
-
 }

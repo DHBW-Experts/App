@@ -1,17 +1,133 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Profile
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!DOCTYPE html>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Profile page"></app-explore-container>
-</ion-content>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Bearbeiten</title>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    id="applicationStylesheet"
+    href="css/styles.css"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div id="Bearbeiten">
+    <div id="top-nav">
+      <button id="backArrowButton">
+        <img src="img/arrow_back.svg" alt="back" id="back" />
+      </button>
+      <div id="RegistrierenText"><span>Profil</span></div>
+    </div>
+    <div id="sign-up" style="height: 400px; overflow: scroll">
+      <div class="Default_Input" id="firstname">
+        <div class="Default_Input_Text"><span>Vorname</span></div>
+        <input
+          *ngIf="isDataAvailable"
+          type="text"
+          placeholder="{{user.firstname}}"
+          class="Default_Input_Field"
+          id="firstname_input"
+          disabled
+        />
+      </div>
+      <div class="Default_Input" id="lastname">
+        <div class="Default_Input_Text"><span>Nachname</span></div>
+        <input
+          type="text"
+          placeholder="{{user.lastname}}"
+          class="Default_Input_Field"
+          id="lastname_input"
+          disabled
+        />
+      </div>
+      <div class="Splitted_Input" id="DHBW-Mail_Standort">
+        <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
+        <input
+          type="text"
+          placeholder="{{user.email}}"
+          class="Splitted_Input_Field"
+          id="mail"
+          disabled
+        />
+        <input
+          type="text"
+          list="standorte"
+          id="standort"
+          class="Splitted_Dropdown_Field"
+          placeholder="Karlsruhe"
+          disabled
+        />
+        <div class="email_preview_div">
+          <span id="email_preview_text">{{user.email}}</span>
+        </div>
+      </div>
+      <div class="Default_Input" id="Bio">
+        <div class="Default_Input_Text"><span>Biographie</span></div>
+        <textarea
+          type="text"
+          class="Default_Input_Field"
+          id="bio_textarea"
+          maxlength="1000"
+          rows="4"
+        >
+{{user.bio}}</textarea
+        >
+      </div>
+      <div class="Default_Input" id="Studiengang">
+        <div class="Default_Input_Text"><span>Studiengang</span></div>
+        <input
+          type="text"
+          class="Default_Input_Field"
+          value="{{user.course}}"
+        />
+      </div>
+      <div class="Default_Input" id="Fachrichtung">
+        <div class="Default_Input_Text"><span>Fachrichtung</span></div>
+        <input type="text" placeholder="optional" class="Default_Input_Field" />
+      </div>
+      <div class="Default_Input" id="Kurs">
+        <div class="Default_Input_Text"><span>Kurs</span></div>
+        <input
+          type="text"
+          class="Default_Input_Field"
+          value="{{user.courseAbr}}"
+        />
+      </div>
+      <div class="Default_Input" id="Passwort_alt">
+        <div class="Default_Input_Text"><span>Altes Passwort</span></div>
+        <input
+          type="password"
+          class="Default_Input_Field"
+          placeholder="nur bei Passwort-Änderung"
+        />
+      </div>
+      <div class="Default_Input" id="Passwort">
+        <div class="Default_Input_Text"><span>Passwort</span></div>
+        <input
+          type="password"
+          class="Default_Input_Field"
+          placeholder="nur bei Passwort-Änderung"
+        />
+      </div>
+      <div class="Default_Input" id="Passwort-WDH">
+        <div class="Default_Input_Text"><span>Passwort Wiederholung</span></div>
+        <input
+          type="password"
+          class="Default_Input_Field"
+          placeholder="nur bei Passwort-Änderung"
+        />
+      </div>
+    </div>
+    <div id="bottom-nav">
+      <button id="Register_Button" class="Default_Button">Bearbeiten</button>
+    </div>
+  </div>
+</body>
