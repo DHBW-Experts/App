@@ -1,11 +1,196 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Search
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!DOCTYPE html>
 
-<ion-content [fullscreen]="true">
-  <ion-searchbar></ion-searchbar>
-</ion-content>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suche</title>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    id="applicationStylesheet"
+    href="css/styles.css"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    function tagClicked(el) {
+      $(el).parent().find(".tag_item").removeClass("selected");
+      $(el).addClass("selected");
+    }
+
+    function setMail() {
+      const firstname = document.getElementById("firstname_input").value;
+      const lastname = document.getElementById("lastname_input").value;
+      if (firstname != "" && lastname != "") {
+        document.getElementById("mail").value =
+          lastname.toLowerCase() + "." + firstname.toLowerCase();
+        restoreMailExample();
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="Suche">
+    <div id="Suche_Text"><span>Suche</span></div>
+    <div id="Search_Group">
+      <div class="Splitted_Input" id="DHBW-Mail_Standort">
+        <input
+          type="search"
+          placeholder="Suche"
+          class="Splitted_Input_Field"
+          id="mail"
+        />
+        <select
+          type="text"
+          list="standorte"
+          id="standort"
+          class="Splitted_Dropdown_Field"
+        >
+          <option value="tag">Tag</option>
+          <option value="user">User</option>
+          <option value="standort">Standort</option>
+          <option value="studiengang">Studiengang</option>
+          <option value="kurs">Kurs</option>
+        </select>
+        <svg class="searchbar_svg">
+          <use xlink:href="img/search_icon.svg#search" />
+        </svg>
+      </div>
+      <div class="search_result">
+        <div class="tag_result">
+          <div class="tag_item" onClick="tagClicked(this);">
+            <span class="tag_item_content">#LaTeX</span>
+          </div>
+          <div class="tag_item" onClick="tagClicked(this);">
+            <span class="tag_item_content">#CS:GO</span>
+          </div>
+          <div class="tag_item" onClick="tagClicked(this);">
+            <span class="tag_item_content">#Algebra</span>
+          </div>
+          <div class="tag_item" onClick="tagClicked(this);">
+            <span class="tag_item_content">#TheoInf</span>
+          </div>
+          <div class="tag_item" onClick="tagClicked(this);">
+            <span class="tag_item_content">#Git</span>
+          </div>
+        </div>
+        <div class="user_result">
+          <button class="contact_item">
+            <div class="profile_image_div">
+              <img
+                src="img/contact_default.png"
+                alt="profile picture"
+                class="profile_image"
+              />
+            </div>
+            <div class="contact_info">
+              <div class="contact_name">
+                <span class="centered_text">Max Mustermann</span>
+              </div>
+              <div class="info_second_line">
+                <span class="centered_text">Informatik @ DHBW-Karlsruhe</span>
+              </div>
+            </div>
+          </button>
+          <button class="contact_item">
+            <div class="profile_image_div">
+              <img
+                src="img/contact_default.png"
+                alt="profile picture"
+                class="profile_image"
+              />
+            </div>
+            <div class="contact_info">
+              <div class="contact_name">
+                <span class="centered_text">Max Mustermann</span>
+              </div>
+              <div class="info_second_line">
+                <span class="centered_text">BWL @ DHBW-Karlsruhe</span>
+              </div>
+            </div>
+          </button>
+          <button class="contact_item">
+            <div class="profile_image_div">
+              <img
+                src="img/contact_default.png"
+                alt="profile picture"
+                class="profile_image"
+              />
+            </div>
+            <div class="contact_info">
+              <div class="contact_name">
+                <span class="centered_text">Max Mustermann</span>
+              </div>
+              <div class="info_second_line">
+                <span class="centered_text"
+                  >Wirtschaftsinformatik @ DHBW-Karlsruhe</span
+                >
+              </div>
+            </div>
+          </button>
+          <button class="contact_item">
+            <div class="profile_image_div">
+              <img
+                src="img/contact_default.png"
+                alt="profile picture"
+                class="profile_image"
+              />
+            </div>
+            <div class="contact_info">
+              <div class="contact_name">
+                <span class="centered_text">Max Mustermann</span>
+              </div>
+              <div class="info_second_line">
+                <span class="centered_text"
+                  >Informationstechnik @ DHBW-Karlsruhe</span
+                >
+              </div>
+            </div>
+          </button>
+          <button class="contact_item">
+            <div class="profile_image_div">
+              <img
+                src="img/contact_default.png"
+                alt="profile picture"
+                class="profile_image"
+              />
+            </div>
+            <div class="contact_info">
+              <div class="contact_name">
+                <span class="centered_text">Max Mustermann</span>
+              </div>
+              <div class="info_second_line">
+                <span class="centered_text">Maschinenbau @ DHBW-Karlsruhe</span>
+              </div>
+            </div>
+          </button>
+          <button class="contact_item">
+            <div class="profile_image_div">
+              <img
+                src="img/contact_default.png"
+                alt="profile picture"
+                class="profile_image"
+              />
+            </div>
+            <div class="contact_info">
+              <div class="contact_name">
+                <span class="centered_text">Max Mustermann</span>
+              </div>
+              <div class="info_second_line">
+                <span class="centered_text"
+                  >Elektrotechnik @ DHBW-Karlsruhe</span
+                >
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

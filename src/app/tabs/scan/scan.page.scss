@@ -27,10 +27,9 @@ body {
   color: rgba(122, 122, 122, 1);
   fill: rgba(122, 122, 122, 1);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
 
-.navbar_item:hover {
+.navbar_item.selected {
   color: rgba(178, 0, 45, 1);
   fill: rgba(178, 0, 45, 1);
 }
@@ -58,11 +57,21 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  letter-spacing: 0.3333333206176758px;
+  letter-spacing: 0.33px;
 }
 
 /* General */
 
 #Kontakte {
+  background-color: white;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
   background-color: white;
 }

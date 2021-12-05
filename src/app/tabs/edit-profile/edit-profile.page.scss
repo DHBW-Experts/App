@@ -3,10 +3,7 @@ body {
   padding-top: 7vh;
   background-color: white;
 }
-input {
-  color: black; //TODO FIXME TEXT IS WHITE ON WHITE BACKGROUND
-}
-#Registrieren {
+#Bearbeiten {
   margin-left: 5%;
   margin-right: 5%;
 }
@@ -18,7 +15,6 @@ input {
   border-style: none;
   cursor: pointer;
 }
-
 .Default_Button {
   position: relative;
   width: 99%;
@@ -98,13 +94,30 @@ input:focus {
   left: 10px;
   bottom: 5px;
 }
+#Bio {
+  height: 6em;
+}
+#bio_textarea {
+  height: 5em;
+  resize: none;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 10px 15px;
+  text-indent: 0;
+}
+.Default_Input_Field:disabled,
+.Splitted_Input_Field:disabled,
+.Splitted_Dropdown_Field:disabled {
+  background-color: rgb(220, 220, 220);
+  border-color: rgb(160, 160, 160);
+  color: rgb(122, 122, 122);
+}
 /********************************/
 .Splitted_Input {
   position: relative;
   width: 100%;
   margin-bottom: 20px;
 }
-
 .Splitted_Dropdown_Field {
   width: 30%;
   height: 45px;
@@ -113,11 +126,9 @@ input:focus {
   border-width: 2px;
   font-size: 15px;
   border-color: rgb(178, 0, 45);
-  background-color: white;
   color: rgb(178, 0, 45);
-  font-weight: bold;
+  text-indent: 10px;
 }
-
 .Splitted_Input_Field {
   width: 70%;
   height: 45px;
@@ -128,10 +139,8 @@ input:focus {
   border-right-style: none;
   text-indent: 10px;
   font-size: 15px;
-  background-color: white;
   float: left;
 }
-
 .email_preview_div {
   position: relative;
   white-space: nowrap;
@@ -143,7 +152,6 @@ input:focus {
   left: 10px;
   top: 2px;
 }
-
 /********************************/
 #bottom-nav {
   background-color: white;
@@ -168,13 +176,10 @@ input:focus {
   padding-top: 1vh;
   text-indent: 6px;
 }
-
 *,
 *:before,
 *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  background-color: white;
 }

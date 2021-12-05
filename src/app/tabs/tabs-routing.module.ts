@@ -33,7 +33,15 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/scan',
     pathMatch: 'full'
+  },  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
+  {
+    path: 'view-foreign-profile',
+    loadChildren: () => import('./view-foreign-profile/view-foreign-profile.module').then( m => m.ViewForeignProfilePageModule)
+  },
+
 
 
 ];

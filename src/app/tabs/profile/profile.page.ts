@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Persistence } from 'src/app/models/Persistence';
 import { User } from 'src/app/models/User';
+
+import { EditProfilePage } from '../edit-profile/edit-profile.page';
 
 @Component({
   selector: 'app-profile',
@@ -8,10 +11,9 @@ import { User } from 'src/app/models/User';
   styleUrls: ['profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  constructor() {}
   isDataAvailable: boolean = false;
 
-  user = null;
+  user: User = null;
   ngOnInit(): void {
     const persistence = new Persistence();
     const userPromise = persistence.getUserById(1037); //TODO remove hardcoded userID
@@ -20,5 +22,11 @@ export class ProfilePage implements OnInit {
 
       this.isDataAvailable = true;
     });
+  }
+
+  constructor(private route: Router) {}
+
+  openEditPage() {
+    this.route.navigate(['../edit-profile']);
   }
 }

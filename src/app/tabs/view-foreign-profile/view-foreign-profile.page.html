@@ -51,23 +51,26 @@
         />
       </div>
       <div id="main_info_tab">
-        <div>
-          <span id="name" *ngIf="isDataAvailable"
-            >{{user.firstname}} {{user.lastname}}</span
+        <div><span id="name">Max Mustermann</span></div>
+        <div class="info_second_line">
+          <span id="studiengang"
+            >Wirtschaftsinformatik - Sales and Consulting</span
           >
         </div>
         <div class="info_second_line">
-          <span id="studiengang">{{user.course}} - {{user.additional}}</span>
-        </div>
-        <div class="info_second_line">
-          <span id="standort">{{user.courseAbr}} - DHBW {{user.dhbw}}</span>
+          <span id="standort">TINF20B2 - DHBW Karlsruhe</span>
         </div>
       </div>
     </div>
     <div id="bio" class="content">
       <div class="content_header"><span>Biographie</span></div>
       <div id="bio_content">
-        <span>{{user.bio}}</span>
+        <span
+          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+          rebum.</span
+        >
       </div>
     </div>
     <div id="tags" class="content">
@@ -131,14 +134,6 @@
         <div class="tag_item" onClick="tagClicked(this);">
           <span class="tag_item_content">#AndroidStudio</span>
         </div>
-        <div id="addTag" class="add_item" onClick="tagClicked(this);">
-          <div class="add_div">
-            <svg class="add_svg">
-              <use xlink:href="img/add_icon.svg#add" />
-            </svg>
-          </div>
-          <span class="add_content">hinzufügen</span>
-        </div>
       </div>
     </div>
     <div id="tagValidations" class="content">
@@ -147,8 +142,8 @@
         <div class="tagValidation_item"></div>
       </div>
     </div>
-    <button id="Verify_Button" class="Default_Button" (click)="openEditPage()">
-      Profil Bearbeiten
+    <button id="Verify_Button" class="Default_Button">
+      Zu meinen Kontakten hinzufügen
     </button>
   </div>
 </body>

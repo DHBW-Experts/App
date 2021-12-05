@@ -2,7 +2,7 @@ import { User } from './User';
 export class Persistence {
   API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
   registerUser(user: User) {
-    postData(this.API_BASE + '/register', user);
+    const response = postData(this.API_BASE + '/register', user);
   }
   verifyUser(userId: number, verificationId: number) {
     //TODO check status to check if succes
