@@ -66,4 +66,34 @@ export class RegisterPage implements OnInit {
     const persistence = new Persistence();
     persistence.registerUser(user);
   }
+  restoreMailExample() {
+    const domains = new Map();
+
+    domains.set('not-set', '@beispiel-dhbw.de');
+    domains.set('Karlsruhe', '@student.dhbw-karlsruhe.de');
+    domains.set('Stuttgart', '@???-dhbw.de');
+    domains.set('Mannheim', '@???-dhbw.de');
+    domains.set('Heilbronn', '@???-dhbw.de');
+
+    const name = (document.getElementById('mail') as HTMLInputElement).value;
+    const domain = (document.getElementById('standort') as HTMLSelectElement)
+      .value;
+
+    document.getElementById('email_preview_text').textContent =
+      name + domains.get(domain);
+  }
+  setMail() {
+    const firstname = (
+      document.getElementById('firstname_input') as HTMLInputElement
+    ).value;
+
+    const lastname = (
+      document.getElementById('lastname_input') as HTMLInputElement
+    ).value;
+    if (firstname != '' && lastname != '') {
+      (document.getElementById('mail') as HTMLInputElement).value =
+        lastname.toLowerCase() + '.' + firstname.toLowerCase();
+      this.restoreMailExample();
+    }
+  }
 }

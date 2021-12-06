@@ -59,7 +59,7 @@
           placeholder="Max"
           class="Default_Input_Field"
           id="firstname_input"
-          onchange="setMail();"
+          (change)="setMail()"
           [(ngModel)]="firstname"
         />
       </div>
@@ -70,7 +70,7 @@
           placeholder="Mustermann"
           class="Default_Input_Field"
           id="lastname_input"
-          onchange="setMail();"
+          (change)="setMail()"
           [(ngModel)]="lastname"
         />
       </div>
@@ -81,7 +81,7 @@
           placeholder="max.mustermann"
           class="Splitted_Input_Field"
           id="mail"
-          oninput="restoreMailExample();"
+          (change)="restoreMailExample()"
           [(ngModel)]="email"
         />
         <select
@@ -89,7 +89,7 @@
           list="standorte"
           id="standort"
           class="Splitted_Dropdown_Field"
-          oninput="restoreMailExample();"
+          (change)="restoreMailExample()"
           [(ngModel)]="dhbw"
         >
           <option value="not-set">----</option>
