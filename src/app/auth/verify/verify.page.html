@@ -38,6 +38,7 @@
             type="number"
             class="code_digit_field"
             id="code_digit_field_1"
+            [(ngModel)]="code_digit_field_1"
             placeholder="0"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -60,6 +61,7 @@
             type="number"
             class="code_digit_field"
             id="code_digit_field_2"
+            [(ngModel)]="code_digit_field_2"
             placeholder="0"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -82,6 +84,7 @@
             type="number"
             class="code_digit_field"
             id="code_digit_field_3"
+            [(ngModel)]="code_digit_field_3"
             placeholder="0"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -106,6 +109,7 @@
             type="number"
             class="code_digit_field"
             id="code_digit_field_4"
+            [(ngModel)]="code_digit_field_4"
             placeholder="0"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -128,6 +132,7 @@
             type="number"
             class="code_digit_field"
             id="code_digit_field_5"
+            [(ngModel)]="code_digit_field_5"
             placeholder="0"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -150,6 +155,7 @@
             type="number"
             class="code_digit_field"
             id="code_digit_field_6"
+            [(ngModel)]="code_digit_field_6"
             placeholder="0"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -168,7 +174,9 @@
           </svg>
         </div>
       </div>
-      <button id="Verify_Button" class="Default_Button">Verifizieren</button>
+      <button id="Verify_Button" class="Default_Button" (click)="verify()">
+        Verifizieren
+      </button>
     </div>
   </div>
 </body>
