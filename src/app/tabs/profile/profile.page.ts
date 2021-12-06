@@ -27,6 +27,9 @@ export class ProfilePage implements OnInit {
   constructor(private route: Router) {}
 
   openEditPage() {
-    this.route.navigate(['../edit-profile']);
+    this.route.navigate(['../edit-profile']); //doesnt call ngOnInit
+  }
+  addTag() {
+    console.log('implement me');
   }
 }
