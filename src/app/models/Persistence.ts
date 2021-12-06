@@ -1,4 +1,3 @@
-import { VerifyPage } from '../auth/verify/verify.page';
 import { User } from './User';
 export class Persistence {
   API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
@@ -13,7 +12,6 @@ export class Persistence {
     return fetch(this.API_BASE + '/users/id/' + id)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         return res as User;
       });
   }
@@ -39,7 +37,15 @@ async function postData(url = '', data = {}) {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
   });
-  return response.json(); //TODO response doesnt work if succes
+
+  const status = String(response.status);
+  if (!status.startsWith('2')) {
+    console.log('Error while posting data'); //TODO add user Popup
+  } else {
+    console.log('succes');
+  }
+
+  return response.json();
 }
 
 async function putData(url = '', data = {}) {
@@ -55,5 +61,11 @@ async function putData(url = '', data = {}) {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
   });
+  const status = String(response.status);
+  if (!status.startsWith('2')) {
+    console.log('Error while putting data'); //TODO add user Popup
+  } else {
+    console.log('succes');
+  }
   return response.json();
 }

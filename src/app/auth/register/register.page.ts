@@ -53,6 +53,7 @@ export class RegisterPage implements OnInit {
    * Hier kommt die Register-Logik rein
    */
   register() {
+    const email = (<HTMLInputElement>document.getElementById('mail')).value; //ngmodel doesnt work here, because text is set by js
     const user = new User(
       this.firstname,
       this.lastname,
@@ -61,7 +62,7 @@ export class RegisterPage implements OnInit {
       this.specialization,
       this.courseAbr,
       this.password,
-      this.email
+      email
     );
     const persistence = new Persistence();
     persistence.registerUser(user);

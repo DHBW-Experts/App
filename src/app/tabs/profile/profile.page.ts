@@ -19,7 +19,6 @@ export class ProfilePage implements OnInit {
     const userPromise = persistence.getUserById(1037); //TODO remove hardcoded userID
     userPromise.then((result) => {
       this.user = result;
-
       this.isDataAvailable = true;
     });
   }
@@ -27,7 +26,7 @@ export class ProfilePage implements OnInit {
   constructor(private route: Router) {}
 
   openEditPage() {
-    this.route.navigate(['../edit-profile']); //doesnt call ngOnInit
+    this.route.navigate(['../edit-profile']); //TODO doesnt call ngOnInit, profile details wont load
   }
   addTag() {
     console.log('implement me');
