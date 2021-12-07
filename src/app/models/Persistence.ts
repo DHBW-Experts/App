@@ -40,7 +40,7 @@ async function postData(url = '', data = {}) {
 
   const status = String(response.status);
   if (!status.startsWith('2')) {
-    console.log('Error while posting data'); //TODO add user Popup
+    console.log('Error while posting data, status code: ' + status); //TODO add user Popup
   } else {
     console.log('succes');
   }
@@ -63,7 +63,7 @@ async function putData(url = '', data = {}) {
   });
   const status = String(response.status);
   if (!status.startsWith('2')) {
-    console.log('Error while putting data'); //TODO add user Popup
+    console.log('Error while putting data, status code: ' + status); //TODO add user Popup
   } else {
     console.log('succes');
   }
