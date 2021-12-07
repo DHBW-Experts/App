@@ -1,5 +1,6 @@
-import { Tag } from './Tag';
-import { NfcScan } from './NfcScan';
+import { Tag } from './tag';
+import { NfcScan } from './nfc-scan';
+
 export class User {
   firstname: String;
   lastname: String;
@@ -22,6 +23,7 @@ export class User {
   createSkillTag(tagText: String) {
     this.skills.push(new Tag(tagText));
   }
+
   deleteSkillTag(index: number) {
     this.skills.splice(index, 1);
   }

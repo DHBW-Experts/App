@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { bindNodeCallback } from 'rxjs';
-import { Persistence } from 'src/app/models/Persistence';
-import { User } from 'src/app/models/User';
+import { Persistence } from 'src/app/models/persistence';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-edit-profile',

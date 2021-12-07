@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Persistence } from 'src/app/models/Persistence';
+import { Persistence } from 'src/app/models/persistence';
 
 @Component({
   selector: 'app-login',
