@@ -5,8 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Persistence } from 'src/app/models/Persistence';
-import { User } from 'src/app/models/User';
+import { Persistence } from 'src/app/models/persistence';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-register',
