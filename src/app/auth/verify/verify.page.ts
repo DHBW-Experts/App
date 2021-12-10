@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Persistence } from 'src/app/models/persistence';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-verify',
@@ -26,6 +27,6 @@ export class VerifyPage implements OnInit {
       this.code_digit_field_5 +
       this.code_digit_field_6;
     const persistence = new Persistence();
-    persistence.verifyUser(1042, verificationcode); //TODO remove hardcoded userid
+    persistence.verifyUser(LoginPage.user.userId, verificationcode);
   }
 }

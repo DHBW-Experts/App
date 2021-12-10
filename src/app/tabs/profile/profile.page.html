@@ -36,7 +36,7 @@
   </script>
 </head>
 <body>
-  <div id="Profil">
+  <div id="Profil" style="height: 500px; overflow: scroll">
     <div class="top_bar">
       <div class="top_svg_div">
         <svg class="top_svg" viewBox="0 0 345 215" preserveAspectRatio="none">
@@ -72,74 +72,7 @@
     </div>
     <div id="tags" class="content">
       <div class="content_header"><span>Skill-Tags</span></div>
-      <div class="tags_content">
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>1</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#TheoInf</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>3</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#Algebra</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>2</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#Angular</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>4</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#Ionic</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>1</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#LaTeX</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <span class="tag_item_content">#AndroidStudio</span>
-        </div>
-        <div id="addTag" class="add_item" (click)="addTag()">
-          <div class="add_div">
-            <svg class="add_svg">
-              <use xlink:href="img/add_icon.svg#add" />
-            </svg>
-          </div>
-          <span class="add_content">hinzufügen</span>
-        </div>
-      </div>
+      <app-tag *ngFor="let tag of tags" [tag]="tag"></app-tag>
     </div>
     <div id="tagValidations" class="content">
       <div class="content_header"><span>Skill-Verfizierungen</span></div>

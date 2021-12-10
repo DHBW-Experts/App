@@ -51,7 +51,7 @@
       </button>
       <div id="RegistrierenText"><span>Registrieren</span></div>
     </div>
-    <div id="sign-up">
+    <div id="sign-up" style="height: 500px; overflow: scroll">
       <div class="Default_Input" id="firstname">
         <div class="Default_Input_Text"><span>Vorname</span></div>
         <input
@@ -138,7 +138,11 @@
       </div>
       <div class="Default_Input" id="Passwort-WDH">
         <div class="Default_Input_Text"><span>Passwort Wiederholung</span></div>
-        <input type="password" class="Default_Input_Field" />
+        <input
+          type="password"
+          class="Default_Input_Field"
+          [(ngModel)]="passwordwdh"
+        />
       </div>
     </div>
     <div id="bottom-nav">

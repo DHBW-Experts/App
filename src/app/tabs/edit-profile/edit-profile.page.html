@@ -26,7 +26,7 @@
       </button>
       <div id="RegistrierenText"><span>Profil</span></div>
     </div>
-    <div id="sign-up">
+    <div id="sign-up" style="height: 500px; overflow: scroll">
       <div class="Default_Input" id="firstname">
         <div class="Default_Input_Text"><span>Vorname</span></div>
         <input
@@ -78,18 +78,17 @@
           id="bio_textarea"
           maxlength="1000"
           rows="4"
-          [(ngModel)]="bio"
+          [(ngModel)]="user.bio"
         >
-{{user.firstname}}</textarea
+{{user.bio}}</textarea
         >
       </div>
       <div class="Default_Input" id="Studiengang">
         <div class="Default_Input_Text"><span>Studiengang</span></div>
         <input
           type="text"
-          value="{{user.bio}}"
           class="Default_Input_Field"
-          [(ngModel)]="course"
+          [(ngModel)]="user.course"
         />
       </div>
       <div class="Default_Input" id="Fachrichtung">
@@ -98,18 +97,15 @@
           type="text"
           placeholder="optional"
           class="Default_Input_Field"
-          value="{{user.specialization}}"
-          [(ngModel)]="specialization"
+          [(ngModel)]="user.specialization"
         />
       </div>
       <div class="Default_Input" id="Kurs">
         <div class="Default_Input_Text"><span>Kurs</span></div>
         <input
           type="text"
-          placeholder="TINF20B2"
           class="Default_Input_Field"
-          value="{{user.courseAbr}}"
-          [(ngModel)]="courseAbr"
+          [(ngModel)]="user.courseAbr"
         />
       </div>
       <div class="Default_Input" id="Passwort_alt">

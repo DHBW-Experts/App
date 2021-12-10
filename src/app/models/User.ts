@@ -5,7 +5,7 @@ export class User {
   firstname: String;
   lastname: String;
   city: String;
-  email: String;
+  emailprefix: String;
   course: String;
   courseAbr: String;
   contacts: Array<User>;
@@ -21,7 +21,7 @@ export class User {
   pwhash: String;
 
   createSkillTag(tagText: String) {
-    this.skills.push(new Tag(tagText));
+    //this.skills.push(new Tag(tagText));
   }
 
   deleteSkillTag(index: number) {
@@ -37,14 +37,14 @@ export class User {
   getID(scan: NfcScan) {} //? doesnt really make sense, but ok
 
   constructor(
-    firstname: String,
-    lastname: String,
-    dhbw: String,
-    course: String,
-    specialization: String,
-    courseAbr: String,
-    pwhash: String,
-    email: String,
+    firstname?: String,
+    lastname?: String,
+    dhbw?: String,
+    course?: String,
+    specialization?: String,
+    courseAbr?: String,
+    pwhash?: String,
+    emailprefix?: String,
 
     city?: String,
     bio?: String,
@@ -59,7 +59,7 @@ export class User {
     this.firstname = firstname;
     this.lastname = lastname;
     this.city = city;
-    this.email = email;
+    this.emailprefix = emailprefix;
     this.course = course;
     this.courseAbr = courseAbr;
     this.contacts = contacts;

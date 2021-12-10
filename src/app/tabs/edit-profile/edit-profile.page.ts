@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { bindNodeCallback } from 'rxjs';
+import { LoginPage } from 'src/app/auth/login/login.page';
 import { Persistence } from 'src/app/models/persistence';
 import { User } from 'src/app/models/user';
 
@@ -14,25 +15,18 @@ export class EditProfilePage implements OnInit {
   user: User = null;
   private persistence = new Persistence();
   ngOnInit(): void {
-    const userPromise = this.persistence.getUserById(1037); //TODO remove hardcoded userID
+    const userPromise = this.persistence.getUserById(LoginPage.user.userId);
     userPromise.then((result) => {
       this.user = result;
       this.isDataAvailable = true;
     });
   }
-  bio: String;
-  course: String;
-  specialization: String;
-  courseAbr: String;
   password: String;
   password_wdh: String;
   password_old: String;
   edit() {
-    this.user.bio = this.bio;
-    this.user.course = this.course;
-    this.user.specialization = this.specialization;
-    this.user.courseAbr = this.courseAbr;
     //change password has to be checked
-    //this.persistence.editUser(user); API Endpoint missing todo, post data has to be adapted accordingly
+    this.persistence.editUser(this.user);
+    LoginPage.user = this.user;
   }
 }

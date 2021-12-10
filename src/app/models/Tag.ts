@@ -1,16 +1,17 @@
 import { TagValidation } from './tag-validation';
 
 export class Tag {
-  name: String;
-  id: number;
-  validations: Array<TagValidation>;
+  tagValidations: Array<TagValidation>;
 
-  constructor(name: String) {
-    this.name = name;
-    //get id from DB
-  }
-  
+  tagId: number;
+  tag1: String;
+  user: number;
+  tmsCreated: String;
+  userNavigation: String;
+
+  /*   tagValidations: [];
+
   getValidation(index: number): TagValidation {
     return this.validations[index];
-  }
+  } */
 }

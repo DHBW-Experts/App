@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Persistence } from 'src/app/models/persistence';
+import { Persistence } from 'src/app/models/Persistence';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,9 @@ export class LoginPage implements OnInit {
   /**
    * Hier kommt die Login-Logik rein
    */
+  static user: User; // this is the global user object
   login() {
     console.log('Ab geht der Peter!');
+    //get user from api and save as global variable
   }
 }

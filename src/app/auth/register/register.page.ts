@@ -3,10 +3,13 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  MinLengthValidator,
   Validators,
 } from '@angular/forms';
-import { Persistence } from 'src/app/models/persistence';
-import { User } from 'src/app/models/user';
+import { alertController } from '@ionic/core';
+import { Persistence } from 'src/app/models/Persistence';
+import { User } from 'src/app/models/User';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +26,7 @@ export class RegisterPage implements OnInit {
   specialization: String;
   courseAbr: String;
   password: String;
+  passwordwdh: String;
 
   constructor(public formBuilder: FormBuilder) {}
 
@@ -52,8 +56,17 @@ export class RegisterPage implements OnInit {
   /**
    * Hier kommt die Register-Logik rein
    */
-  register() {
+  async register() {
     const email = (<HTMLInputElement>document.getElementById('mail')).value; //ngmodel doesnt work here, because text is set by js
+    if (this.password !== this.passwordwdh) {
+      const alert = await alertController.create({
+        header: 'Fehler',
+        message: 'Die Passwörter stimmen nicht überein!',
+        buttons: ['Ok'],
+      });
+      await alert.present();
+      return;
+    }
     const user = new User(
       this.firstname,
       this.lastname,
