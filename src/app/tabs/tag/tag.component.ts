@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tag } from '../models/tag';
+import { Tag } from 'src/app/models/tag';
 
 @Component({
   selector: 'app-tag',
@@ -7,10 +7,8 @@ import { Tag } from '../models/tag';
   styleUrls: ['./tag.component.scss'],
 })
 export class TagComponent implements OnInit {
-  @Input() tag: Tag;
-  constructor() {
-    console.log('test');
-  }
+  @Input() public tag: any;
+  constructor() {}
 
   ngOnInit() {}
 }

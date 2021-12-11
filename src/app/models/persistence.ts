@@ -1,4 +1,5 @@
 import { Tag } from './tag';
+import { TagValidation } from './tag-validation';
 import { User } from './user';
 
 export class Persistence {
@@ -13,6 +14,13 @@ export class Persistence {
       .then((res) => res.json())
       .then((res) => {
         return res as Tag[];
+      });
+  }
+  getTagValidation(tagId: number): Promise<TagValidation[]> {
+    return fetch(this.API_BASE + '/tags/' + tagId + '/validations')
+      .then((res) => res.json())
+      .then((res) => {
+        return res as TagValidation[];
       });
   }
   editUser(user: User) {

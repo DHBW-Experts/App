@@ -12,7 +12,10 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NFC],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    NFC,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
