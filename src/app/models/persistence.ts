@@ -3,6 +3,13 @@ import { TagValidation } from './tag-validation';
 import { User } from './user';
 
 export class Persistence {
+  getUserByEmail(email: String): Promise<User> {
+    return fetch(this.API_BASE + '/login/' + email)
+      .then((res) => res.json())
+      .then((res) => {
+        return res as User;
+      });
+  }
   addTag(user: User, tagText: String) {
     postData(
       this.API_BASE + '/users/' + user.userId + '/tags/add/' + tagText,

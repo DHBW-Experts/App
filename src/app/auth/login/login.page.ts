@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { alertController } from '@ionic/core';
 import { Persistence } from 'src/app/models/Persistence';
 import { User } from 'src/app/models/User';
 
@@ -23,8 +24,15 @@ export class LoginPage implements OnInit {
    * Hier kommt die Login-Logik rein
    */
   static user: User; // this is the global user object
+  email: String;
+  password: String;
+
   login() {
     console.log('Ab geht der Peter!');
-    //get user from api and save as global variable
+    const persistence = new Persistence();
+    const userPromise = persistence.getUserByEmail(this.email);
+    userPromise.then(async (result) => {
+      LoginPage.user = result; //dummy login
+    });
   }
 }

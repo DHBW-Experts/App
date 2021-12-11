@@ -36,7 +36,6 @@ export class ProfilePage implements OnInit {
     this.route.navigate(['../edit-profile']); //TODO doesnt call ngOnInit, profile details wont load
   }
   async addTag() {
-    //TODO tag validation count cannot be displayed
     const persistence = new Persistence();
     const alertController = new AlertController();
     const alert = await alertController.create({
