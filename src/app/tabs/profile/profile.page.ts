@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginPage } from 'src/app/auth/login/login.page';
-import { Persistence } from 'src/app/models/Persistence';
-import { Tag } from 'src/app/models/tag';
-import { User } from 'src/app/models/user';
+import { LoginPage } from '../../auth/login/login.page';
+import { Persistence } from '../../models/persistence';
+import { Tag } from '../../models/tag';
 
-import { EditProfilePage } from '../edit-profile/edit-profile.page';
-import { TagComponent } from 'src/app/tag/tag.component';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-profile',

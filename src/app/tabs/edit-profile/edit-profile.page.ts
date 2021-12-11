@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { bindNodeCallback } from 'rxjs';
-import { LoginPage } from 'src/app/auth/login/login.page';
-import { Persistence } from 'src/app/models/persistence';
-import { User } from 'src/app/models/user';
+import { LoginPage } from '../../auth/login/login.page';
+import { Persistence } from '../../models/persistence';
+
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-edit-profile',
