@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { LoginPage } from '../../auth/login/login.page';
 import { Persistence } from '../../models/persistence';
 import { Tag } from '../../models/tag';
@@ -15,7 +16,8 @@ export class ProfilePage implements OnInit {
   isDataAvailable: boolean = false;
   tags: Tag[];
   user: User = null;
-  ngOnInit(): void {
+
+  constructor(private route: Router) {
     const persistence = new Persistence();
     const userPromise = persistence.getUserById(LoginPage.user.userId);
     userPromise.then((result) => {
@@ -28,15 +30,45 @@ export class ProfilePage implements OnInit {
       this.tags = result;
     });
   }
-
-  constructor(private route: Router) {}
+  ngOnInit(): void {}
 
   openEditPage() {
     this.route.navigate(['../edit-profile']); //TODO doesnt call ngOnInit, profile details wont load
   }
-  addTag() {
+  async addTag() {
     const persistence = new Persistence();
-    persistence.addTag(this.user, 'Tagtext');
-    console.log('added tag');
+    const alertController = new AlertController();
+    const alert = await alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Tagname eingeben',
+      inputs: [
+        {
+          name: 'tagText',
+          type: 'text',
+          label: 'Radio 1',
+          value: '',
+          handler: () => {
+            console.log('');
+          },
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+        {
+          text: 'Ok',
+          handler: (alertData) => {
+            persistence.addTag(this.user, alertData.tagText);
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

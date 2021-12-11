@@ -21,7 +21,9 @@
 <body>
   <div id="Anmelden">
     <div id="Header">
-      <div id="logoDiv"><img src="assets/icon/logo.svg" alt="logo" id="logo" /></div>
+      <div id="logoDiv">
+        <img src="assets/icon/logo.svg" alt="logo" id="logo" />
+      </div>
       <div id="Slogan">
         <span id="SloganSpan"
           >Vernetze dich und finde Hilfe wann und wo du sie brauchst!</span
@@ -31,20 +33,30 @@
     <div id="SignUpFields">
       <div class="Default_Input" id="DHBW-E-Mail-Adresse">
         <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
-        <input type="email" class="Default_Input_Field" />
+        <input type="email" class="Default_Input_Field" [(ngModel)]="email" />
       </div>
       <div class="Default_Input" id="Passwort">
         <div class="Default_Input_Text"><span>Passwort</span></div>
-        <input type="password" class="Default_Input_Field" />
+        <input
+          type="password"
+          class="Default_Input_Field"
+          [(ngModel)]="password"
+        />
       </div>
-      <button id="Register_Button" class="Default_Button">Anmelden</button>
+      <button id="Register_Button" class="Default_Button" (click)="login()">
+        Anmelden
+      </button>
     </div>
     <button id="RegisterButton">
       <span>Du hast noch keinen Account? </span>
-      <span style="font-style: normal; font-weight: bold; color: rgba(178, 0, 45, 1);">
-        <a href="register">
-          Registrieren
-        </a>
+      <span
+        style="
+          font-style: normal;
+          font-weight: bold;
+          color: rgba(178, 0, 45, 1);
+        "
+      >
+        <a href="register"> Registrieren </a>
       </span>
     </button>
   </div>

@@ -73,6 +73,14 @@
     <div id="tags" class="content">
       <div class="content_header"><span>Skill-Tags</span></div>
       <app-tag *ngFor="let tag of tags" [tag]="tag"></app-tag>
+      <div id="addTag" class="add_item" (click)="addTag()">
+        <div class="add_div">
+          <svg class="add_svg">
+            <use xlink:href="img/add_icon.svg#add" />
+          </svg>
+        </div>
+        <span class="add_content">hinzufügen</span>
+      </div>
     </div>
     <div id="tagValidations" class="content">
       <div class="content_header"><span>Skill-Verfizierungen</span></div>
