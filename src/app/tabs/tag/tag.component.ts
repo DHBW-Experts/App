@@ -11,4 +11,8 @@ export class TagComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  tagClicked(e) {
+    //todo
+  }
 }
