@@ -2,8 +2,8 @@ import { Tag } from './tag';
 import { NfcScan } from './nfc-scan';
 
 export class User {
-  firstname: String;
-  lastname: String;
+  firstName: String;
+  lastName: String;
   city: String;
   emailprefix: String;
   course: String;
@@ -56,8 +56,8 @@ export class User {
     isVerified?: boolean,
     tmsCreated?: String
   ) {
-    this.firstname = firstname;
-    this.lastname = lastname;
+    this.firstName = firstname;
+    this.lastName = lastname;
     this.city = city;
     this.emailprefix = emailprefix;
     this.course = course;

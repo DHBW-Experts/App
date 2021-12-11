@@ -30,7 +30,7 @@ export class Persistence {
   }
 
   getUserById(id: number): Promise<User> {
-    return fetch(this.API_BASE + '/users/id/' + id)
+    return fetch(this.API_BASE + '/users/' + id)
       .then((res) => res.json())
       .then((res) => {
         return res as User;

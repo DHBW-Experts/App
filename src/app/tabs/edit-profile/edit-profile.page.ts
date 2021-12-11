@@ -10,7 +10,9 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-  constructor() {}
+  constructor() {
+    this.ngOnInit();
+  }
   isDataAvailable: boolean = false;
   user: User = null;
   private persistence = new Persistence();
