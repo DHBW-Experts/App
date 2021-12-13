@@ -13,11 +13,7 @@ import { User } from 'src/app/models/User';
 export class LoginPage implements OnInit {
   form: FormGroup;
 
-  constructor(
-    public formBuilder: FormBuilder,
-    private router: Router,
-    persistence: Persistence
-  ) {}
+  constructor(public formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
