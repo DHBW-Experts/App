@@ -20,17 +20,21 @@
           >
         </div>
         <div class="info_second_line">
-          <span id="studiengang">{{user.course}} - {{user.additional}}</span>
+          <span id="studiengang" *ngIf="isDataAvailable"
+            >{{user.course}} - {{user.additional}}</span
+          >
         </div>
         <div class="info_second_line">
-          <span id="standort">{{user.courseAbr}} - DHBW {{user.dhbw}}</span>
+          <span id="standort" *ngIf="isDataAvailable"
+            >{{user.courseAbr}} - DHBW {{user.dhbw}}</span
+          >
         </div>
       </div>
     </div>
     <div id="bio" class="content">
       <div class="content_header"><span>Biographie</span></div>
       <div id="bio_content">
-        <span>{{user.biography}}</span>
+        <span *ngIf="isDataAvailable">{{user.biography}}</span>
       </div>
     </div>
     <div id="tags" class="content">

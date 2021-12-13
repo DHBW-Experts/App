@@ -6,6 +6,7 @@ import {
   MinLengthValidator,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
 import { Persistence } from 'src/app/models/Persistence';
 import { User } from 'src/app/models/User';
@@ -28,7 +29,7 @@ export class RegisterPage implements OnInit {
   password: String;
   passwordwdh: String;
 
-  constructor(public formBuilder: FormBuilder) {}
+  constructor(public formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     // Validation der Inputs aufsetzen
@@ -79,6 +80,11 @@ export class RegisterPage implements OnInit {
     );
     const persistence = new Persistence();
     persistence.registerUser(user);
+    this.router.navigate(['../../tabs/search']);
+  }
+
+  backToLoginPage() {
+    this.router.navigate(['../login']);
   }
   restoreMailExample() {
     const domains = new Map();

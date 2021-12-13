@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
 import { Persistence } from 'src/app/models/Persistence';
 import { User } from 'src/app/models/User';
@@ -12,7 +13,11 @@ import { User } from 'src/app/models/User';
 export class LoginPage implements OnInit {
   form: FormGroup;
 
-  constructor(public formBuilder: FormBuilder) {}
+  constructor(
+    public formBuilder: FormBuilder,
+    private router: Router,
+    persistence: Persistence
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -28,11 +33,15 @@ export class LoginPage implements OnInit {
   password: String;
 
   login() {
-    console.log('Ab geht der Peter!');
     const persistence = new Persistence();
     const userPromise = persistence.getUserByEmail(this.email);
     userPromise.then(async (result) => {
-      LoginPage.user = result; //dummy login
+      LoginPage.user = result;
+      this.router.navigate(['../../tabs/search']);
     });
+  }
+
+  openRegisterPage() {
+    this.router.navigate(['../register']);
   }
 }

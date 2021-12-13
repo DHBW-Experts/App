@@ -33,12 +33,13 @@ export class ProfilePage implements OnInit {
   ngOnInit(): void {}
 
   openEditPage() {
-    this.route.navigate(['../edit-profile']); //TODO doesnt call ngOnInit, profile details wont load
+    this.route.navigate(['../edit-profile']);
   }
   tagClicked(e) {
     console.log(e);
     e.className = 'another-class';
   }
+
   async addTag() {
     const persistence = new Persistence();
     const alertController = new AlertController();
