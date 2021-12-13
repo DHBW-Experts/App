@@ -1,3 +1,4 @@
+import { LoginPage } from '../auth/login/login.page';
 import { Tag } from './tag';
 import { TagValidation } from './tag-validation';
 import { User } from './user';
@@ -59,6 +60,10 @@ export class Persistence {
         return res as User;
       });
   }
+}
+
+async function getData(url: string): Promise<any> {
+  return fetch(url).then((res) => res.json());
 }
 
 async function postData(url = '', data = {}) {

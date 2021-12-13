@@ -11,7 +11,7 @@ export class User {
   contacts: Array<User>;
   dhbw: String;
   skills: Array<Tag>;
-  bio: String;
+  biography: String;
   profilePicutre: HTMLImageElement;
   rfidid: number;
   userId: number;
@@ -65,7 +65,7 @@ export class User {
     this.contacts = contacts;
     this.dhbw = dhbw;
     this.skills = skills;
-    this.bio = bio;
+    this.biography = bio;
     this.profilePicutre = profilePicutre;
     this.rfidid = rfidid;
     this.userId = userId;

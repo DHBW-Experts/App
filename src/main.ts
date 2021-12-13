@@ -10,7 +10,7 @@ if (environment.production) {
   enableProdMode();
 }
 LoginPage.user = new User();
-LoginPage.user.userId = 1000;
+LoginPage.user.userId = 1020;
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err) => console.log(err));
