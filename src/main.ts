@@ -13,7 +13,14 @@ if (environment.production) {
 LoginPage.user = new User();
 const persistence = new Persistence();
 let idPromise = persistence.getUserIdFromLocalStorage();
-idPromise.then((res) => (LoginPage.user.userId = res));
+
+idPromise.then((res) => {
+  if (res === null) {
+    LoginPage.user.userId = 1000;
+  } else {
+    LoginPage.user.userId = res;
+  }
+});
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)

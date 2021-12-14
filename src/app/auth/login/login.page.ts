@@ -28,14 +28,23 @@ export class LoginPage implements OnInit {
   email: String;
   password: String;
 
-  login() {
+  async login() {
     const persistence = new Persistence();
-    const userPromise = persistence.getUserByEmail(this.email);
-    userPromise.then(async (result) => {
-      LoginPage.user = result;
+    if (this.email == null || this.password == null) {
+      const alert = await alertController.create({
+        header: 'Fehler',
+        message: 'Daten nicht vollständig',
+        buttons: ['Ok'],
+      });
+      await alert.present();
+    } else {
       this.router.navigate(['../tabs/profile']);
-      persistence.saveUserIdToLocalStorage(LoginPage.user.userId);
-    });
+      const userPromise = persistence.getUserByEmail(this.email);
+      userPromise.then(async (result) => {
+        LoginPage.user = result;
+        persistence.saveUserIdToLocalStorage(LoginPage.user.userId);
+      });
+    }
   }
 
   openRegisterPage() {
