@@ -1,8 +1,11 @@
 import { Tag } from './tag';
 import { TagValidation } from './tag-validation';
 import { User } from './user';
+import { alertController } from '@ionic/core';
 
 export class Persistence {
+  API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
+
   getUserByEmail(email: String): Promise<User> {
     return fetch(this.API_BASE + '/login/' + email)
       .then((res) => res.json())
@@ -33,14 +36,12 @@ export class Persistence {
   editUser(user: User) {
     postData(this.API_BASE + '/users/' + user.userId + '/edit', user);
   }
-  API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
   registerUser(user: User) {
     const response = postData(this.API_BASE + '/register', user);
   }
 
   verifyUser(userId: number, verificationId: String) {
-    //TODO check status to check if succes
     putData(this.API_BASE + '/register/' + userId + '/' + verificationId);
   }
 
@@ -61,10 +62,6 @@ export class Persistence {
   }
 }
 
-async function getData(url: string): Promise<any> {
-  return fetch(url).then((res) => res.json());
-}
-
 async function postData(url = '', data = {}) {
   const response = await fetch(url, {
     method: 'POST',
@@ -82,11 +79,26 @@ async function postData(url = '', data = {}) {
   const status = String(response.status);
   if (!status.startsWith('2')) {
     console.log('Error while posting data, status code: ' + status); //TODO add user Popup
+    const alert = await alertController.create({
+      header: 'Fehler',
+      message: 'Fehler ' + status,
+      buttons: ['Ok'],
+    });
+    await alert.present();
   } else {
     console.log('success with status ' + status);
   }
 
   return response.json();
+}
+
+async function showPopUp(text: string) {
+  const alert = await alertController.create({
+    header: 'Fehler',
+    message: text,
+    buttons: ['Ok'],
+  });
+  await alert.present();
 }
 
 async function putData(url = '', data = {}) {
@@ -106,7 +118,13 @@ async function putData(url = '', data = {}) {
   const status = String(response.status);
 
   if (!status.startsWith('2')) {
-    console.log('Error while putting data, status code: ' + status); //TODO add user Popup
+    console.log('Error while putting data, status code: ' + status);
+    const alert = await alertController.create({
+      header: 'Fehler',
+      message: 'Fehler ' + status,
+      buttons: ['Ok'],
+    });
+    await alert.present();
   } else {
     console.log('success' + status);
   }
