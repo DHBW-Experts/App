@@ -9,38 +9,51 @@ const routes: Routes = [
     children: [
       {
         path: 'scan',
-        loadChildren: () => import('./scan/scan.module').then(m => m.ScanPageModule)
+        loadChildren: () =>
+          import('./scan/scan.module').then((m) => m.ScanPageModule),
       },
       {
         path: 'search',
-        loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
+        loadChildren: () =>
+          import('./search/search.module').then((m) => m.SearchPageModule),
       },
       {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
-      }, {
+        loadChildren: () =>
+          import('./profile/profile.module').then((m) => m.ProfilePageModule),
+      },
+      {
         path: 'contacts',
-        loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
+        loadChildren: () =>
+          import('./contacts/contacts.module').then(
+            (m) => m.ContactsPageModule
+          ),
       },
       {
         path: '',
-        redirectTo: '/tabs/scan',
-        pathMatch: 'full'
-      }
-    ]
+        redirectTo: '/tabs/profile',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
-    redirectTo: '/tabs/scan',
-    pathMatch: 'full'
+    redirectTo: '/tabs/profile',
+    pathMatch: 'full',
   },
   {
     path: 'edit-profile',
-    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+    loadChildren: () =>
+      import('./edit-profile/edit-profile.module').then(
+        (m) => m.EditProfilePageModule
+      ),
   },
   {
     path: 'view-foreign-profile',
-    loadChildren: () => import('./view-foreign-profile/view-foreign-profile.module').then( m => m.ViewForeignProfilePageModule)
+    loadChildren: () =>
+      import('./view-foreign-profile/view-foreign-profile.module').then(
+        (m) => m.ViewForeignProfilePageModule
+      ),
   },
 ];
 

@@ -17,6 +17,12 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
+      //import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: '',
+    loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {

@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
     const userPromise = persistence.getUserByEmail(this.email);
     userPromise.then(async (result) => {
       LoginPage.user = result;
-      this.router.navigate(['../../tabs/search']);
+      this.router.navigate(['../tabs/profile']);
       persistence.saveUserIdToLocalStorage(LoginPage.user.userId);
     });
   }
