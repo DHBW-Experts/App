@@ -11,7 +11,7 @@ export class Persistence {
   saveUserIdToLocalStorage(id: number): void {
     const storage = new Storage();
     storage.create();
-    storage.set('userId', id).finally(() => console.log('done'));
+    storage.set('userId', id);
   }
 
   async getUserIdFromLocalStorage(): Promise<number> {
