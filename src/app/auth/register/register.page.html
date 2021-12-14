@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registrieren</title>
-  <link
-    rel="stylesheet"
-    type="text/css"
-    id="applicationStylesheet"
-    href="css/styles.css"
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-
   <script>
     function restoreMailExample() {
       const domains = new Map();
@@ -51,7 +34,7 @@
       </button>
       <div id="RegistrierenText"><span>Registrieren</span></div>
     </div>
-    <div id="sign-up" style="height: 500px; overflow: scroll">
+    <div id="sign-up">
       <div class="Default_Input" id="firstname">
         <div class="Default_Input_Text"><span>Vorname</span></div>
         <input
@@ -145,13 +128,13 @@
         />
       </div>
     </div>
-    <div id="bottom-nav">
-      <button id="Register_Button" class="Default_Button" (click)="register()">
-        Registrieren
-      </button>
-      <div id="AGB_Text">
-        <span>Mit dem Registrieren akzeptierst du unsere AGBs</span>
-      </div>
+  </div>
+  <div id="bottom-nav">
+    <button id="Register_Button" class="Default_Button" (click)="register()">
+      Registrieren
+    </button>
+    <div id="AGB_Text">
+      <span>Mit dem Registrieren akzeptierst du unsere AGBs</span>
     </div>
   </div>
 </body>
