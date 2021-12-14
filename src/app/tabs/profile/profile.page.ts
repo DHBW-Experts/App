@@ -69,7 +69,12 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ok',
           handler: (alertData) => {
-            persistence.addTag(this.user, alertData.tagText);
+            persistence.addTag(this.user, alertData.tagText).then(() => {
+              const tagPromise2 = persistence.getTags(LoginPage.user);
+              tagPromise2.then((result) => {
+                this.tags = result;
+              });
+            });
           },
         },
       ],

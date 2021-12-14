@@ -2,9 +2,24 @@ import { Tag } from './tag';
 import { TagValidation } from './tag-validation';
 import { User } from './user';
 import { alertController } from '@ionic/core';
+import { Storage } from '@ionic/storage';
+import { LoginPage } from '../auth/login/login.page';
 
 export class Persistence {
   API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
+
+  saveUserIdToLocalStorage(id: number): void {
+    const storage = new Storage();
+    storage.create();
+    storage.set('userId', id).finally(() => console.log('done'));
+  }
+
+  async getUserIdFromLocalStorage(): Promise<number> {
+    const storage = new Storage();
+    storage.create();
+    let result = await storage.get('userId');
+    return result;
+  }
 
   getUserByEmail(email: String): Promise<User> {
     return fetch(this.API_BASE + '/login/' + email)
@@ -13,8 +28,8 @@ export class Persistence {
         return res as User;
       });
   }
-  addTag(user: User, tagText: String) {
-    postData(
+  addTag(user: User, tagText: String): Promise<any> {
+    return postData(
       this.API_BASE + '/users/' + user.userId + '/tags/add/' + tagText,
       user
     );

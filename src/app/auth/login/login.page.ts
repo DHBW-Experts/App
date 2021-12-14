@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
     userPromise.then(async (result) => {
       LoginPage.user = result;
       this.router.navigate(['../../tabs/search']);
+      persistence.saveUserIdToLocalStorage(LoginPage.user.userId);
     });
   }
 
