@@ -7,7 +7,8 @@ This repository contains the source code of the DHBW-Experts Ionic App.
 Make sure that the following components are installed in your system:
 1. Node.js (Verify by running `node -v`)
 2. npm (Verify by running `npm -v`)
-3. Ionic-CLI (Install by running `npm i -g @ionic/cli`)
+3. Ionic CLI (Install by running `npm i -g @ionic/cli`)
+4. Angular CLI (Install by running `npm i -g @angular/cli`)
 
 When you are done, run `npm i` in this directory to install any missing dependencies.
 
