@@ -40,7 +40,11 @@
     <div id="tags" class="content">
       <div class="content_header"><span>Skill-Tags</span></div>
       <div class="tags_content">
-        <app-tag *ngFor="let tag of tags" [tag]="tag"></app-tag>
+        <app-tag
+          *ngFor="let tag of tags"
+          [tag]="tag"
+          (tagSelected)="tagSelected($event)"
+        ></app-tag>
         <div id="addTag" class="add_item" (click)="addTag()">
           <div class="add_div">
             <svg class="add_svg">
@@ -50,11 +54,21 @@
           <span class="add_content">hinzufügen</span>
         </div>
       </div>
+      <button
+        id="Delete_Button"
+        class="Default_Button"
+        *ngIf="isTagSelected"
+        (click)="deleteTag()"
+      >
+        Tag Löschen
+      </button>
     </div>
     <div id="tagValidations" class="content">
       <div class="content_header"><span>Skill-Verfizierungen</span></div>
       <div class="tagValidation_content">
-        <div class="tagValidation_item"></div>
+        <ul>
+          <li *ngFor="let tagVal of tagValidations">{{tagVal}}</li>
+        </ul>
       </div>
     </div>
     <button id="Verify_Button" class="Default_Button" (click)="openEditPage()">
