@@ -1,0 +1,105 @@
+body {
+  padding-bottom: 10vh;
+  padding-top: 7vh;
+  margin: 0;
+  background-color: white;
+  overflow-y: scroll;
+}
+/*****************************************************/
+
+#Kontakte {
+  margin-left: 7%;
+  margin-right: 7%;
+}
+
+#Contact_Group {
+  position: relative;
+  margin-top: 5vh;
+}
+
+#Meine_Kontakte {
+  position: relative;
+  overflow: visible;
+  white-space: nowrap;
+  text-align: left;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(178, 0, 45);
+  letter-spacing: 0.33px;
+}
+
+/*****************************************************/
+
+.contact_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: thin solid rgb(160, 160, 160);
+  box-shadow: 0 8px 10px -10px rgb(160, 160, 160);
+  background-color: transparent;
+  padding: 10px 0;
+}
+
+.profile_image_div {
+  width: 55px;
+  height: 55px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  float: left;
+  margin-left: 1em;
+}
+
+.profile_image {
+  height: 100%;
+  width: 100%;
+}
+
+.contact_info {
+  margin-left: 2em;
+}
+
+.info_second_line {
+  position: relative;
+  height: 50%;
+  text-align: left;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  color: rgb(122, 122, 122);
+  letter-spacing: 0.33px;
+  margin-top: 5px;
+}
+
+.contact_name {
+  position: relative;
+  white-space: nowrap;
+  text-align: left;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(178, 0, 45);
+  letter-spacing: 0.33px;
+  height: 50%;
+  display: table;
+}
+
+/*****************************************************/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: white;
+}

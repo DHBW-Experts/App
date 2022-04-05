@@ -9,7 +9,7 @@ Make sure that the following components are installed in your system:
 2. npm (Verify by running `npm -v`)
 3. Ionic-CLI (Install by running `npm i -g @ionic/cli`)
 
-When you are done, run `npm i -D` in this directory to install any missing dependencies.
+When you are done, run `npm i` in this directory to install any missing dependencies.
 
 ## NPM Scripts
 

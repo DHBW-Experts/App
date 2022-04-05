@@ -1,0 +1,193 @@
+body {
+  padding-bottom: 20vh;
+  padding-top: 7vh;
+  background-color: white;
+  overflow-y: scroll;
+}
+
+input,
+textarea {
+  color: black;
+  background-color: gainsboro;
+}
+#Bearbeiten {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+#back {
+  height: 50px;
+}
+#backArrowButton {
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+.Default_Button {
+  position: relative;
+  width: 99%;
+  height: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  margin-top: 32px;
+  background-color: rgb(178, 0, 45);
+  border: none;
+  border-radius: 9px;
+  color: white;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.Default_Button:hover {
+  background-color: rgb(130, 0, 32);
+}
+#AGB_Text {
+  top: 20px;
+  position: relative;
+  line-height: 15px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  color: rgb(122, 122, 122);
+  text-align: center;
+  margin-bottom: 2vh;
+}
+/*************************************/
+input {
+  -webkit-appearance: none;
+}
+.Default_Input {
+  position: relative;
+  width: 100%;
+  height: 71px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: visible;
+  margin-bottom: 20px;
+}
+.Default_Input:focus-within .Default_Input_Field,
+.Splitted_Input:focus-within .Splitted_Input_Field {
+  border-color: rgb(178, 0, 45);
+}
+.Default_Input:focus-within .Default_Input_Text,
+.Splitted_Input:focus-within .Default_Input_Text {
+  color: rgb(178, 0, 45);
+}
+.Default_Input_Field {
+  width: 100%;
+  height: 45px;
+  border-radius: 9px;
+  border-style: solid;
+  border-color: rgb(170, 170, 170);
+  border-width: 2px;
+  text-indent: 10px;
+  font-size: 15px;
+  background-color: white;
+}
+textarea:focus,
+input:focus {
+  outline: none;
+}
+.Default_Input_Text {
+  position: relative;
+  white-space: nowrap;
+  line-height: 18px;
+  text-align: left;
+  font-family: Montserrat;
+  font-size: 13px;
+  color: rgb(122, 122, 122);
+  left: 10px;
+  bottom: 5px;
+}
+#Bio {
+  height: 6em;
+}
+#bio_textarea {
+  height: 5em;
+  resize: none;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 10px 15px;
+  text-indent: 0;
+}
+.Default_Input_Field:disabled,
+.Splitted_Input_Field:disabled,
+.Splitted_Dropdown_Field:disabled {
+  background-color: rgb(220, 220, 220);
+  border-color: rgb(160, 160, 160);
+  color: rgb(122, 122, 122);
+}
+/********************************/
+.Splitted_Input {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.Splitted_Dropdown_Field {
+  width: 30%;
+  height: 45px;
+  border-radius: 0 9px 9px 0;
+  border-style: solid;
+  border-width: 2px;
+  font-size: 15px;
+  border-color: rgb(178, 0, 45);
+  color: rgb(178, 0, 45);
+  text-indent: 10px;
+}
+.Splitted_Input_Field {
+  width: 70%;
+  height: 45px;
+  border-radius: 9px 0 0 9px;
+  border-style: solid;
+  border-color: rgb(170, 170, 170);
+  border-width: 2px;
+  border-right-style: none;
+  text-indent: 10px;
+  font-size: 15px;
+  float: left;
+}
+.email_preview_div {
+  position: relative;
+  white-space: nowrap;
+  line-height: 18px;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 11px;
+  color: rgb(122, 122, 122);
+  left: 10px;
+  top: 2px;
+}
+/********************************/
+#bottom-nav {
+  background-color: white;
+  position: fixed;
+  bottom: 0px;
+  left: 5%;
+  right: 5%;
+  padding-bottom: 3vh;
+}
+#RegistrierenText {
+  position: relative;
+  width: 70%;
+  white-space: nowrap;
+  line-height: 54px;
+  text-align: left;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 240%;
+  color: rgb(122, 122, 122);
+  padding-bottom: 3vh;
+  padding-top: 1vh;
+  text-indent: 6px;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "dhbw-experts",
-	"webDir": "www",
-	"bundledWebRuntime": false
+  "appId": "de.dhexp.app",
+  "appName": "DHBW-Experts",
+  "webDir": "www",
+  "bundledWebRuntime": false
 }

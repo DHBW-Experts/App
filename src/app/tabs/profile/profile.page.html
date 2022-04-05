@@ -1,0 +1,64 @@
+<body>
+  <div id="Profil">
+    <div class="top_bar">
+      <div class="top_svg_div">
+        <svg class="top_svg" viewBox="0 0 345 215" preserveAspectRatio="none">
+          <path d="M 0,0 H 345 V 150.00004 L 172.5,215 0,150.00004 Z" />
+        </svg>
+      </div>
+      <div class="profile_image_div">
+        <img
+          src="assets/icon/contact_default.png"
+          alt="profile picture"
+          class="profile_image"
+        />
+      </div>
+      <div id="main_info_tab">
+        <div>
+          <span id="name" *ngIf="isDataAvailable"
+            >{{user.firstName}} {{user.lastName}}</span
+          >
+        </div>
+        <div class="info_second_line">
+          <span id="studiengang" *ngIf="isDataAvailable"
+            >{{user.course}} - {{user.additional}}</span
+          >
+        </div>
+        <div class="info_second_line">
+          <span id="standort" *ngIf="isDataAvailable"
+            >{{user.courseAbr}} - DHBW {{user.dhbw}}</span
+          >
+        </div>
+      </div>
+    </div>
+    <div id="bio" class="content">
+      <div class="content_header"><span>Biographie</span></div>
+      <div id="bio_content">
+        <span *ngIf="isDataAvailable">{{user.biography}}</span>
+      </div>
+    </div>
+    <div id="tags" class="content">
+      <div class="content_header"><span>Skill-Tags</span></div>
+      <div class="tags_content">
+        <app-tag *ngFor="let tag of tags" [tag]="tag"></app-tag>
+        <div id="addTag" class="add_item" (click)="addTag()">
+          <div class="add_div">
+            <svg class="add_svg">
+              <use xlink:href="assets/icon/add_icon.svg#add" />
+            </svg>
+          </div>
+          <span class="add_content">hinzufügen</span>
+        </div>
+      </div>
+    </div>
+    <div id="tagValidations" class="content">
+      <div class="content_header"><span>Skill-Verfizierungen</span></div>
+      <div class="tagValidation_content">
+        <div class="tagValidation_item"></div>
+      </div>
+    </div>
+    <button id="Verify_Button" class="Default_Button" (click)="openEditPage()">
+      Profil Bearbeiten
+    </button>
+  </div>
+</body>
