@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Persistence } from 'src/app/models/Persistence';
 import { Tag } from 'src/app/models/tag';
 
 @Component({
@@ -7,12 +8,14 @@ import { Tag } from 'src/app/models/tag';
   styleUrls: ['./tag.component.scss'],
 })
 export class TagComponent implements OnInit {
-  @Input() public tag: any;
+  @Input() public tag: Tag;
+  tagValidationCount;
+  @Output() tagSelected = new EventEmitter<any>();
   constructor() {}
 
-  ngOnInit() {}
-
-  tagClicked(e) {
-    //todo
+  ngOnInit() {
+    const persistence = new Persistence();
+    const ValPromise = persistence.getTagValidation(this.tag.tagId);
+    ValPromise.then((result) => (this.tagValidationCount = result.length));
   }
 }

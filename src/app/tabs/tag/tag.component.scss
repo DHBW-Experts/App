@@ -35,7 +35,7 @@ span {
   color: rgb(122, 122, 122);
 }
 
-.tag_item.selected {
+.app-tag.selected {
   border-color: rgb(178, 0, 45);
   border-width: 2px;
   font-weight: bold;
@@ -43,7 +43,7 @@ span {
   margin: 4px 10px 4px 0px;
 }
 
-.tag_item.selected .tag_item_content {
+.app-tag.selected .tag_item_content {
   color: rgb(178, 0, 45);
 }
 
