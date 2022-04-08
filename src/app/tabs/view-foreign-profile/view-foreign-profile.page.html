@@ -1,40 +1,3 @@
-<!DOCTYPE html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profil</title>
-  <link
-    rel="stylesheet"
-    type="text/css"
-    id="applicationStylesheet"
-    href="css/styles.css"
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    function tagClicked(el) {
-      $(el).parent().find(".tag_item").removeClass("selected");
-      $(el).addClass("selected");
-    }
-
-    function setMail() {
-      const firstname = document.getElementById("firstname_input").value;
-      const lastname = document.getElementById("lastname_input").value;
-      if (firstname != "" && lastname != "") {
-        document.getElementById("mail").value =
-          lastname.toLowerCase() + "." + firstname.toLowerCase();
-        restoreMailExample();
-      }
-    }
-  </script>
-</head>
 <body>
   <div id="Profil">
     <div class="top_bar">
@@ -45,102 +8,59 @@
       </div>
       <div class="profile_image_div">
         <img
-          src="img/contact_default.png"
+          src="assets/icon/contact_default.png"
           alt="profile picture"
           class="profile_image"
         />
       </div>
       <div id="main_info_tab">
-        <div><span id="name">Max Mustermann</span></div>
-        <div class="info_second_line">
-          <span id="studiengang"
-            >Wirtschaftsinformatik - Sales and Consulting</span
+        <div>
+          <span id="name" *ngIf="isDataAvailable"
+            >{{user.firstName}} {{user.lastName}}</span
           >
         </div>
         <div class="info_second_line">
-          <span id="standort">TINF20B2 - DHBW Karlsruhe</span>
+          <span id="studiengang" *ngIf="isDataAvailable"
+            >{{user.course}} - {{user.additional}}</span
+          >
+        </div>
+        <div class="info_second_line">
+          <span id="standort" *ngIf="isDataAvailable"
+            >{{user.courseAbr}} - DHBW {{user.dhbw}}</span
+          >
         </div>
       </div>
     </div>
     <div id="bio" class="content">
       <div class="content_header"><span>Biographie</span></div>
       <div id="bio_content">
-        <span
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum.</span
-        >
+        <span *ngIf="isDataAvailable">{{user.biography}}</span>
       </div>
     </div>
     <div id="tags" class="content">
       <div class="content_header"><span>Skill-Tags</span></div>
       <div class="tags_content">
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>1</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#TheoInf</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>3</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#Algebra</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>2</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#Angular</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>4</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#Ionic</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <div class="verify_div">
-            <div class="verify_number"><span>1</span></div>
-            <div class="verify_icon">
-              <svg class="verify_svg">
-                <use xlink:href="img/verified_icon.svg#verify" />
-              </svg>
-            </div>
-          </div>
-          <span class="tag_item_content">#LaTeX</span>
-        </div>
-        <div class="tag_item" onClick="tagClicked(this);">
-          <span class="tag_item_content">#AndroidStudio</span>
-        </div>
+        <app-tag
+          *ngFor="let tag of tags"
+          [tag]="tag"
+          (tagSelected)="tagSelected($event)"
+        ></app-tag>
       </div>
     </div>
     <div id="tagValidations" class="content">
       <div class="content_header"><span>Skill-Verfizierungen</span></div>
       <div class="tagValidation_content">
-        <div class="tagValidation_item"></div>
+        <ul>
+          <li *ngFor="let tagVal of tagValidations">{{tagVal}}</li>
+        </ul>
       </div>
+      <button
+        class="Default_Button"
+        *ngIf="!isUserLoggedInUser && isTagSelected"
+        (click)="addValidation()"
+      >
+        Validierung hinzufügen
+      </button>
     </div>
     <button id="Verify_Button" class="Default_Button">
       Zu meinen Kontakten hinzufügen
