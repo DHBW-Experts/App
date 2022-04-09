@@ -42,4 +42,39 @@ export class ViewForeignProfilePage implements OnInit {
       this.tagValidations = result.map((validation) => validation.comment);
     });
   }
+  async addValidation() {
+    const persistence = new Persistence();
+    const alert = await alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Kommentar eingeben',
+      inputs: [
+        {
+          name: 'tagText',
+          type: 'text',
+          label: 'Radio 1',
+          value: '',
+          handler: () => {
+            console.log('');
+          },
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+        {
+          text: 'Ok',
+          handler: (alertData) => {
+            //todo persistence.addTagValidatio();
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
 }
