@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { LoginPage } from '../../auth/login/login.page';
 import { Persistence } from '../../models/persistence';
 import { Tag } from '../../models/tag';
-
+import { alertController } from '@ionic/core';
 import { User } from '../../models/user';
 
 @Component({
