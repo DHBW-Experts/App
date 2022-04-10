@@ -30,8 +30,6 @@ export class ViewForeignProfilePage implements OnInit {
       this.user = result;
       this.isDataAvailable = true;
 
-  ngOnInit() {
-  }
     });
 
     const tagPromise = persistence.getTags(userId);
