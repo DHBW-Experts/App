@@ -27,7 +27,7 @@ export class ProfilePage implements OnInit {
       this.user = result;
       this.isDataAvailable = true;
     });
-    const tagPromise = persistence.getTags(LoginPage.user);
+        const tagPromise = persistence.getTags(LoginPage.user.userId);
 
     tagPromise.then((result) => {
       this.tags = result;
