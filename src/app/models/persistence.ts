@@ -6,6 +6,9 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../auth/login/login.page';
 
 export class Persistence {
+  deleteTag(tagId: number) {
+    deleteData(this.API_BASE + '/tags/' + tagId);
+  }
   API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
   saveUserIdToLocalStorage(id: number): void {
@@ -34,8 +37,8 @@ export class Persistence {
       user
     );
   }
-  getTags(user: User): Promise<Tag[]> {
-    return fetch(this.API_BASE + '/users/' + user.userId + '/tags')
+  getTags(userId: number): Promise<Tag[]> {
+    return fetch(this.API_BASE + '/users/' + userId + '/tags')
       .then((res) => res.json())
       .then((res) => {
         return res as Tag[];
@@ -93,7 +96,7 @@ async function postData(url = '', data = {}) {
 
   const status = String(response.status);
   if (!status.startsWith('2')) {
-    console.log('Error while posting data, status code: ' + status); //TODO add user Popup
+    console.log('Error while posting data, status code: ' + status);
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
@@ -105,15 +108,6 @@ async function postData(url = '', data = {}) {
   }
 
   return response.json();
-}
-
-async function showPopUp(text: string) {
-  const alert = await alertController.create({
-    header: 'Fehler',
-    message: text,
-    buttons: ['Ok'],
-  });
-  await alert.present();
 }
 
 async function putData(url = '', data = {}) {
@@ -134,6 +128,35 @@ async function putData(url = '', data = {}) {
 
   if (!status.startsWith('2')) {
     console.log('Error while putting data, status code: ' + status);
+  const alert = await alertController.create({
+    header: 'Fehler',
+      message: 'Fehler ' + status,
+    buttons: ['Ok'],
+  });
+  await alert.present();
+  } else {
+    console.log('success' + status);
+  }
+  return response.json();
+}
+
+async function deleteData(url = '') {
+  const response = await fetch(url, {
+    method: 'DELETE',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  });
+
+  const status = String(response.status);
+
+  if (!status.startsWith('2')) {
+    console.log('Error while deleting data, status code: ' + status);
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
