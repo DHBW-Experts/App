@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { alertController } from '@ionic/core';
+import { LoginPage } from 'src/app/auth/login/login.page';
+import { Persistence } from 'src/app/models/Persistence';
+import { Tag } from 'src/app/models/tag';
+import { TagValidation } from 'src/app/models/tag-validation';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-view-foreign-profile',
