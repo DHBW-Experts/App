@@ -13,8 +13,20 @@ export class Persistence {
   deleteUser(userId: number) {
     deleteData('users/' + userId);
   }
+  removeUserFromContacts(contactOwnerUserId: number, toAddUserId: number) {
+    deleteData('users/' + contactOwnerUserId + '/contacts/' + toAddUserId);
   }
-  API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
+
+  addUserToContacts(contactOwnerUserId: number, toAddUserId: number) {
+    postData('users/' + contactOwnerUserId + '/contacts/add/' + toAddUserId);
+  }
+  getContactsByUserId(userId: number): Promise<User[]> {
+    return fetch(API_BASE + '/users/' + userId + '/contacts')
+      .then((res) => res.json())
+      .then((res) => {
+        return res as User[];
+      });
+  }
 
   saveUserIdToLocalStorage(id: number): void {
     const storage = new Storage();
