@@ -5,9 +5,14 @@ import { alertController } from '@ionic/core';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../auth/login/login.page';
 
+const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 export class Persistence {
   deleteTag(tagId: number) {
-    deleteData(this.API_BASE + '/tags/' + tagId);
+    deleteData('tags/' + tagId);
+  }
+  deleteUser(userId: number) {
+    deleteData('users/' + userId);
+  }
   }
   API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
@@ -25,46 +30,43 @@ export class Persistence {
   }
 
   getUserByEmail(email: String): Promise<User> {
-    return fetch(this.API_BASE + '/login/' + email)
+    return fetch(API_BASE + '/login/' + email)
       .then((res) => res.json())
       .then((res) => {
         return res as User;
       });
   }
   addTag(user: User, tagText: String): Promise<any> {
-    return postData(
-      this.API_BASE + '/users/' + user.userId + '/tags/add/' + tagText,
-      user
-    );
+    return postData('users/' + user.userId + '/tags/add/' + tagText, user);
   }
   getTags(userId: number): Promise<Tag[]> {
-    return fetch(this.API_BASE + '/users/' + userId + '/tags')
+    return fetch(API_BASE + '/users/' + userId + '/tags')
       .then((res) => res.json())
       .then((res) => {
         return res as Tag[];
       });
   }
   getTagValidation(tagId: number): Promise<TagValidation[]> {
-    return fetch(this.API_BASE + '/tags/' + tagId + '/validations')
+    return fetch(API_BASE + '/tags/' + tagId + '/validations')
       .then((res) => res.json())
       .then((res) => {
         return res as TagValidation[];
       });
   }
   editUser(user: User) {
-    postData(this.API_BASE + '/users/' + user.userId + '/edit', user);
+    postData('users/' + user.userId + '/edit', user);
   }
 
   registerUser(user: User) {
-    const response = postData(this.API_BASE + '/register', user);
+    const response = postData('register', user);
   }
 
   verifyUser(userId: number, verificationId: String) {
-    putData(this.API_BASE + '/register/' + userId + '/' + verificationId);
+    putData('register/' + userId + '/' + verificationId);
   }
 
   getUserById(id: number): Promise<User> {
-    return fetch(this.API_BASE + '/users/' + id)
+    return fetch(API_BASE + '/users/' + id)
       .then((res) => res.json())
       .then((res) => {
         return res as User;
@@ -80,8 +82,8 @@ export class Persistence {
   }
 }
 
-async function postData(url = '', data = {}) {
-  const response = await fetch(url, {
+async function postData(path = '', data = {}) {
+  const response = await fetch(API_BASE + '/' + path, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -110,8 +112,8 @@ async function postData(url = '', data = {}) {
   return response.json();
 }
 
-async function putData(url = '', data = {}) {
-  const response = await fetch(url, {
+async function putData(path = '', data = {}) {
+  const response = await fetch(API_BASE + '/' + path, {
     method: 'PUT',
     mode: 'cors',
     cache: 'no-cache',
@@ -140,8 +142,8 @@ async function putData(url = '', data = {}) {
   return response.json();
 }
 
-async function deleteData(url = '') {
-  const response = await fetch(url, {
+async function deleteData(path = '') {
+  const response = await fetch(API_BASE + '/' + path, {
     method: 'DELETE',
     mode: 'cors',
     cache: 'no-cache',

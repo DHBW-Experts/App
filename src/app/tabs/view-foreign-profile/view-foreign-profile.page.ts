@@ -56,16 +56,12 @@ export class ViewForeignProfilePage implements OnInit {
         {
           name: 'tagText',
           type: 'text',
-          label: 'Radio 1',
-          value: '',
-          handler: () => {
-            console.log('');
-          },
+          label: 'tagText',
         },
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Abbrechen',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
