@@ -13,8 +13,6 @@ export class Persistence {
   deleteUser(userId: number) {
     deleteData('users/' + userId);
   }
-  }
-  API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
   saveUserIdToLocalStorage(id: number): void {
     const storage = new Storage();
@@ -74,7 +72,7 @@ export class Persistence {
   }
 
   getUserByRFID(rfid: number): Promise<User> {
-    return fetch(this.API_BASE + '/users/rfid/' + rfid)
+    return fetch(API_BASE + '/users/rfid/' + rfid)
       .then((res) => res.json())
       .then((res) => {
         return res as User;
@@ -130,12 +128,12 @@ async function putData(path = '', data = {}) {
 
   if (!status.startsWith('2')) {
     console.log('Error while putting data, status code: ' + status);
-  const alert = await alertController.create({
-    header: 'Fehler',
+    const alert = await alertController.create({
+      header: 'Fehler',
       message: 'Fehler ' + status,
-    buttons: ['Ok'],
-  });
-  await alert.present();
+      buttons: ['Ok'],
+    });
+    await alert.present();
   } else {
     console.log('success' + status);
   }
