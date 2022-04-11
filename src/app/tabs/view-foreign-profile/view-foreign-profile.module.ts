@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ViewForeignProfilePageRoutingModule } from './view-foreign-profile-routing.module';
 
 import { ViewForeignProfilePage } from './view-foreign-profile.page';
+import { TagComponent } from '../tag/tag.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewForeignProfilePageRoutingModule
+    ViewForeignProfilePageRoutingModule,
   ],
-  declarations: [ViewForeignProfilePage]
+  declarations: [ViewForeignProfilePage, TagComponent],
 })
 export class ViewForeignProfilePageModule {}

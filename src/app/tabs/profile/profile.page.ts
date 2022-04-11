@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { LoginPage } from '../../auth/login/login.page';
 import { Persistence } from '../../models/persistence';
 import { Tag } from '../../models/tag';
-
+import { alertController } from '@ionic/core';
 import { User } from '../../models/user';
 
 @Component({
@@ -15,7 +15,10 @@ import { User } from '../../models/user';
 export class ProfilePage implements OnInit {
   isDataAvailable: boolean = false;
   tags: Tag[];
+  tagValidations = [];
   user: User = null;
+  isTagSelected = false;
+  currentSelectedTag: Tag;
 
   constructor(private route: Router) {
     const persistence = new Persistence();
@@ -24,7 +27,7 @@ export class ProfilePage implements OnInit {
       this.user = result;
       this.isDataAvailable = true;
     });
-    const tagPromise = persistence.getTags(LoginPage.user);
+        const tagPromise = persistence.getTags(LoginPage.user.userId);
 
     tagPromise.then((result) => {
       this.tags = result;
@@ -70,10 +73,52 @@ export class ProfilePage implements OnInit {
           text: 'Ok',
           handler: (alertData) => {
             persistence.addTag(this.user, alertData.tagText).then(() => {
-              const tagPromise2 = persistence.getTags(LoginPage.user);
+              const tagPromise2 = persistence.getTags(LoginPage.user.userId);
               tagPromise2.then((result) => {
                 this.tags = result;
               });
+            });
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  tagSelected(tag: Tag) {
+    this.isTagSelected = true;
+    this.currentSelectedTag = tag;
+    let persistence = new Persistence();
+    const tagValidationsPromise = persistence.getTagValidation(tag.tagId);
+    tagValidationsPromise.then((result) => {
+      this.tagValidations = result.map((validation) => validation.comment);
+    });
+  }
+  async deleteTag() {
+    const persistence = new Persistence();
+    const alert = await alertController.create({
+      header: 'Achtung',
+      message:
+        'Der Tag ' +
+        this.currentSelectedTag.tag +
+        ' wird gelöscht. Bist du sicher? ',
+      buttons: [
+        {
+          text: 'Nein',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+        {
+          text: 'Ja',
+          handler: () => {
+            persistence.deleteTag(this.currentSelectedTag.tagId);
+            //todo: not async
+            const tagPromise2 = persistence.getTags(LoginPage.user.userId);
+            tagPromise2.then((result) => {
+              this.tags = result;
             });
           },
         },
