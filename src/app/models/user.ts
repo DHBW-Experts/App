@@ -2,23 +2,7 @@ import { Tag } from './tag';
 import { NfcScan } from './nfc-scan';
 
 export class User {
-  firstName: String;
-  lastName: String;
-  city: String;
-  emailprefix: String;
-  course: String;
-  courseAbr: String;
-  contacts: Array<User>;
-  dhbw: String;
-  skills: Array<Tag>;
-  biography: String;
-  profilePicutre: HTMLImageElement;
-  rfidid: number;
-  userId: number;
-  isVerified: boolean;
-  tmsCreated: String;
-  specialization: String;
-  pwhash: String;
+ 
 
   createSkillTag(tagText: String) {
     //this.skills.push(new Tag(tagText));
@@ -37,41 +21,25 @@ export class User {
   getID(scan: NfcScan) {} //? doesnt really make sense, but ok
 
   constructor(
-    firstname?: String,
-    lastname?: String,
-    dhbw?: String,
-    course?: String,
-    specialization?: String,
-    courseAbr?: String,
-    pwhash?: String,
-    emailprefix?: String,
+  public  firstname?: String,
+  public lastname?: String,
+  public dhbw?: String,
+  public course?: String,
+  public specialization?: String,
+  public courseAbr?: String,
+  public pwhash?: String,
+  public emailprefix?: String,
 
-    city?: String,
-    bio?: String,
-    contacts?: Array<User>,
-    skills?: Array<Tag>,
-    profilePicutre?: HTMLImageElement,
-    rfidid?: number,
-    userId?: number,
-    isVerified?: boolean,
-    tmsCreated?: String
+  public city?: String,
+  public bio?: String,
+  public contacts?: Array<User>,
+  public skills?: Array<Tag>,
+  public profilePicutre?: HTMLImageElement,
+  public rfidid?: number,
+  public userId?: number,
+  public isVerified?: boolean,
+  public tmsCreated?: String
   ) {
-    this.firstName = firstname;
-    this.lastName = lastname;
-    this.city = city;
-    this.emailprefix = emailprefix;
-    this.course = course;
-    this.courseAbr = courseAbr;
-    this.contacts = contacts;
-    this.dhbw = dhbw;
-    this.skills = skills;
-    this.biography = bio;
-    this.profilePicutre = profilePicutre;
-    this.rfidid = rfidid;
-    this.userId = userId;
-    this.isVerified = isVerified;
-    this.tmsCreated = tmsCreated;
-    this.specialization = specialization;
-    this.pwhash = pwhash;
+    
   }
 }
