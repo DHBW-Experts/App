@@ -6,7 +6,8 @@ name: Build and deploy container app to Azure Web App - DHBW-Experts
 on:
   push:
     branches:
-      - feature/docker-integration
+      - main
+      - dev
   workflow_dispatch:
 
 jobs:
