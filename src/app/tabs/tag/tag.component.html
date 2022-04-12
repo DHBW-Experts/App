@@ -1,4 +1,6 @@
-<div class="tag_item" (click)="tagSelected.emit(tag)">
+<div class="tag_item" 
+     (click)="tagSelected.emit(tag)"
+     [class.selected]="selected === tag">
   <div class="verify_div">
     <div class="verify_number">
       <span style="color: white">{{ tagValidationCount }}</span>
