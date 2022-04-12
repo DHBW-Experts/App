@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Persistence } from 'src/app/models/Persistence';
+import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
 
 @Component({
