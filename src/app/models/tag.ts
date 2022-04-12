@@ -1,4 +1,4 @@
-import { Persistence } from './Persistence';
+import { Persistence } from './persistence';
 import { TagValidation } from './tag-validation';
 
 export class Tag {

@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
-import { Persistence } from 'src/app/models/Persistence';
-import { User } from 'src/app/models/User';
+import { Persistence } from 'src/app/models/persistence';
+import { User } from 'src/app/models/user';
 import { LoginPage } from '../login/login.page';
 
 @Component({
