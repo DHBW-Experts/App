@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_1b942ec22cae43789370eec2026fbad5 }}/dhbwexperts:${{ github.sha }}
+        tags: ghcr.io/dhbw-experts/dhbwexperts:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'DHBW-Experts'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_5643ca6fc39d4714a688fff0e28c23ad }}
-        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_1b942ec22cae43789370eec2026fbad5 }}/dhbwexperts:${{ github.sha }}'
+        images: 'ghcr.io/dhbw-experts/dhbwexperts:${{ github.sha }}'
