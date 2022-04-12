@@ -50,6 +50,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: ${{ env.RELEASE_VERSION }}-changelog.md
-          if: ${{ env.RELEASE_VERSION }}
           prerelease: true
           files: ./android/app/build/outputs/apk/dhbw-experts_${{ env.RELEASE_VERSION }}.apk
