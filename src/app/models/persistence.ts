@@ -85,8 +85,8 @@ export class Persistence {
       });
   }
 
-  getUserByRFID(rfid: number): Promise<User> {
-    return fetch(this.API_BASE + '/users/rfid/' + rfid)
+  getUserByRFID(rfid: string): Promise<User> {
+    return fetch(API_BASE + '/users/rfid/' + rfid)
       .then((res) => res.json())
       .then((res) => {
         return res as User;
