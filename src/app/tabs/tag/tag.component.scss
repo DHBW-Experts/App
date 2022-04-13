@@ -35,16 +35,12 @@ span {
   color: rgb(122, 122, 122);
 }
 
-.app-tag.selected {
+.tag_item.selected {
   border-color: rgb(178, 0, 45);
-  border-width: 2px;
-  font-weight: bold;
-  color: rgb(178, 0, 45);
-  margin: 4px 10px 4px 0px;
-}
-
-.app-tag.selected .tag_item_content {
-  color: rgb(178, 0, 45);
+    border-width: 2px;
+    font-weight: bold;
+    color: rgb(178, 0, 45);
+    margin: 4px 10px 4px 0px;
 }
 
 .verify_svg {

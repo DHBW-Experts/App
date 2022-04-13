@@ -59,36 +59,6 @@ body {
   overflow: hidden;
 }
 
-.tag_item {
-  border-radius: 30px;
-  border: solid 1px rgb(122, 122, 122);
-  text-align: center;
-  width: fit-content;
-  height: fit-content;
-  padding: 6px 10px;
-  margin: 5px 10px 5px 0px;
-  float: left;
-  display: flex;
-  align-items: center;
-}
-
-.tag_item_content {
-  font-family: Montserrat;
-  color: rgb(122, 122, 122);
-}
-
-.tag_item.selected {
-  border-color: rgb(178, 0, 45);
-  border-width: 2px;
-  font-weight: bold;
-  color: rgb(178, 0, 45);
-  margin: 4px 10px 4px 0px;
-}
-
-.tag_item.selected .tag_item_content {
-  color: rgb(178, 0, 45);
-}
-
 .verify_svg {
   fill: white;
   height: 14px;

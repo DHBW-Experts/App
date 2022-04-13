@@ -43,6 +43,7 @@
         <app-tag
           *ngFor="let tag of tags"
           [tag]="tag"
+          [selected]="selectedTag"
           (tagSelected)="tagSelected($event)"
         ></app-tag>
       </div>

@@ -9,6 +9,7 @@ import { Tag } from 'src/app/models/tag';
 })
 export class TagComponent implements OnInit {
   @Input() public tag: Tag;
+  @Input() public selected: Tag;
   tagValidationCount;
   @Output() tagSelected = new EventEmitter<any>();
   constructor() {}
