@@ -63,11 +63,11 @@ export class ViewForeignProfilePage implements OnInit {
     });
   }
   addContact() {
-    let persistence = new Persistence();
+    const persistence = new Persistence();
     persistence.addUserToContacts(LoginPage.user.userId, this.user.userId);
   }
   removeContact() {
-    let persistence = new Persistence();
+    const persistence = new Persistence();
     persistence.removeUserFromContacts(LoginPage.user.userId, this.user.userId);
   }
   async addValidation() {

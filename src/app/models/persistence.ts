@@ -13,8 +13,8 @@ export class Persistence {
   deleteUser(userId: number) {
     deleteData('users/' + userId);
   }
-  removeUserFromContacts(contactOwnerUserId: number, toAddUserId: number) {
-    deleteData('users/' + contactOwnerUserId + '/contacts/' + toAddUserId);
+  removeUserFromContacts(contactOwnerUserId: number, toRemoveUserId: number) {
+    deleteData('users/' + contactOwnerUserId + '/contacts/' + toRemoveUserId);
   }
 
   addUserToContacts(contactOwnerUserId: number, toAddUserId: number) {
@@ -142,12 +142,12 @@ async function putData(path = '', data = {}) {
 
   if (!status.startsWith('2')) {
     console.log('Error while putting data, status code: ' + status);
-  const alert = await alertController.create({
-    header: 'Fehler',
+    const alert = await alertController.create({
+      header: 'Fehler',
       message: 'Fehler ' + status,
-    buttons: ['Ok'],
-  });
-  await alert.present();
+      buttons: ['Ok'],
+    });
+    await alert.present();
   } else {
     console.log('success' + status);
   }
