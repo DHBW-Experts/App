@@ -21,7 +21,7 @@
         </div>
         <div class="info_second_line">
           <span id="studiengang" *ngIf="isDataAvailable"
-            >{{user.course}} - {{user.additional}}</span
+            >{{user.course}} - {{user.specialization}}</span
           >
         </div>
         <div class="info_second_line">
@@ -74,6 +74,9 @@
     </div>
     <button id="Verify_Button" class="Default_Button" (click)="openEditPage()">
       Profil Bearbeiten
+    </button>
+    <button id="Scan_Button" class="Default_Button" (click)="openScanPage()">
+      Eigenen Studentenausweis scannen
     </button>
   </div>
 </body>
