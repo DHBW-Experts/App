@@ -13,6 +13,20 @@ export class Persistence {
   deleteUser(userId: number) {
     deleteData('users/' + userId);
   }
+  removeUserFromContacts(contactOwnerUserId: number, toRemoveUserId: number) {
+    deleteData('users/' + contactOwnerUserId + '/contacts/' + toRemoveUserId);
+  }
+
+  addUserToContacts(contactOwnerUserId: number, toAddUserId: number) {
+    postData('users/' + contactOwnerUserId + '/contacts/add/' + toAddUserId);
+  }
+  getContactsByUserId(userId: number): Promise<User[]> {
+    return fetch(API_BASE + '/users/' + userId + '/contacts')
+      .then((res) => res.json())
+      .then((res) => {
+        return res as User[];
+      });
+  }
 
   saveUserIdToLocalStorage(id: number): void {
     const storage = new Storage();
@@ -71,7 +85,7 @@ export class Persistence {
       });
   }
 
-  getUserByRFID(rfid: number): Promise<User> {
+  getUserByRFID(rfid: string): Promise<User> {
     return fetch(API_BASE + '/users/rfid/' + rfid)
       .then((res) => res.json())
       .then((res) => {

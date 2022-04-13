@@ -21,7 +21,7 @@
         </div>
         <div class="info_second_line">
           <span id="studiengang" *ngIf="isDataAvailable"
-            >{{user.course}} - {{user.additional}}</span
+            >{{user.course}} - {{user.specialization}}</span
           >
         </div>
         <div class="info_second_line">
@@ -63,8 +63,22 @@
         Validierung hinzufügen
       </button>
     </div>
-    <button id="Verify_Button" class="Default_Button">
-      Zu meinen Kontakten hinzufügen
+    <button
+      id="Verify_Button"
+      class="Default_Button"
+      (click)="addContact()"
+      *ngIf="!isUserInContacts && !isUserLoggedInUser; else elseBlock"
+    >
+      Zu Meinen Kontakten hinzufügen
     </button>
+    <ng-template #elseBlock>
+      <button
+        class="Default_Button"
+        (click)="removeContact()"
+        *ngIf="!isUserLoggedInUser"
+      >
+        Aus Kontakten entfernen
+      </button>
+    </ng-template>
   </div>
 </body>
