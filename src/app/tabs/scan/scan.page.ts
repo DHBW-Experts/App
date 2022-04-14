@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NFC, NfcTag } from '@ionic-native/nfc/ngx';
 import { alertController } from '@ionic/core';
 import { Subscription } from 'rxjs';
-import { Persistence } from 'src/app/models/Persistence';
+import { Persistence } from 'src/app/models/persistence';
 import { User } from 'src/app/models/user';
 
 @Component({
