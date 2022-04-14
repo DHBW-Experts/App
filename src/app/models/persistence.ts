@@ -27,6 +27,13 @@ export class Persistence {
         return res as User[];
       });
   }
+  getDistinctTagsByText(searchText: any): Promise<Tag[]> {
+    return fetch(API_BASE + '/search/tags/' + searchText)
+      .then((res) => res.json())
+      .then((res) => {
+        return res as Tag[];
+      });
+  }
 
   saveUserIdToLocalStorage(id: number): void {
     const storage = new Storage();
@@ -39,6 +46,14 @@ export class Persistence {
     storage.create();
     let result = await storage.get('userId');
     return result;
+  }
+
+  getUsersByTag(searchText: any): Promise<User[]> {
+    return fetch(API_BASE + '/search/users/tags/' + searchText)
+      .then((res) => res.json())
+      .then((res) => {
+        return res as User[];
+      });
   }
 
   getUserByEmail(email: String): Promise<User> {
