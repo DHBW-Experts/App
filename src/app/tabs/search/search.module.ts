@@ -7,6 +7,8 @@ import { SearchPage } from './search.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 import { SearchPageRoutingModule } from './search-routing.module';
+import { ContactPreviewComponent } from '../contact-preview/contact-preview.component';
+import { TagPreviewComponent } from '../tag-preview/tag-preview.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,6 @@ import { SearchPageRoutingModule } from './search-routing.module';
     ExploreContainerComponentModule,
     SearchPageRoutingModule,
   ],
-  declarations: [SearchPage],
+  declarations: [SearchPage, ContactPreviewComponent, TagPreviewComponent],
 })
 export class SearchPageModule {}
