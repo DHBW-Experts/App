@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Persistence } from 'src/app/models/Persistence';
+import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
 import { User } from 'src/app/models/user';
 
