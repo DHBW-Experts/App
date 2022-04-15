@@ -5,7 +5,7 @@ import { LoginPage } from '../../auth/login/login.page';
 import { Persistence } from '../../models/persistence';
 
 import { User } from '../../models/user';
-
+const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
@@ -39,10 +39,18 @@ export class EditProfilePage implements OnInit {
       alert.present();
       return;
     }
-    this.persistence.editUser(this.user);
-    LoginPage.user = this.user;
-    this.backToProfilePage();
-    this.presentChanged();
+    const response = this.persistence.editUser(this.user);
+    response.then((result) => {
+      if(!String(result).startsWith('2')){
+          this.presentChangesFailed();
+      } else {
+          LoginPage.user = this.user;
+          this.backToProfilePage();
+          this.presentChanged();
+      }
+    })
+        
+    
   }
 
   backToProfilePage() {
@@ -55,6 +63,17 @@ export class EditProfilePage implements OnInit {
       position: 'top',
       color: 'success',
       duration: 800
+    });
+    toast.present();
+  }
+
+  async presentChangesFailed() {
+    const toast = await this.toastController.create({
+      header: 'Etwas ist schiefgelaufen!',
+      message: '\nDeine Änderungen konnten nicht gespeichert werden. Bitte warte einen Augenblick und versuche es erneut oder wende dich an unseren Support.',
+      position: 'top',
+      color: 'danger',
+      duration: 3200
     });
     toast.present();
   }
