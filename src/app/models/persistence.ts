@@ -35,16 +35,16 @@ export class Persistence {
       });
   }
 
-  saveUserIdToLocalStorage(id: number): void {
+  saveUserEmailToLocalStorage(email: string): void {
     const storage = new Storage();
     storage.create();
-    storage.set('userId', id);
+    storage.set('email', email);
   }
 
-  async getUserIdFromLocalStorage(): Promise<number> {
+  async getUserEmailFromLocalStorage(): Promise<string> {
     const storage = new Storage();
     storage.create();
-    let result = await storage.get('userId');
+    let result = await storage.get('email');
     return result;
   }
 
