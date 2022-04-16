@@ -12,25 +12,34 @@ import { User } from 'src/app/models/user';
 })
 export class LoginPage implements OnInit {
   form: FormGroup;
-
+  static user: User; // this is the global user object
+  email: String;
+  password: String;
   constructor(public formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       // evtl. Validation der Inputs aufsetzen
     });
+    const persistence = new Persistence();
+
+    persistence
+      .getUserEmailFromLocalStorage()
+      .then((result) => (this.email = result));
   }
 
   /**
    * Hier kommt die Login-Logik rein
    */
-  static user: User; // this is the global user object
-  email: String;
-  password: String;
 
   async login() {
     const persistence = new Persistence();
-    if (this.email == null || this.password == null) {
+    if (
+      this.email == null ||
+      this.password == null ||
+      this.email == '' ||
+      this.password == ''
+    ) {
       const alert = await alertController.create({
         header: 'Fehler',
         message: 'Daten nicht vollständig',
@@ -38,11 +47,20 @@ export class LoginPage implements OnInit {
       });
       await alert.present();
     } else {
-      this.router.navigate(['../tabs/profile']);
       const userPromise = persistence.getUserByEmail(this.email);
       userPromise.then(async (result) => {
+        if (!result.userId) {
+          const alert = await alertController.create({
+            header: 'Fehler',
+            message: 'Ungültige Anmeldedaten',
+            buttons: ['Ok'],
+          });
+          await alert.present();
+          return;
+        }
         LoginPage.user = result;
-        persistence.saveUserIdToLocalStorage(LoginPage.user.userId);
+        persistence.saveUserEmailToLocalStorage(result.email.toString());
+        this.router.navigate(['../tabs/profile']);
       });
     }
   }
