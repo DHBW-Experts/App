@@ -29,6 +29,7 @@ export class EditProfilePage implements OnInit {
   password: String;
   password_wdh: String;
   password_old: String;
+
   async edit() {
     if (this.password !== this.password_wdh) {
       let alert = await this.alertCtrl.create({
@@ -37,6 +38,8 @@ export class EditProfilePage implements OnInit {
         buttons: ['Ok'],
       });
       alert.present();
+      this.password = '';
+      this.password_wdh = '';
       return;
     }
     const response = this.persistence.editUser(this.user);
