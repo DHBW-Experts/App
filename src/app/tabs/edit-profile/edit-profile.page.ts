@@ -51,6 +51,7 @@ export class EditProfilePage implements OnInit {
           text: 'Ja',
           handler: () => {
             this.persistence.deleteUser(this.user.userId);
+            this.router.navigate(['/login']);
           },
         },
       ],
