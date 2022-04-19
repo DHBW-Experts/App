@@ -52,6 +52,7 @@ export class EditProfilePage implements OnInit {
           handler: () => {
             this.persistence.deleteUser(this.user.userId);
             this.router.navigate(['/login']);
+            LoginPage.user = null;
           },
         },
       ],
