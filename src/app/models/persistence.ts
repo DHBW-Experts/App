@@ -7,6 +7,8 @@ import { LoginPage } from '../auth/login/login.page';
 
 const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 export class Persistence {
+
+
   deleteTag(tagId: number) {
     deleteData('tags/' + tagId);
   }
@@ -80,8 +82,8 @@ export class Persistence {
         return res as TagValidation[];
       });
   }
-  editUser(user: User) {
-    postData('users/' + user.userId + '/edit', user);
+  editUser(user: User): Promise<Number> {
+    return postData('users/' + user.userId + '/edit', user);
   }
 
   registerUser(user: User) {
@@ -109,6 +111,8 @@ export class Persistence {
   }
 }
 
+
+
 async function postData(path = '', data = {}) {
   const response = await fetch(API_BASE + '/' + path, {
     method: 'POST',
@@ -131,12 +135,14 @@ async function postData(path = '', data = {}) {
       message: 'Fehler ' + status,
       buttons: ['Ok'],
     });
-    await alert.present();
+    await alert.present();   
   } else {
     console.log('success with status ' + status);
+    return new Promise((number) => {
+      number(200);
+    });
   }
-
-  return response.json();
+    return response.json();
 }
 
 async function putData(path = '', data = {}) {
