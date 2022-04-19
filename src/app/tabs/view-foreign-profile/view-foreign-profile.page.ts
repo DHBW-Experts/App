@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { alertController } from '@ionic/core';
 import { LoginPage } from 'src/app/auth/login/login.page';
-import { Persistence } from 'src/app/models/Persistence';
+import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
 import { TagValidation } from 'src/app/models/tag-validation';
 import { User } from 'src/app/models/user';
@@ -17,6 +17,9 @@ export class ViewForeignProfilePage implements OnInit {
   tags: Tag[];
   tagValidations = [];
   isDataAvailable: boolean = false;
+  isUserInContacts: boolean = false;
+  contacts: User[];
+  isUserLoggedInUser: boolean;
   isTagSelected: boolean = false;
   selectedTag: Tag;
   constructor(private route: ActivatedRoute) {}
@@ -29,7 +32,19 @@ export class ViewForeignProfilePage implements OnInit {
     userPromise.then((result) => {
       this.user = result;
       this.isDataAvailable = true;
-
+      const contactsPromise = persistence.getContactsByUserId(
+        LoginPage.user.userId
+      );
+      contactsPromise.then((result) => {
+        this.contacts = result;
+        if (LoginPage.user.userId === this.user.userId) {
+          this.isUserLoggedInUser = true;
+          return;
+        }
+        this.isUserInContacts = this.contacts.some(
+          (element) => element.userId === this.user.userId
+        );
+      });
     });
 
     const tagPromise = persistence.getTags(userId);
@@ -46,6 +61,14 @@ export class ViewForeignProfilePage implements OnInit {
     tagValidationsPromise.then((result) => {
       this.tagValidations = result.map((validation) => validation.comment);
     });
+  }
+  addContact() {
+    const persistence = new Persistence();
+    persistence.addUserToContacts(LoginPage.user.userId, this.user.userId);
+  }
+  removeContact() {
+    const persistence = new Persistence();
+    persistence.removeUserFromContacts(LoginPage.user.userId, this.user.userId);
   }
   async addValidation() {
     const persistence = new Persistence();

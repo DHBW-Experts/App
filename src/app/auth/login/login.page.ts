@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
-import { Persistence } from 'src/app/models/Persistence';
-import { User } from 'src/app/models/User';
+import { Persistence } from 'src/app/models/persistence';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-login',
@@ -12,25 +12,34 @@ import { User } from 'src/app/models/User';
 })
 export class LoginPage implements OnInit {
   form: FormGroup;
-
+  static user: User; // this is the global user object
+  email: String;
+  password: String;
   constructor(public formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       // evtl. Validation der Inputs aufsetzen
     });
+    const persistence = new Persistence();
+
+    persistence
+      .getUserEmailFromLocalStorage()
+      .then((result) => (this.email = result));
   }
 
   /**
    * Hier kommt die Login-Logik rein
    */
-  static user: User; // this is the global user object
-  email: String;
-  password: String;
 
   async login() {
     const persistence = new Persistence();
-    if (this.email == null || this.password == null) {
+    if (
+      this.email == null ||
+      this.password == null ||
+      this.email == '' ||
+      this.password == ''
+    ) {
       const alert = await alertController.create({
         header: 'Fehler',
         message: 'Daten nicht vollständig',
@@ -38,11 +47,20 @@ export class LoginPage implements OnInit {
       });
       await alert.present();
     } else {
-      this.router.navigate(['../tabs/profile']);
       const userPromise = persistence.getUserByEmail(this.email);
       userPromise.then(async (result) => {
+        if (!result.userId) {
+          const alert = await alertController.create({
+            header: 'Fehler',
+            message: 'Ungültige Anmeldedaten',
+            buttons: ['Ok'],
+          });
+          await alert.present();
+          return;
+        }
         LoginPage.user = result;
-        persistence.saveUserIdToLocalStorage(LoginPage.user.userId);
+        persistence.saveUserEmailToLocalStorage(result.email.toString());
+        this.router.navigate(['../tabs/profile']);
       });
     }
   }

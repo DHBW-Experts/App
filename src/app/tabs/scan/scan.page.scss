@@ -1,6 +1,7 @@
 body {
   margin: 0;
   background-color: white;
+  font-family: Montserrat;
 }
 
 #bottom_nav {
@@ -74,4 +75,22 @@ body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   background-color: white;
+}
+
+#Scannen_Text {
+  position: relative;
+  overflow: visible;
+  white-space: nowrap;
+  text-align: left;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(178, 0, 45);
+  letter-spacing: 0.33px;
+}
+
+#Scannen {
+  margin-left: 7%;
+  margin-right: 7%;
 }

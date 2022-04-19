@@ -6,6 +6,8 @@ import { Persistence } from '../../models/persistence';
 import { Tag } from '../../models/tag';
 import { alertController } from '@ionic/core';
 import { User } from '../../models/user';
+import { NFC } from '@ionic-native/nfc/ngx';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -19,18 +21,23 @@ export class ProfilePage implements OnInit {
   user: User = null;
   isTagSelected = false;
   currentSelectedTag: Tag;
+  private nfcSub: Subscription;
 
-  constructor(private route: Router) {
-    const persistence = new Persistence();
-    const userPromise = persistence.getUserById(LoginPage.user.userId);
-    userPromise.then((result) => {
-      this.user = result;
-      this.isDataAvailable = true;
-    });
+  constructor(private route: Router, private nfc: NFC) {
+    this.route.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        const persistence = new Persistence();
+        const userPromise = persistence.getUserById(LoginPage.user.userId);
+        userPromise.then((result) => {
+          this.user = result;
+          this.isDataAvailable = true;
+        });
         const tagPromise = persistence.getTags(LoginPage.user.userId);
 
-    tagPromise.then((result) => {
-      this.tags = result;
+        tagPromise.then((result) => {
+          this.tags = result;
+        });
+      }
     });
   }
   ngOnInit(): void {}
@@ -38,11 +45,6 @@ export class ProfilePage implements OnInit {
   openEditPage() {
     this.route.navigate(['../edit-profile']);
   }
-  tagClicked(e) {
-    console.log(e);
-    e.className = 'another-class';
-  }
-
   async addTag() {
     const persistence = new Persistence();
     const alertController = new AlertController();
@@ -125,5 +127,31 @@ export class ProfilePage implements OnInit {
       ],
     });
     await alert.present();
+  }
+  async openScanPage() {
+    const alert = await alertController.create({
+      header: 'Information',
+      message: 'Scanne nun deinen Ausweis',
+      buttons: ['Ok'],
+    });
+    await alert.present();
+
+    const flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
+    this.nfcSub = this.nfc.readerMode(flags).subscribe((tag) => {
+      const tagId = tag.id
+        .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
+        .join(':');
+      const persistence = new Persistence();
+      const user = LoginPage.user;
+      user.rfidid = tagId;
+      persistence.editUser(user);
+    }, this.nfcErrHandler);
+  }
+  nfcErrHandler(err: any) {
+    console.log('Error reading tag', err);
+  }
+  ionViewDidLeave() {
+    // Unsubscribe NFC reader
+    this.nfcSub.unsubscribe();
   }
 }

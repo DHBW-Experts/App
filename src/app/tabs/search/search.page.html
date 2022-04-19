@@ -8,6 +8,9 @@
           placeholder="Suche"
           class="Splitted_Input_Field"
           id="mail"
+          (keyup.enter)="search()"
+          (input)="onTextChange()"
+          [(ngModel)]="searchText"
         />
         <select
           type="text"
@@ -16,7 +19,7 @@
           class="Splitted_Dropdown_Field"
         >
           <option value="tag">Tag</option>
-          <option value="user">User</option>
+          <option value="user">Nutzer</option>
           <option value="standort">Standort</option>
           <option value="studiengang">Studiengang</option>
           <option value="kurs">Kurs</option>
@@ -27,131 +30,18 @@
       </div>
       <div class="search_result">
         <div class="tag_result">
-          <div class="tag_item" onClick="tagClicked(this);">
-            <span class="tag_item_content">#LaTeX</span>
-          </div>
-          <div class="tag_item" onClick="tagClicked(this);">
-            <span class="tag_item_content">#CS:GO</span>
-          </div>
-          <div class="tag_item" onClick="tagClicked(this);">
-            <span class="tag_item_content">#Algebra</span>
-          </div>
-          <div class="tag_item" onClick="tagClicked(this);">
-            <span class="tag_item_content">#TheoInf</span>
-          </div>
-          <div class="tag_item" onClick="tagClicked(this);">
-            <span class="tag_item_content">#Git</span>
-          </div>
+          <app-tag-preview
+            *ngFor="let tag of resultTags"
+            [tag]="tag"
+            (click)="onTagPreviewClick(tag.tag)"
+          ></app-tag-preview>
         </div>
         <div class="user_result">
-          <button class="contact_item">
-            <div class="profile_image_div">
-              <img
-                src="assets/icon/contact_default.png"
-                alt="profile picture"
-                class="profile_image"
-              />
-            </div>
-            <div class="contact_info">
-              <div class="contact_name">
-                <span class="centered_text">Max Mustermann</span>
-              </div>
-              <div class="info_second_line">
-                <span class="centered_text">Informatik @ DHBW-Karlsruhe</span>
-              </div>
-            </div>
-          </button>
-          <button class="contact_item">
-            <div class="profile_image_div">
-              <img
-                src="assets/icon/contact_default.png"
-                alt="profile picture"
-                class="profile_image"
-              />
-            </div>
-            <div class="contact_info">
-              <div class="contact_name">
-                <span class="centered_text">Max Mustermann</span>
-              </div>
-              <div class="info_second_line">
-                <span class="centered_text">BWL @ DHBW-Karlsruhe</span>
-              </div>
-            </div>
-          </button>
-          <button class="contact_item">
-            <div class="profile_image_div">
-              <img
-                src="assets/icon/contact_default.png"
-                alt="profile picture"
-                class="profile_image"
-              />
-            </div>
-            <div class="contact_info">
-              <div class="contact_name">
-                <span class="centered_text">Max Mustermann</span>
-              </div>
-              <div class="info_second_line">
-                <span class="centered_text"
-                  >Wirtschaftsinformatik @ DHBW-Karlsruhe</span
-                >
-              </div>
-            </div>
-          </button>
-          <button class="contact_item">
-            <div class="profile_image_div">
-              <img
-                src="assets/icon/contact_default.png"
-                alt="profile picture"
-                class="profile_image"
-              />
-            </div>
-            <div class="contact_info">
-              <div class="contact_name">
-                <span class="centered_text">Max Mustermann</span>
-              </div>
-              <div class="info_second_line">
-                <span class="centered_text"
-                  >Informationstechnik @ DHBW-Karlsruhe</span
-                >
-              </div>
-            </div>
-          </button>
-          <button class="contact_item">
-            <div class="profile_image_div">
-              <img
-                src="assets/icon/contact_default.png"
-                alt="profile picture"
-                class="profile_image"
-              />
-            </div>
-            <div class="contact_info">
-              <div class="contact_name">
-                <span class="centered_text">Max Mustermann</span>
-              </div>
-              <div class="info_second_line">
-                <span class="centered_text">Maschinenbau @ DHBW-Karlsruhe</span>
-              </div>
-            </div>
-          </button>
-          <button class="contact_item">
-            <div class="profile_image_div">
-              <img
-                src="assets/icon/contact_default.png"
-                alt="profile picture"
-                class="profile_image"
-              />
-            </div>
-            <div class="contact_info">
-              <div class="contact_name">
-                <span class="centered_text">Max Mustermann</span>
-              </div>
-              <div class="info_second_line">
-                <span class="centered_text"
-                  >Elektrotechnik @ DHBW-Karlsruhe</span
-                >
-              </div>
-            </div>
-          </button>
+          <app-contact-preview
+            *ngFor="let user of resultsUser"
+            [user]="user"
+            (click)="openForeignProfile(user.userId)"
+          ></app-contact-preview>
         </div>
       </div>
     </div>

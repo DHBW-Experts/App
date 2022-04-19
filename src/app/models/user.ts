@@ -34,7 +34,7 @@ export class User {
     public contacts?: Array<User>,
     public skills?: Array<Tag>,
     public profilePicutre?: HTMLImageElement,
-    public rfidid?: number,
+    public rfidid?: String,
     public userId?: number,
     public isVerified?: boolean,
     public tmsCreated?: String

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Persistence } from 'src/app/models/Persistence';
+import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
 
 @Component({
@@ -9,6 +9,7 @@ import { Tag } from 'src/app/models/tag';
 })
 export class TagComponent implements OnInit {
   @Input() public tag: Tag;
+  @Input() public selected: Tag;
   tagValidationCount;
   @Output() tagSelected = new EventEmitter<any>();
   constructor() {}

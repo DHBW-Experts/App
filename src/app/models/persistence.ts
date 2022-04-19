@@ -15,18 +15,47 @@ export class Persistence {
   deleteUser(userId: number) {
     deleteData('users/' + userId);
   }
-
-  saveUserIdToLocalStorage(id: number): void {
-    const storage = new Storage();
-    storage.create();
-    storage.set('userId', id);
+  removeUserFromContacts(contactOwnerUserId: number, toRemoveUserId: number) {
+    deleteData('users/' + contactOwnerUserId + '/contacts/' + toRemoveUserId);
   }
 
-  async getUserIdFromLocalStorage(): Promise<number> {
+  addUserToContacts(contactOwnerUserId: number, toAddUserId: number) {
+    postData('users/' + contactOwnerUserId + '/contacts/add/' + toAddUserId);
+  }
+  getContactsByUserId(userId: number): Promise<User[]> {
+    return fetch(API_BASE + '/users/' + userId + '/contacts')
+      .then((res) => res.json())
+      .then((res) => {
+        return res as User[];
+      });
+  }
+  getDistinctTagsByText(searchText: any): Promise<Tag[]> {
+    return fetch(API_BASE + '/search/tags/' + searchText)
+      .then((res) => res.json())
+      .then((res) => {
+        return res as Tag[];
+      });
+  }
+
+  saveUserEmailToLocalStorage(email: string): void {
     const storage = new Storage();
     storage.create();
-    let result = await storage.get('userId');
+    storage.set('email', email);
+  }
+
+  async getUserEmailFromLocalStorage(): Promise<string> {
+    const storage = new Storage();
+    storage.create();
+    let result = await storage.get('email');
     return result;
+  }
+
+  getUsersByTag(searchText: any): Promise<User[]> {
+    return fetch(API_BASE + '/search/users/tags/' + searchText)
+      .then((res) => res.json())
+      .then((res) => {
+        return res as User[];
+      });
   }
 
   getUserByEmail(email: String): Promise<User> {
@@ -73,7 +102,7 @@ export class Persistence {
       });
   }
 
-  getUserByRFID(rfid: number): Promise<User> {
+  getUserByRFID(rfid: String): Promise<User> {
     return fetch(API_BASE + '/users/rfid/' + rfid)
       .then((res) => res.json())
       .then((res) => {
