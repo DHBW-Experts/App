@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { alertController } from '@ionic/core';
 import { LoginPage } from '../../auth/login/login.page';
 import { Persistence } from '../../models/persistence';
 
@@ -29,9 +30,32 @@ export class EditProfilePage implements OnInit {
   password_wdh: String;
   password_old: String;
   edit() {
-    //change password has to be checked
+    //todo change password has to be checked
     this.persistence.editUser(this.user);
     LoginPage.user = this.user;
+  }
+  async delete() {
+    const alert = await alertController.create({
+      header: 'Achtung',
+      message: 'Dein Profil wird endgültig gelöscht. Bist du sicher? ',
+      buttons: [
+        {
+          text: 'Nein',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+        {
+          text: 'Ja',
+          handler: () => {
+            this.persistence.deleteUser(this.user.userId);
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   backToProfilePage() {
