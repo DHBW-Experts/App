@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-tag',
@@ -10,13 +10,18 @@ import { Tag } from 'src/app/models/tag';
 export class TagComponent implements OnInit {
   @Input() public tag: Tag;
   @Input() public selected: Tag;
-  tagValidationCount;
+  
   @Output() tagSelected = new EventEmitter<any>();
-  constructor() {}
+  
+  private tagValidationCount: number;
+
+  constructor(
+    private persistence: PersistenceService,
+  ) {}
 
   ngOnInit() {
-    const persistence = new Persistence();
-    const ValPromise = persistence.getTagValidation(this.tag.tagId);
-    ValPromise.then((result) => (this.tagValidationCount = result.length));
+    this.persistence.tag.getValidations(this.tag.tagId).then(validations => {
+      this.tagValidationCount = validations.length;
+    });
   }
 }
