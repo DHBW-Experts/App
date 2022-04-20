@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { alertController } from '@ionic/core';
 import { LoginPage } from 'src/app/auth/login/login.page';
-import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
-import { TagValidation } from 'src/app/models/tag-validation';
 import { User } from 'src/app/models/user';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-view-foreign-profile',
@@ -22,56 +21,60 @@ export class ViewForeignProfilePage implements OnInit {
   isUserLoggedInUser: boolean;
   isTagSelected: boolean = false;
   selectedTag: Tag;
-  constructor(private route: ActivatedRoute) {}
+
+  constructor(
+    private route: ActivatedRoute,
+    private persistence: PersistenceService,
+  ) {}
+  
   ngOnInit(): void {}
 
   ionViewWillEnter() {
-    const persistence = new Persistence();
     const userId = +this.route.snapshot.paramMap.get('id');
-    const userPromise = persistence.getUserById(userId);
-    userPromise.then((result) => {
-      this.user = result;
+
+    this.persistence.user.getById(userId).then(user => {
+      this.user = user;
       this.isDataAvailable = true;
-      const contactsPromise = persistence.getContactsByUserId(
+      
+      const contactsPromise = this.persistence.getContactsByUserId(
         LoginPage.user.userId
-      );
-      contactsPromise.then((result) => {
-        this.contacts = result;
+      ).then(contacts => {
+        this.contacts = contacts;
+
         if (LoginPage.user.userId === this.user.userId) {
           this.isUserLoggedInUser = true;
           return;
         }
+        
         this.isUserInContacts = this.contacts.some(
-          (element) => element.userId === this.user.userId
+          e => e.userId === this.user.userId
         );
       });
     });
 
-    const tagPromise = persistence.getTags(userId);
-    tagPromise.then((result) => {
-      this.tags = result;
+    this.persistence.tag.getByUser(userId).then(tags => {
+      this.tags = tags;
     });
   }
 
   tagSelected(tag: Tag) {
     this.isTagSelected = true;
     this.selectedTag = tag;
-    let persistence = new Persistence();
-    const tagValidationsPromise = persistence.getTagValidation(tag.tagId);
-    tagValidationsPromise.then((result) => {
-      this.tagValidations = result.map((validation) => validation.comment);
+    
+    this.persistence.tag.getValidations(tag.tagId).then(validations => {
+      this.tagValidations = validations.map(validation => validation.comment);
     });
   }
+  
   addContact() {
-    const persistence = new Persistence();
-    persistence.addUserToContacts(LoginPage.user.userId, this.user.userId);
+    this.persistence.addUserToContacts(LoginPage.user.userId, this.user.userId);
   }
+  
   removeContact() {
-    const persistence = new Persistence();
-    persistence.removeUserFromContacts(LoginPage.user.userId, this.user.userId);
+    this.persistence.removeUserFromContacts(LoginPage.user.userId, this.user.userId);
   }
+
   async addValidation() {
-    const persistence = new Persistence();
     const alert = await alertController.create({
       cssClass: 'my-custom-class',
       header: 'Kommentar eingeben',
