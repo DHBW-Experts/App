@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Persistence } from 'src/app/models/persistence';
 import { Tag } from 'src/app/models/tag';
 import { User } from 'src/app/models/user';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-search',
@@ -10,38 +10,43 @@ import { User } from 'src/app/models/user';
   styleUrls: ['search.page.scss'],
 })
 export class SearchPage {
-  constructor(private route: Router) {}
+  
+  constructor(
+    private route: Router,
+    private persistence: PersistenceService,
+  ) { }
+  
   searchText;
   resultsUser: User[];
   resultTags: Tag[];
+
   search() {
     if (this.searchText.length > 0) {
-      const persistence = new Persistence();
-      const userListPromise = persistence.getUsersByTag(this.searchText);
-      userListPromise.then((result) => {
-        this.resultsUser = result;
+      this.persistence.user.getByTag(this.searchText).then(user => {
+        this.resultsUser = user;
       });
     } else {
       this.resultsUser = [];
       this.resultTags = [];
     }
   }
+
   onTextChange() {
     if (this.searchText.length > 0) {
-      const persistence = new Persistence();
-      const tagListPromise = persistence.getDistinctTagsByText(this.searchText);
-      tagListPromise.then((result) => {
-        this.resultTags = result;
+      this.persistence.tag.getDistinctByText(this.searchText).then(tags => {
+        this.resultTags = tags;
       });
     } else {
       this.resultsUser = [];
       this.resultTags = [];
     }
   }
+
   onTagPreviewClick(tagText: string) {
     this.searchText = tagText;
     this.search();
   }
+
   openForeignProfile(userId) {
     this.route.navigate(['../view-foreign-profile', { id: userId }]);
   }
