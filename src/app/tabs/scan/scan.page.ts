@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { NFC, NfcTag } from '@ionic-native/nfc/ngx';
 import { alertController } from '@ionic/core';
 import { Subscription } from 'rxjs';
-import { Persistence } from 'src/app/models/persistence';
-import { User } from 'src/app/models/user';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-scan',
@@ -14,32 +13,38 @@ import { User } from 'src/app/models/user';
 export class ScanPage {
   private nfcSub: Subscription;
 
-  constructor(private nfc: NFC, private route: Router) {}
+  constructor(
+    private nfc: NFC,
+    private route: Router,
+    private persistence: PersistenceService,
+  ) { }
 
   ionViewDidEnter() {
     // Subscribe NFC reader
     const flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
-    this.nfcSub = this.nfc.readerMode(flags).subscribe((tag) => {
+
+    this.nfcSub = this.nfc.readerMode(flags).subscribe(tag => {
       // Prettify tag id
       const tagId = tag.id
         .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
         .join(':');
 
       console.log(`NFC: ${tagId}`);
-      const persistence = new Persistence();
-      const userPromise = persistence.getUserByRFID(tagId);
 
-      userPromise.then(async (result) => {
-        if (!result.userId) {
+      this.persistence.user.getByRfid(tagId).then(async user => {
+        if (!user.userId) {
           const alert = await alertController.create({
             header: 'Fehler',
             message: 'Nutzer nicht gefunden',
             buttons: ['Ok'],
           });
+
           await alert.present();
+        
           return;
         }
-        this.route.navigate(['../view-foreign-profile', { id: result.userId }]);
+
+        this.route.navigate(['../view-foreign-profile', { id: user.userId }]);
       });
     }, this.nfcErrHandler);
   }
@@ -56,10 +61,9 @@ export class ScanPage {
       .join(':');
 
     console.log(`NFC: ${tagId}`);
-    const persistence = new Persistence();
-    const userPromise = persistence.getUserByRFID('TEST-RFID-ID-0815'); //tagID
-    userPromise.then((result) => {
-      this.route.navigate(['../view-foreign-profile', { id: result.userId }]); //Problem: cant acces router due to "this". solution: arrow func. (see nfc.readerMode(flags).subscribe)
+  
+    this.persistence.user.getByRfid('TEST-RFID-ID-0815').then(user => {
+      this.route.navigate(['../view-foreign-profile', { id: user.userId }]); //Problem: cant acces router due to "this". solution: arrow func. (see nfc.readerMode(flags).subscribe)
     });
   }
 
