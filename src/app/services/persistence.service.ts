@@ -111,7 +111,8 @@ class TagPersistence {
   }
 }
 
-
+// ========================================================
+// ========================================================
 
 function responseToJson(response: Response) {
   return response.json();
@@ -122,7 +123,7 @@ async function getData(path = '') {
 }
 
 async function postData(path = '', data = {}) {
-  const response = await fetch(API_BASE + '/' + path, {
+  const response = await fetch(`${API_BASE}/${path}`, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -136,25 +137,27 @@ async function postData(path = '', data = {}) {
   });
 
   const status = String(response.status);
+
   if (!status.startsWith('2')) {
     console.log('Error while posting data, status code: ' + status);
+
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
-      buttons: ['Ok'],
+      buttons: [ 'Ok' ],
     });
     await alert.present();   
   } else {
     console.log('success with status ' + status);
-    return new Promise((number) => {
-      number(200);
-    });
+
+    return Promise.resolve(200);
   }
-    return response.json();
+
+  return response.json();
 }
 
 async function putData(path = '', data = {}) {
-  const response = await fetch(API_BASE + '/' + path, {
+  const response = await fetch(`${API_BASE}/${path}`, {
     method: 'PUT',
     mode: 'cors',
     cache: 'no-cache',
@@ -171,20 +174,22 @@ async function putData(path = '', data = {}) {
 
   if (!status.startsWith('2')) {
     console.log('Error while putting data, status code: ' + status);
+
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
-      buttons: ['Ok'],
+      buttons: [ 'Ok' ],
     });
     await alert.present();
   } else {
     console.log('success' + status);
   }
+
   return response.json();
 }
 
 async function deleteData(path = '') {
-  const response = await fetch(API_BASE + '/' + path, {
+  const response = await fetch(`${API_BASE}/${path}`, {
     method: 'DELETE',
     mode: 'cors',
     cache: 'no-cache',
@@ -200,14 +205,16 @@ async function deleteData(path = '') {
 
   if (!status.startsWith('2')) {
     console.log('Error while deleting data, status code: ' + status);
+
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
-      buttons: ['Ok'],
+      buttons: [ 'Ok' ],
     });
     await alert.present();
   } else {
     console.log('success' + status);
   }
+
   return response.json();
 }
