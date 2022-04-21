@@ -17,6 +17,7 @@ export class PersistenceService {
     public readonly auth: AuthPersistence,
     public readonly user: UserPersistence,
     public readonly tag: TagPersistence,
+    public readonly contact: ContactPersistence,
   ) { }
 
 }
@@ -45,32 +46,28 @@ class AuthPersistence {
   }
 
   async verify(userId: number, verificationId: string) {
-    await putData(`register/${userId}/${verificationId}`);
+    return putData(`register/${userId}/${verificationId}`);
   }
 }
 
 class UserPersistence {
   async getById(userId: number) {
     return getData(`users/${userId}`)
-      .then(responseToJson)
       .then(res => { return res as User });
   }
 
   async getByTag(searchText: string) {
     return getData(`search/users/tags/${searchText}`)
-      .then(responseToJson)
       .then(res => { return res as User[] });
   }
   
   async getByEmail(email: string) {
     return getData(`login/${email}`)
-      .then(responseToJson)
       .then(res => { return res as User });
   }
   
   async getByRfid(rfid: string) {
     return getData(`users/rfid/${rfid}`)
-      .then(responseToJson)
       .then(res => { return res as User });
   }
 
@@ -79,47 +76,56 @@ class UserPersistence {
   }
 
   async delete(userId: number) {
-    await deleteData(`users/${userId}`);
+    return deleteData(`users/${userId}`);
   }
 }
 
 class TagPersistence {
   async create(user: User, text: string) {
-    await postData(`users/${user.userId}/tags/add/${text}`, user);
+    return postData(`users/${user.userId}/tags/add/${text}`, user);
   }
 
   async getByUser(userId: number) {
     return getData(`users/${userId}/tags`)
-      .then(responseToJson)
       .then(res => { return res as Tag[] });
   }
 
   async getDistinctByText(serachText: string) {
     return getData(`search/tags/${serachText}`)
-      .then(responseToJson)
       .then(res => { return res as Tag[] });
   }
 
   async getValidations(tagId: number) {
     return getData(`tags/${tagId}/validations`)
-      .then(responseToJson)
       .then(res => { return res as TagValidation[] });
   }
 
   async delete(tagId: number) {
-    await deleteData(`tags/${tagId}`);
+    return deleteData(`tags/${tagId}`);
+  }
+}
+
+class ContactPersistence {
+  async add(userId: number, toAddUserId: number) {
+    return postData(`users/${userId}/contacts/add/${toAddUserId}`);
+  }
+
+  async remove(userId: number, toRemoveUserId: number) {
+    return deleteData(`users/${userId}/contacts/${toRemoveUserId}`);
+  }
+
+  async getByUserId(userId: number) {
+    return getData(`users/${userId}/contacts`)
+      .then(res => { return res as User[] });
   }
 }
 
 // ========================================================
 // ========================================================
 
-function responseToJson(response: Response) {
-  return response.json();
-}
-
 async function getData(path = '') {
-  return fetch(`${API_BASE}/${path}`);
+  return fetch(`${API_BASE}/${path}`)
+    .then(res => res.json());
 }
 
 async function postData(path = '', data = {}) {
