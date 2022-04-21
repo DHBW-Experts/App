@@ -20,9 +20,8 @@ export class ContactsPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.persistence.getContactsByUserId(
-      LoginPage.user.userId
-    ).then(contacts => (this.contacts = contacts));
+    this.persistence.contact.getByUserId(LoginPage.user.userId)
+      .then(contacts => this.contacts = contacts);
   }
   
   openForeignProfile(userId) {
