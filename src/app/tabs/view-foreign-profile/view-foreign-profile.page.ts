@@ -36,7 +36,7 @@ export class ViewForeignProfilePage implements OnInit {
       this.user = user;
       this.isDataAvailable = true;
       
-      const contactsPromise = this.persistence.getContactsByUserId(
+      const contactsPromise = this.persistence.contact.getByUserId(
         LoginPage.user.userId
       ).then(contacts => {
         this.contacts = contacts;
@@ -67,11 +67,11 @@ export class ViewForeignProfilePage implements OnInit {
   }
   
   addContact() {
-    this.persistence.addUserToContacts(LoginPage.user.userId, this.user.userId);
+    this.persistence.contact.add(LoginPage.user.userId, this.user.userId);
   }
   
   removeContact() {
-    this.persistence.removeUserFromContacts(LoginPage.user.userId, this.user.userId);
+    this.persistence.contact.remove(LoginPage.user.userId, this.user.userId);
   }
 
   async addValidation() {
