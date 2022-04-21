@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Persistence } from 'src/app/models/persistence';
+import { PersistenceService } from 'src/app/services/persistence.service';
 import { LoginPage } from '../login/login.page';
 
 @Component({
@@ -8,7 +8,9 @@ import { LoginPage } from '../login/login.page';
   styleUrls: ['./verify.page.scss'],
 })
 export class VerifyPage implements OnInit {
-  constructor() {}
+  constructor(
+    private persistence: PersistenceService,
+  ) {}
 
   code_digit_field_1: String;
   code_digit_field_2: String;
@@ -26,7 +28,7 @@ export class VerifyPage implements OnInit {
       this.code_digit_field_4 +
       this.code_digit_field_5 +
       this.code_digit_field_6;
-    const persistence = new Persistence();
-    persistence.verifyUser(LoginPage.user.userId, verificationcode);
+
+    this.persistence.auth.verify(LoginPage.user.userId, verificationcode);
   }
 }

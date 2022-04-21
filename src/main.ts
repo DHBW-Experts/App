@@ -3,7 +3,6 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { LoginPage } from './app/auth/login/login.page';
-import { Persistence } from './app/models/persistence';
 import { User } from './app/models/user';
 import { environment } from './environments/environment';
 

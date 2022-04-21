@@ -61,7 +61,7 @@ class UserPersistence {
       .then(res => { return res as User[] });
   }
   
-  async getByEmail(email: string) {
+  async getByEmail(email: String) {
     return getData(`login/${email}`)
       .then(res => { return res as User });
   }
