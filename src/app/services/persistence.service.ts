@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { alertController } from '@ionic/core';
 import { Storage } from '@ionic/storage';
 import { Tag } from '../models/tag';
@@ -11,110 +12,104 @@ const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
   providedIn: 'root'
 })
 export class PersistenceService {
-
-  constructor(
-    public readonly local: LocalPersistence,
-    public readonly auth: AuthPersistence,
-    public readonly user: UserPersistence,
-    public readonly tag: TagPersistence,
-    public readonly contact: ContactPersistence,
-  ) { }
-
+  public readonly local = local;
+  public readonly auth = auth;
+  public readonly user = user;
+  public readonly tag = tag;
+  public readonly contact = contact;
 }
 
-class LocalPersistence {
-  constructor(
-    private storage: Storage
-  ) { }
+const local = {
+  setEmail: async (email: string) => {
+    const storage = new Storage();
+    await storage.create();
+    await storage.set('email', email);
+  },
 
-  async setEmail(email: string) {
-    await this.storage.create();
-    await this.storage.set('email', email);
-  }
-
-  async getEmail() {
-    await this.storage.create();
-    return this.storage.get('email');
+  getEmail: async () => {
+    const storage = new Storage();
+    await storage.create();
+    return storage.get('email');
   }
 }
 
-class AuthPersistence {
-  async register(user: User) {
+const auth = {
+  register: async (user: User) => {
     const response = await postData('register', user);
-
+    
     // ...
-  }
+  },
 
-  async verify(userId: number, verificationId: string) {
+  verify: async (userId: number, verificationId: string) => {
     return putData(`register/${userId}/${verificationId}`);
   }
 }
 
-class UserPersistence {
-  async getById(userId: number) {
+const user = {
+  getById: async (userId: number) => {
     return getData(`users/${userId}`)
       .then(res => { return res as User });
-  }
+  },
 
-  async getByTag(searchText: string) {
+  getByTag: async (searchText: string) => {
     return getData(`search/users/tags/${searchText}`)
       .then(res => { return res as User[] });
-  }
-  
-  async getByEmail(email: String) {
+  },
+
+  getByEmail: async (email: String) => {
     return getData(`login/${email}`)
       .then(res => { return res as User });
-  }
-  
-  async getByRfid(rfid: string) {
+  },
+
+  getByRfid: async (rfid: string) => {
     return getData(`users/rfid/${rfid}`)
       .then(res => { return res as User });
-  }
+  },
 
-  async edit(user: User) {
+  edit: async (user: User) => {
     return postData(`users/${user.userId}/edit`, user);
-  }
+  },
 
-  async delete(userId: number) {
+  delete: async (userId: number) => {
     return deleteData(`users/${userId}`);
   }
-}
+};
 
-class TagPersistence {
-  async create(user: User, text: string) {
+const tag = {
+  create: async (user: User, text: string) => {
     return postData(`users/${user.userId}/tags/add/${text}`, user);
-  }
+  },
 
-  async getByUser(userId: number) {
+  getByUser: async (userId: number) => {
     return getData(`users/${userId}/tags`)
       .then(res => { return res as Tag[] });
-  }
+  },
 
-  async getDistinctByText(serachText: string) {
-    return getData(`search/tags/${serachText}`)
+  getDistinctByText: async (searchText: string) => {
+    return getData(`search/tags/${searchText}`)
       .then(res => { return res as Tag[] });
-  }
+  },
 
-  async getValidations(tagId: number) {
+  getValidations: async (tagId: number) => {
     return getData(`tags/${tagId}/validations`)
       .then(res => { return res as TagValidation[] });
-  }
+  },
 
-  async delete(tagId: number) {
+  delete: async (tagId: number) => {
     return deleteData(`tags/${tagId}`);
   }
 }
 
-class ContactPersistence {
-  async add(userId: number, toAddUserId: number) {
+const contact = {
+  add: async (userId: number, toAddUserId: number) => {
     return postData(`users/${userId}/contacts/add/${toAddUserId}`);
-  }
+  },
 
-  async remove(userId: number, toRemoveUserId: number) {
+  remove: async (userId: number, toRemoveUserId: number) => {
     return deleteData(`users/${userId}/contacts/${toRemoveUserId}`);
-  }
+  },
 
-  async getByUserId(userId: number) {
+  getByUserId: async (userId: number) => {
     return getData(`users/${userId}/contacts`)
       .then(res => { return res as User[] });
   }
