@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { LoginPage } from '../../auth/login/login.page';
-import { Persistence } from '../../models/persistence';
 import { Tag } from '../../models/tag';
 import { alertController } from '@ionic/core';
 import { User } from '../../models/user';
 import { NFC } from '@ionic-native/nfc/ngx';
 import { Subscription } from 'rxjs';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,32 +21,35 @@ export class ProfilePage implements OnInit {
   user: User = null;
   isTagSelected = false;
   currentSelectedTag: Tag;
+
   private nfcSub: Subscription;
 
-  constructor(private route: Router, private nfc: NFC) {
-    this.route.events.subscribe((e) => {
+  constructor(
+    private route: Router,
+    private nfc: NFC,
+    private persistence: PersistenceService,
+  ) {
+    this.route.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-        const persistence = new Persistence();
-        const userPromise = persistence.getUserById(LoginPage.user.userId);
-        userPromise.then((result) => {
-          this.user = result;
+        this.persistence.user.getById(LoginPage.user.userId).then(user => {
+          this.user = user;
           this.isDataAvailable = true;
         });
-        const tagPromise = persistence.getTags(LoginPage.user.userId);
 
-        tagPromise.then((result) => {
-          this.tags = result;
+        this.persistence.tag.getByUser(LoginPage.user.userId).then(tags => {
+          this.tags = tags;
         });
       }
     });
   }
+
   ngOnInit(): void {}
 
   openEditPage() {
     this.route.navigate(['../edit-profile']);
   }
+  
   async addTag() {
-    const persistence = new Persistence();
     const alertController = new AlertController();
     const alert = await alertController.create({
       cssClass: 'my-custom-class',
@@ -74,10 +77,9 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ok',
           handler: (alertData) => {
-            persistence.addTag(this.user, alertData.tagText).then(() => {
-              const tagPromise2 = persistence.getTags(LoginPage.user.userId);
-              tagPromise2.then((result) => {
-                this.tags = result;
+            this.persistence.tag.create(this.user, alertData.tagText).then(() => {
+              this.persistence.tag.getByUser(LoginPage.user.userId).then(tags => {
+                this.tags = tags;
               });
             });
           },
@@ -90,14 +92,13 @@ export class ProfilePage implements OnInit {
   tagSelected(tag: Tag) {
     this.isTagSelected = true;
     this.currentSelectedTag = tag;
-    let persistence = new Persistence();
-    const tagValidationsPromise = persistence.getTagValidation(tag.tagId);
-    tagValidationsPromise.then((result) => {
-      this.tagValidations = result.map((validation) => validation.comment);
+
+    this.persistence.tag.getValidations(tag.tagId).then(validations => {
+      this.tagValidations = validations.map(validation => validation.comment);
     });
   }
+
   async deleteTag() {
-    const persistence = new Persistence();
     const alert = await alertController.create({
       header: 'Achtung',
       message:
@@ -116,11 +117,10 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ja',
           handler: () => {
-            persistence.deleteTag(this.currentSelectedTag.tagId);
-            //todo: not async
-            const tagPromise2 = persistence.getTags(LoginPage.user.userId);
-            tagPromise2.then((result) => {
-              this.tags = result;
+            this.persistence.tag.delete(this.currentSelectedTag.tagId).then(() => {
+              this.persistence.tag.getByUser(LoginPage.user.userId).then(tags => {
+                this.tags = tags;
+              })
             });
           },
         },
@@ -128,6 +128,7 @@ export class ProfilePage implements OnInit {
     });
     await alert.present();
   }
+
   async openScanPage() {
     const alert = await alertController.create({
       header: 'Information',
@@ -137,19 +138,23 @@ export class ProfilePage implements OnInit {
     await alert.present();
 
     const flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
+    
     this.nfcSub = this.nfc.readerMode(flags).subscribe((tag) => {
       const tagId = tag.id
         .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
         .join(':');
-      const persistence = new Persistence();
+      
       const user = LoginPage.user;
       user.rfidid = tagId;
-      persistence.editUser(user);
+      
+      this.persistence.user.edit(user);
     }, this.nfcErrHandler);
   }
+  
   nfcErrHandler(err: any) {
     console.log('Error reading tag', err);
   }
+
   ionViewDidLeave() {
     // Unsubscribe NFC reader
     this.nfcSub.unsubscribe();

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, AnimationBuilder, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
+import { PersistenceService } from 'src/app/services/persistence.service';
 import { LoginPage } from '../../auth/login/login.page';
-import { Persistence } from '../../models/persistence';
-
 import { User } from '../../models/user';
-const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
@@ -16,20 +15,23 @@ export class EditProfilePage implements OnInit {
   isDataAvailable: boolean = false;
   user: User = null;
 
-  constructor(private router: Router, private alertCtrl: AlertController, public toastController: ToastController) {
-    const persistence = new Persistence();
-    const userPromise = persistence.getUserById(LoginPage.user.userId);
-    userPromise.then((result) => {
-      this.user = result;
+  password: String;
+  password_wdh: String;
+  password_old: String;
+
+  constructor(
+    private router: Router,
+    private alertCtrl: AlertController,
+    private toastController: ToastController,
+    private persistence: PersistenceService,
+  ) {
+    this.persistence.user.getById(LoginPage.user.userId).then(user => {
+      this.user = user;
       this.isDataAvailable = true;
     });
   }
 
-  private persistence = new Persistence();
   ngOnInit(): void {}
-  password: String;
-  password_wdh: String;
-  password_old: String;
 
   async edit() {
     if (this.password !== this.password_wdh) {
@@ -39,21 +41,24 @@ export class EditProfilePage implements OnInit {
         buttons: ['Ok'],
       });
       alert.present();
+      
       this.password = '';
       this.password_wdh = '';
+      
       return;
     }
-    const response = this.persistence.editUser(this.user);
-    response.then((result) => {
-      if(!String(result).startsWith('2')){
-          this.presentChangesFailed();
+
+    this.persistence.user.edit(this.user).then(code => {
+      if(!String(code).startsWith('2')){
+        this.presentChangesFailed();
       } else {
-          LoginPage.user = this.user;
-          this.backToProfilePage();
-          this.presentChanged();
+        LoginPage.user = this.user;
+        this.backToProfilePage();
+        this.presentChanged();
       }
     })
   }
+
   async delete() {
     const alert = await alertController.create({
       header: 'Achtung',
@@ -70,8 +75,9 @@ export class EditProfilePage implements OnInit {
         {
           text: 'Ja',
           handler: () => {
-            this.persistence.deleteUser(this.user.userId);
+            this.persistence.user.delete(this.user.userId);
             this.router.navigate(['/login']);
+            
             LoginPage.user = null;
           },
         },

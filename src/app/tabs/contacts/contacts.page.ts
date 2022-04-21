@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginPage } from 'src/app/auth/login/login.page';
-import { Persistence } from 'src/app/models/persistence';
 import { User } from 'src/app/models/user';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-contacts',
@@ -10,16 +10,20 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./contacts.page.scss'],
 })
 export class ContactsPage implements OnInit {
-  constructor(private route: Router) {}
   contacts: User[];
+  
+  constructor(
+    private route: Router,
+    private persistence: PersistenceService,
+  ) {}
+  
   ngOnInit() {}
+
   ionViewWillEnter() {
-    const persistence = new Persistence();
-    const contactsPromise = persistence.getContactsByUserId(
-      LoginPage.user.userId
-    );
-    contactsPromise.then((result) => (this.contacts = result));
+    this.persistence.contact.getByUserId(LoginPage.user.userId)
+      .then(contacts => this.contacts = contacts);
   }
+  
   openForeignProfile(userId) {
     this.route.navigate(['../view-foreign-profile', { id: userId }]);
   }

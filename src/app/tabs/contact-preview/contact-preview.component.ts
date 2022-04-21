@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ContactPreviewComponent implements OnInit {
   @Input() public user: any;
+  
   constructor() {}
+  
   ngOnInit() {}
 }

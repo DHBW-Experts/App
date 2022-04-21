@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
-import { Persistence } from 'src/app/models/persistence';
 import { User } from 'src/app/models/user';
+import { PersistenceService } from 'src/app/services/persistence.service';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +15,19 @@ export class LoginPage implements OnInit {
   static user: User; // this is the global user object
   email: String;
   password: String;
-  constructor(public formBuilder: FormBuilder, private router: Router) {}
+
+  constructor(
+    public formBuilder: FormBuilder,
+    private router: Router,
+    private persistence: PersistenceService,
+  ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       // evtl. Validation der Inputs aufsetzen
     });
-    const persistence = new Persistence();
 
-    persistence
-      .getUserEmailFromLocalStorage()
+    this.persistence.local.getEmail()
       .then((result) => (this.email = result));
   }
 
@@ -33,7 +36,6 @@ export class LoginPage implements OnInit {
    */
 
   async login() {
-    const persistence = new Persistence();
     if (
       this.email == null ||
       this.password == null ||
@@ -47,8 +49,7 @@ export class LoginPage implements OnInit {
       });
       await alert.present();
     } else {
-      const userPromise = persistence.getUserByEmail(this.email);
-      userPromise.then(async (result) => {
+      this.persistence.user.getByEmail(this.email).then(async (result) => {
         if (!result.userId) {
           const alert = await alertController.create({
             header: 'Fehler',
@@ -59,7 +60,7 @@ export class LoginPage implements OnInit {
           return;
         }
         LoginPage.user = result;
-        persistence.saveUserEmailToLocalStorage(result.email.toString());
+        this.persistence.local.setEmail(result.email.toString());
         this.router.navigate(['../tabs/profile']);
       });
     }

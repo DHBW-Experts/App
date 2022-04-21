@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
-import { Persistence } from 'src/app/models/persistence';
 import { User } from 'src/app/models/user';
+import { PersistenceService } from 'src/app/services/persistence.service';
 import { LoginPage } from '../login/login.page';
 
 @Component({
@@ -29,7 +29,11 @@ export class RegisterPage implements OnInit {
   password: String;
   passwordwdh: String;
 
-  constructor(public formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    public formBuilder: FormBuilder,
+    private router: Router,
+    private persistence: PersistenceService
+  ) { }
 
   ngOnInit() {
     // Validation der Inputs aufsetzen
@@ -78,8 +82,8 @@ export class RegisterPage implements OnInit {
       this.password,
       email
     );
-    const persistence = new Persistence();
-    persistence.registerUser(user);
+    
+    this.persistence.auth.register(user);
     this.router.navigate(['../../tabs/search']);
   }
 

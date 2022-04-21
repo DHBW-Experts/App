@@ -1,4 +1,4 @@
-import { Persistence } from './persistence';
+import { PersistenceService } from '../services/persistence.service';
 import { TagValidation } from './tag-validation';
 
 export class Tag {
@@ -10,6 +10,10 @@ export class Tag {
   tmsCreated: String;
   userNavigation: String;
 
+  constructor(
+    private persistence: PersistenceService,
+  ) { }
+
   /*   tagValidations: [];
 
   getValidation(index: number): TagValidation {
@@ -17,10 +21,8 @@ export class Tag {
   } */
 
   getValidationCount() {
-    const persistence = new Persistence();
-    const tagPromise = persistence.getTagValidation(this.tagId);
-    tagPromise.then((result) => {
-      const tagVal = result;
+    this.persistence.tag.getValidations(this.tagId).then(validations => {
+      const tagVal = validations;
       return tagVal.length;
     });
   }
