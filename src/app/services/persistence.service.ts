@@ -66,6 +66,28 @@ const user = {
       .then(res => { return res as User });
   },
 
+  getByName: async (name: string) => {
+    return getData(`users/??/${name}`).then((res) => {
+      return res as User[];
+    });
+  },
+
+  getByCourse: async (course: string) => {
+    return getData(`users/??/${course}`).then((res) => {
+      return res as User[];
+    });
+  },
+  getByCourseAbr: async (abr: string) => {
+    return getData(`users/??/${abr}`).then((res) => {
+      return res as User[];
+    });
+  },
+  getByLocation: async (location: string) => {
+    return getData(`users/??/${location}`).then((res) => {
+      return res as User[];
+    });
+  },
+
   edit: async (user: User) => {
     return postData(`users/${user.userId}/edit`, user);
   },
