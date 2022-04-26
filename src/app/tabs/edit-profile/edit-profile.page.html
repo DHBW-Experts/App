@@ -1,5 +1,5 @@
 <body>
-  <div id="Bearbeiten">
+  <div id="Bearbeiten" (change)="detectChanges()">
     <div id="top-nav">
       <button id="backArrowButton" (click)="backToProfilePage()">
         <img src="assets/icon/arrow_back.svg" alt="back" id="back" />
@@ -137,7 +137,7 @@
         Profil löschen
       </button>
     </div>
-    <div id="bottom-nav">
+    <div id="bottom-nav" [style.visibility]="buttonVisibility">
       <button id="Register_Button" class="Default_Button" (click)="edit()">
         Änderungen Speichern
       </button>

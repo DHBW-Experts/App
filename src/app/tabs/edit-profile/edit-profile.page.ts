@@ -18,6 +18,7 @@ export class EditProfilePage implements OnInit {
   password: String;
   password_wdh: String;
   password_old: String;
+  buttonVisibility: String = "hidden";
 
   constructor(
     private router: Router,
@@ -57,6 +58,10 @@ export class EditProfilePage implements OnInit {
         this.presentChanged();
       }
     })
+  }
+
+  async detectChanges() {
+    this.buttonVisibility = "visible";
   }
 
   async delete() {
