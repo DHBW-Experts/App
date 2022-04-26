@@ -59,6 +59,12 @@ export class EditProfilePage implements OnInit {
     })
   }
 
+  // (change) or (ngModelChange) both do the same, change can be applied to the div and so the whole page.
+  // With both ways, its working/setting the visibility, but its not becoming visible
+  async detectChanges() {
+    document.getElementById('bottom-nav').setAttribute('visibility', 'visible');
+  }
+
   async delete() {
     const alert = await alertController.create({
       header: 'Achtung',
