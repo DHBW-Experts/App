@@ -46,7 +46,20 @@ const auth = {
 
 const user = {
   getById: async (userId: number) => {
-    return { id: 1234 };
+    return {
+      userId: userId,
+      firstName: 'MaxMock',
+      lastName: 'Mustermann',
+      dhbw: 'Karlsruhe',
+      course: 'Informatik',
+      courseAbr: 'TINF20B2',
+      specialization: 'Angewandte Informatik',
+      email: 'mustermann.max@student.dhbw-karlsruhe.de',
+      city: 'Ettlingen',
+      biography: 'Hello World!!',
+      isVerified: true,
+      tmsCreated: '2022-04-24T21:37:07.183',
+    };
   },
 
   getByTag: async (searchText: string) => {
@@ -136,8 +149,7 @@ const contact = {
   },
 
   getByUserId: async (userId: number) => {
-    console.log('in contact stub');
-    return [];
+    return { userId: 1000, firstName: 'Max', lastName: 'Mustermann' };
   },
 };
 
