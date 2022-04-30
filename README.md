@@ -2,6 +2,7 @@
 
 This repository contains the source code of the DHBW-Experts Ionic App.
 
+![build](https://img.shields.io/github/workflow/status/DHBW-Experts/app/Build%20and%20deploy%20container%20app%20to%20Azure%20Web%20App%20-%20DHBW-Experts)
 
 
 ## Setup
