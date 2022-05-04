@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+      import('./tabs/profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
     path: 'verify',
