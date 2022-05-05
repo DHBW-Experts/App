@@ -10,7 +10,7 @@ if (environment.production) {
   enableProdMode();
 }
 LoginPage.user = new User();
-LoginPage.user.userId = 1000; //"default user" TODO: remove for prod :)
+LoginPage.user.userId = '626db6676c48dc006a2dcb17'; //"default user" TODO: remove for prod :)
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
