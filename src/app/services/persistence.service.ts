@@ -9,61 +9,52 @@ import { User } from '../models/user';
 const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersistenceService {
-  public readonly local = local;
-  public readonly auth = auth;
+  public readonly auth0 = auth0;
   public readonly user = user;
   public readonly tag = tag;
   public readonly contact = contact;
 }
 
-const local = {
-  setEmail: async (email: string) => {
-    const storage = new Storage();
-    await storage.create();
-    await storage.set('email', email);
-  },
-
-  getEmail: async () => {
-    const storage = new Storage();
-    await storage.create();
-    return storage.get('email');
-  }
-}
-
-const auth = {
+const auth0 = {
   register: async (user: User) => {
-    const response = await postData('register', user);
-    
-    // ...
+    await postData('register', user); //require auth0userid and email
   },
-
-  verify: async (userId: number, verificationId: string) => {
-    return putData(`register/${userId}/${verificationId}`);
-  }
-}
+  checkdomain: async (domain: String) => {
+    //body in get request??
+    await getData();
+  },
+};
 
 const user = {
-  getById: async (userId: number) => {
-    return getData(`users/${userId}`)
-      .then(res => { return res as User });
+  register: async (user: User, id: string) => {
+    postData(id, user);
+  },
+
+  getById: async (userId: string) => {
+    return getData(`users/${userId}`).then((res) => {
+      return res as User;
+    });
   },
 
   getByTag: async (searchText: string) => {
-    return getData(`search/users/tags/${searchText}`)
-      .then(res => { return res as User[] });
+    return getData(`search/users/tags/${searchText}`).then((res) => {
+      return res as User[];
+    });
   },
 
   getByEmail: async (email: String) => {
-    return getData(`login/${email}`)
-      .then(res => { return res as User });
+    return getData(`login/${email}`).then((res) => {
+      return res as User;
+    });
   },
 
   getByRfid: async (rfid: string) => {
-    return getData(`users/rfid/${rfid}`)
-      .then(res => { return res as User });
+    return getData(`users/rfid/${rfid}`).then((res) => {
+      return res as User;
+    });
   },
 
   getByName: async (name: string) => {
@@ -89,60 +80,68 @@ const user = {
   },
 
   edit: async (user: User) => {
-    return postData(`users/${user.userId}/edit`, user);
+    return patchData(`users/${user.userId}/edit`, user);
   },
 
-  delete: async (userId: number) => {
+  delete: async (userId: string) => {
     return deleteData(`users/${userId}`);
-  }
+  },
 };
 
 const tag = {
   create: async (user: User, text: string) => {
-    return postData(`users/${user.userId}/tags/add/${text}`, user);
+    return postData(`users/${user.userId}/tags/${text}`, user);
   },
 
-  getByUser: async (userId: number) => {
-    return getData(`users/${userId}/tags`)
-      .then(res => { return res as Tag[] });
+  getByUser: async (userId: string) => {
+    return getData(`users/${userId}/tags`).then((res) => {
+      return res as Tag[];
+    });
   },
 
   getDistinctByText: async (searchText: string) => {
-    return getData(`search/tags/${searchText}`)
-      .then(res => { return res as Tag[] });
+    return getData(`search/tags/${searchText}`).then((res) => {
+      return res as Tag[];
+    });
   },
 
   getValidations: async (tagId: number) => {
-    return getData(`tags/${tagId}/validations`)
-      .then(res => { return res as TagValidation[] });
+    return getData(`tags/${tagId}/validations`).then((res) => {
+      return res as TagValidation[];
+    });
   },
 
-  delete: async (tagId: number) => {
-    return deleteData(`tags/${tagId}`);
-  }
-}
+  delete: async (tagId: number, userId: string) => {
+    return deleteData(`users/${userId}/tags/${tagId}`);
+  },
+  getById: async (id: string) => {
+    return getData(`tags/${id}`).then((res) => {
+      return res as Tag;
+    });
+  },
+};
 
 const contact = {
-  add: async (userId: number, toAddUserId: number) => {
-    return postData(`users/${userId}/contacts/add/${toAddUserId}`);
+  add: async (userId: string, toAddUserId: string) => {
+    return postData(`users/${userId}/contacts/${toAddUserId}`);
   },
 
-  remove: async (userId: number, toRemoveUserId: number) => {
+  remove: async (userId: string, toRemoveUserId: string) => {
     return deleteData(`users/${userId}/contacts/${toRemoveUserId}`);
   },
 
-  getByUserId: async (userId: number) => {
-    return getData(`users/${userId}/contacts`)
-      .then(res => { return res as User[] });
-  }
-}
+  getByUserId: async (userId: string) => {
+    return getData(`users/${userId}/contacts`).then((res) => {
+      return res as User[];
+    });
+  },
+};
 
 // ========================================================
 // ========================================================
 
 async function getData(path = '') {
-  return fetch(`${API_BASE}/${path}`)
-    .then(res => res.json());
+  return fetch(`${API_BASE}/${path}`).then((res) => res.json());
 }
 
 async function postData(path = '', data = {}) {
@@ -167,9 +166,9 @@ async function postData(path = '', data = {}) {
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
-      buttons: [ 'Ok' ],
+      buttons: ['Ok'],
     });
-    await alert.present();   
+    await alert.present();
   } else {
     console.log('success with status ' + status);
 
@@ -201,7 +200,39 @@ async function putData(path = '', data = {}) {
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
-      buttons: [ 'Ok' ],
+      buttons: ['Ok'],
+    });
+    await alert.present();
+  } else {
+    console.log('success' + status);
+  }
+
+  return response.json();
+}
+
+async function patchData(path = '', data = {}) {
+  const response = await fetch(`${API_BASE}/${path}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(data),
+  });
+
+  const status = String(response.status);
+
+  if (!status.startsWith('2')) {
+    console.log('Error while patching data, status code: ' + status);
+
+    const alert = await alertController.create({
+      header: 'Fehler',
+      message: 'Fehler ' + status,
+      buttons: ['Ok'],
     });
     await alert.present();
   } else {
@@ -232,7 +263,7 @@ async function deleteData(path = '') {
     const alert = await alertController.create({
       header: 'Fehler',
       message: 'Fehler ' + status,
-      buttons: [ 'Ok' ],
+      buttons: ['Ok'],
     });
     await alert.present();
   } else {
