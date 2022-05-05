@@ -23,12 +23,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./tabs/profile/profile.module').then((m) => m.ProfilePageModule),
-  },
-  {
-    path: 'verify',
-    loadChildren: () =>
-      import('./auth/verify/verify.module').then((m) => m.VerifyPageModule),
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
 ];
 @NgModule({

@@ -27,16 +27,16 @@ export class ProfilePage implements OnInit {
   constructor(
     private route: Router,
     private nfc: NFC,
-    private persistence: PersistenceService,
+    private persistence: PersistenceService
   ) {
-    this.route.events.subscribe(e => {
+    this.route.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        this.persistence.user.getById(LoginPage.user.userId).then(user => {
+        this.persistence.user.getById(LoginPage.user.userId).then((user) => {
           this.user = user;
           this.isDataAvailable = true;
         });
 
-        this.persistence.tag.getByUser(LoginPage.user.userId).then(tags => {
+        this.persistence.tag.getByUser(LoginPage.user.userId).then((tags) => {
           this.tags = tags;
         });
       }
@@ -48,7 +48,7 @@ export class ProfilePage implements OnInit {
   openEditPage() {
     this.route.navigate(['../edit-profile']);
   }
-  
+
   async addTag() {
     const alertController = new AlertController();
     const alert = await alertController.create({
@@ -77,11 +77,15 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ok',
           handler: (alertData) => {
-            this.persistence.tag.create(this.user, alertData.tagText).then(() => {
-              this.persistence.tag.getByUser(LoginPage.user.userId).then(tags => {
-                this.tags = tags;
+            this.persistence.tag
+              .create(this.user, alertData.tagText)
+              .then(() => {
+                this.persistence.tag
+                  .getByUser(LoginPage.user.userId)
+                  .then((tags) => {
+                    this.tags = tags;
+                  });
               });
-            });
           },
         },
       ],
@@ -93,8 +97,8 @@ export class ProfilePage implements OnInit {
     this.isTagSelected = true;
     this.currentSelectedTag = tag;
 
-    this.persistence.tag.getValidations(tag.tagId).then(validations => {
-      this.tagValidations = validations.map(validation => validation.comment);
+    this.persistence.tag.getValidations(tag.tagId).then((validations) => {
+      this.tagValidations = validations.map((validation) => validation.comment);
     });
   }
 
@@ -117,11 +121,15 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ja',
           handler: () => {
-            this.persistence.tag.delete(this.currentSelectedTag.tagId).then(() => {
-              this.persistence.tag.getByUser(LoginPage.user.userId).then(tags => {
-                this.tags = tags;
-              })
-            });
+            this.persistence.tag
+              .delete(this.currentSelectedTag.tagId, LoginPage.user.userId)
+              .then(() => {
+                this.persistence.tag
+                  .getByUser(LoginPage.user.userId)
+                  .then((tags) => {
+                    this.tags = tags;
+                  });
+              });
           },
         },
       ],
@@ -138,19 +146,19 @@ export class ProfilePage implements OnInit {
     await alert.present();
 
     const flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
-    
+
     this.nfcSub = this.nfc.readerMode(flags).subscribe((tag) => {
       const tagId = tag.id
         .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
         .join(':');
-      
+
       const user = LoginPage.user;
       user.rfidid = tagId;
-      
+
       this.persistence.user.edit(user);
     }, this.nfcErrHandler);
   }
-  
+
   nfcErrHandler(err: any) {
     console.log('Error reading tag', err);
   }

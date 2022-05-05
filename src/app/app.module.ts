@@ -21,7 +21,7 @@ import { PersistenceService } from './services/persistence.service';
     AuthModule.forRoot({
       domain: 'dhbw-experts.eu.auth0.com',
       clientId: 'XLYPvlQsSiVxy178YXv3NoYEAruXHn3I',
-      redirectUri: 'http://localhost:4200',
+      redirectUri: 'http://localhost:4200/tabs/profile', //TODO pls help??
     }),
   ],
   providers: [
