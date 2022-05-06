@@ -80,7 +80,7 @@ const user = {
   },
 
   edit: async (user: User) => {
-    return patchData(`users/${user.userId}/edit`, user);
+    return patchData(`users/${user.userId}`, user);
   },
 
   delete: async (userId: string) => {
@@ -237,6 +237,7 @@ async function patchData(path = '', data = {}) {
     await alert.present();
   } else {
     console.log('success' + status);
+    return Promise.resolve(200);
   }
 
   return response.json();
