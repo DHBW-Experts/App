@@ -11,7 +11,7 @@
         <div class="Default_Input_Text"><span>Vorname</span></div>
         <input
           type="text"
-          placeholder="{{user.firstName}}"
+          placeholder="{{user.firstname}}"
           class="Default_Input_Field"
           id="firstname_input"
           disabled
@@ -22,7 +22,7 @@
         <div class="Default_Input_Text"><span>Nachname</span></div>
         <input
           type="text"
-          placeholder="{{user.lastName}}"
+          placeholder="{{user.lastname}}"
           class="Default_Input_Field"
           id="lastname_input"
           disabled
@@ -45,7 +45,7 @@
           id="standort"
           class="Splitted_Dropdown_Field"
           placeholder="Karlsruhe"
-          value="{{user.dhbw}}"
+          value="{{user.dhbwLocation}}"
           *ngIf="isDataAvailable"
           disabled
         />
@@ -94,7 +94,7 @@
           type="text"
           class="Default_Input_Field"
           *ngIf="isDataAvailable"
-          [(ngModel)]="user.courseAbr"
+          [(ngModel)]="user.courseAbbr"
         />
       </div>
       <div class="Default_Input" id="Stadt">
@@ -104,33 +104,6 @@
           class="Default_Input_Field"
           *ngIf="isDataAvailable"
           [(ngModel)]="user.city"
-        />
-      </div>
-      <div class="Default_Input" id="Passwort_alt">
-        <div class="Default_Input_Text"><span>Altes Passwort</span></div>
-        <input
-          type="password"
-          class="Default_Input_Field"
-          placeholder="nur bei Passwort-Änderung"
-          [(ngModel)]="password_old"
-        />
-      </div>
-      <div class="Default_Input" id="Passwort">
-        <div class="Default_Input_Text"><span>Passwort</span></div>
-        <input
-          type="password"
-          class="Default_Input_Field"
-          placeholder="nur bei Passwort-Änderung"
-          [(ngModel)]="password"
-        />
-      </div>
-      <div class="Default_Input" id="Passwort-WDH">
-        <div class="Default_Input_Text"><span>Passwort Wiederholung</span></div>
-        <input
-          type="password"
-          class="Default_Input_Field"
-          placeholder="nur bei Passwort-Änderung"
-          [(ngModel)]="password_wdh"
         />
       </div>
       <button id="Delete_Button" class="Default_Button" (click)="delete()">

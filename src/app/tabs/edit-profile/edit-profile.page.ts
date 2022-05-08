@@ -14,19 +14,14 @@ import { User } from '../../models/user';
 export class EditProfilePage implements OnInit {
   isDataAvailable: boolean = false;
   user: User = null;
-
-  password: String;
-  password_wdh: String;
-  password_old: String;
-  buttonVisibility: String = "hidden";
+  buttonVisibility: String = 'hidden';
 
   constructor(
     private router: Router,
-    private alertCtrl: AlertController,
     private toastController: ToastController,
-    private persistence: PersistenceService,
+    private persistence: PersistenceService
   ) {
-    this.persistence.user.getById(LoginPage.user.userId).then(user => {
+    this.persistence.user.getById(LoginPage.user.userId).then((user) => {
       this.user = user;
       this.isDataAvailable = true;
     });
@@ -35,33 +30,19 @@ export class EditProfilePage implements OnInit {
   ngOnInit(): void {}
 
   async edit() {
-    if (this.password !== this.password_wdh) {
-      let alert = await this.alertCtrl.create({
-        header: 'Fehler',
-        message: 'Die Passwörter stimmen nicht überein!',
-        buttons: ['Ok'],
-      });
-      alert.present();
-      
-      this.password = '';
-      this.password_wdh = '';
-      
-      return;
-    }
-
-    this.persistence.user.edit(this.user).then(code => {
-      if(!String(code).startsWith('2')){
+    this.persistence.user.edit(this.user).then((code) => {
+      if (!String(code).startsWith('2')) {
         this.presentChangesFailed();
       } else {
         LoginPage.user = this.user;
         this.backToProfilePage();
         this.presentChanged();
       }
-    })
+    });
   }
 
   async detectChanges() {
-    this.buttonVisibility = "visible";
+    this.buttonVisibility = 'visible';
   }
 
   async delete() {
@@ -82,7 +63,7 @@ export class EditProfilePage implements OnInit {
           handler: () => {
             this.persistence.user.delete(this.user.userId);
             this.router.navigate(['/login']);
-            
+
             LoginPage.user = null;
           },
         },
@@ -97,10 +78,11 @@ export class EditProfilePage implements OnInit {
 
   async presentChanged() {
     const toast = await this.toastController.create({
-      message: '<ion-icon name="checkmark-outline"></ion-icon>  Deine Änderungen wurden gespeichert.',
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Deine Änderungen wurden gespeichert.',
       position: 'top',
       color: 'success',
-      duration: 800
+      duration: 800,
     });
     toast.present();
   }
@@ -108,10 +90,11 @@ export class EditProfilePage implements OnInit {
   async presentChangesFailed() {
     const toast = await this.toastController.create({
       header: 'Etwas ist schiefgelaufen!',
-      message: '\nDeine Änderungen konnten nicht gespeichert werden. Bitte warte einen Augenblick und versuche es erneut oder wende dich an unseren Support.',
+      message:
+        '\nDeine Änderungen konnten nicht gespeichert werden. Bitte warte einen Augenblick und versuche es erneut oder wende dich an unseren Support.',
       position: 'top',
       color: 'danger',
-      duration: 3200
+      duration: 3200,
     });
     toast.present();
   }

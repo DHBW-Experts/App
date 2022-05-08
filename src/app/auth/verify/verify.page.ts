@@ -8,9 +8,7 @@ import { LoginPage } from '../login/login.page';
   styleUrls: ['./verify.page.scss'],
 })
 export class VerifyPage implements OnInit {
-  constructor(
-    private persistence: PersistenceService,
-  ) {}
+  constructor(private persistence: PersistenceService) {}
 
   code_digit_field_1: String;
   code_digit_field_2: String;
@@ -29,6 +27,6 @@ export class VerifyPage implements OnInit {
       this.code_digit_field_5 +
       this.code_digit_field_6;
 
-    this.persistence.auth.verify(LoginPage.user.userId, verificationcode);
+    //this.persistence.auth0.verify(LoginPage.user.userId, verificationcode); handle with auth0
   }
 }

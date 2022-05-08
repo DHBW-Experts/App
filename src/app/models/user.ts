@@ -21,10 +21,10 @@ export class User {
   constructor(
     public firstname?: String,
     public lastname?: String,
-    public dhbw?: String,
+    public dhbwLocation?: String,
     public course?: String,
     public specialization?: String,
-    public courseAbr?: String,
+    public courseAbbr?: String,
     public pwhash?: String,
     public emailprefix?: String,
     public email?: String,
@@ -33,9 +33,8 @@ export class User {
     public bio?: String,
     public contacts?: Array<User>,
     public skills?: Array<Tag>,
-    public profilePicutre?: HTMLImageElement,
     public rfidid?: String,
-    public userId?: number,
+    public userId?: string,
     public isVerified?: boolean,
     public tmsCreated?: String
   ) {}

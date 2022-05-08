@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 import { alertController } from '@ionic/core';
 import { User } from 'src/app/models/user';
 import { PersistenceService } from 'src/app/services/persistence.service';
+
+import { mergeMap } from 'rxjs/operators';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-login',
@@ -20,15 +24,11 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     private router: Router,
     private persistence: PersistenceService,
-  ) { }
+    public auth: AuthService
+  ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      // evtl. Validation der Inputs aufsetzen
-    });
-
-    this.persistence.local.getEmail()
-      .then((result) => (this.email = result));
+    this.login();
   }
 
   /**
@@ -36,34 +36,10 @@ export class LoginPage implements OnInit {
    */
 
   async login() {
-    if (
-      this.email == null ||
-      this.password == null ||
-      this.email == '' ||
-      this.password == ''
-    ) {
-      const alert = await alertController.create({
-        header: 'Fehler',
-        message: 'Daten nicht vollständig',
-        buttons: ['Ok'],
-      });
-      await alert.present();
-    } else {
-      this.persistence.user.getByEmail(this.email).then(async (result) => {
-        if (!result.userId) {
-          const alert = await alertController.create({
-            header: 'Fehler',
-            message: 'Ungültige Anmeldedaten',
-            buttons: ['Ok'],
-          });
-          await alert.present();
-          return;
-        }
-        LoginPage.user = result;
-        this.persistence.local.setEmail(result.email.toString());
-        this.router.navigate(['../tabs/profile']);
-      });
-    }
+    this.auth
+      .buildAuthorizeUrl()
+      .pipe(mergeMap((url) => Browser.open({ url, windowName: '_self' })))
+      .subscribe();
   }
 
   openRegisterPage() {
