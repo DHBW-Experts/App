@@ -9,7 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { alertController } from '@ionic/core';
 import { User } from 'src/app/models/user';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/services/persistence/persistence.service';
 import { LoginPage } from '../login/login.page';
 
 @Component({
@@ -83,7 +83,7 @@ export class RegisterPage implements OnInit {
       email
     );
 
-    this.persistence.auth0.register(user); //this page become obsolete so who cares...
+    //this.persistence.auth0.register(user); //this page become obsolete so who cares...
     this.router.navigate(['../../tabs/search']);
   }
 

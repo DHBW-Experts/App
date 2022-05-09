@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { alertController } from '@ionic/core';
 import { Storage } from '@ionic/storage';
-import { Tag } from '../models/tag';
-import { TagValidation } from '../models/tag-validation';
-import { User } from '../models/user';
+import { Tag } from '../../models/tag';
+import { TagValidation } from '../../models/tag-validation';
+import { User } from '../../models/user';
 
 const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
@@ -12,21 +12,10 @@ const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
   providedIn: 'root',
 })
 export class PersistenceService {
-  public readonly auth0 = auth0;
   public readonly user = user;
   public readonly tag = tag;
   public readonly contact = contact;
 }
-
-const auth0 = {
-  register: async (user: User) => {
-    await postData('register', user); //require auth0userid and email
-  },
-  checkdomain: async (domain: String) => {
-    //body in get request??
-    await getData();
-  },
-};
 
 const user = {
   register: async (user: User, id: string) => {

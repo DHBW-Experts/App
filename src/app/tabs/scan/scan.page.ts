@@ -4,7 +4,7 @@ import { NFC, NfcTag } from '@ionic-native/nfc/ngx';
 import { ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { Subscription } from 'rxjs';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-scan',

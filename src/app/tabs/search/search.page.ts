@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tag } from 'src/app/models/tag';
 import { User } from 'src/app/models/user';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-search',

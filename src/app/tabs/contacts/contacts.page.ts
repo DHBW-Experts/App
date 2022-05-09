@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginPage } from 'src/app/auth/login/login.page';
 import { User } from 'src/app/models/user';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-contacts',

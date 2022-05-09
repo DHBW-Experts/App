@@ -31,33 +31,12 @@
       </div>
     </div>
     <div id="SignUpFields">
-      <div class="Default_Input" id="DHBW-E-Mail-Adresse">
-        <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
-        <input type="email" class="Default_Input_Field" [(ngModel)]="email" />
-      </div>
-      <div class="Default_Input" id="Passwort">
-        <div class="Default_Input_Text"><span>Passwort</span></div>
-        <input
-          type="password"
-          class="Default_Input_Field"
-          [(ngModel)]="password"
-        />
-      </div>
       <button id="Register_Button" class="Default_Button" (click)="login()">
         Anmelden
       </button>
+      <p
+      *ngIf="auth.isAuthenticated$ | async"
+    >logged in</p>
     </div>
-    <button id="RegisterButton">
-      <span>Du hast noch keinen Account? </span>
-      <span
-        style="
-          font-style: normal;
-          font-weight: bold;
-          color: rgba(178, 0, 45, 1);
-        "
-      >
-        <a (click)="openRegisterPage()"> Registrieren </a>
-      </span>
-    </button>
   </div>
 </body>

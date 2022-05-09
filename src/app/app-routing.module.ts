@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CallbackComponent } from './auth/login/callback/callback.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
@@ -8,6 +10,7 @@ const routes: Routes = [
       import('./auth/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -15,9 +18,12 @@ const routes: Routes = [
       import('./auth/login/login.module').then((m) => m.LoginPageModule),
   },
   {
+    path: 'callback',
+    component: CallbackComponent,
+  },
+  {
     path: '',
     loadChildren: () =>
-      //import('./tabs/tabs.module').then((m) => m.TabsPageModule),
       import('./auth/login/login.module').then((m) => m.LoginPageModule),
   },
   {

@@ -4,7 +4,7 @@ import { alertController } from '@ionic/core';
 import { LoginPage } from 'src/app/auth/login/login.page';
 import { Tag } from 'src/app/models/tag';
 import { User } from 'src/app/models/user';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-view-foreign-profile',

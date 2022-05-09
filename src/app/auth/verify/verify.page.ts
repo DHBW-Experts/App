@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/services/persistence/persistence.service';
 import { LoginPage } from '../login/login.page';
 
 @Component({
