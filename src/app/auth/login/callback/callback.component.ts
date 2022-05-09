@@ -21,6 +21,7 @@ export class CallbackComponent implements OnInit {
       queryParams.has('state') &&
       (queryParams.has('error') || queryParams.has('code'))
     ) {
+      console.log(this.route.snapshot.url.join(''));
       this.auth
         .handleRedirectCallback(this.route.snapshot.url.join(''))
         .pipe(mergeMap(() => Browser.close()))

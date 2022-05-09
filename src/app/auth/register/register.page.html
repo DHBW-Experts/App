@@ -72,7 +72,7 @@
           id="standort"
           class="Splitted_Dropdown_Field"
           (change)="restoreMailExample()"
-          [(ngModel)]="dhbw"
+          [(ngModel)]="dhbwLocation"
         >
           <option value="not-set">----</option>
           <option value="Karlsruhe">Karlsruhe</option>
@@ -108,23 +108,7 @@
           type="text"
           placeholder="TINF20B2"
           class="Default_Input_Field"
-          [(ngModel)]="courseAbr"
-        />
-      </div>
-      <div class="Default_Input" id="Passwort">
-        <div class="Default_Input_Text"><span>Passwort</span></div>
-        <input
-          type="password"
-          class="Default_Input_Field"
-          [(ngModel)]="password"
-        />
-      </div>
-      <div class="Default_Input" id="Passwort-WDH">
-        <div class="Default_Input_Text"><span>Passwort Wiederholung</span></div>
-        <input
-          type="password"
-          class="Default_Input_Field"
-          [(ngModel)]="passwordwdh"
+          [(ngModel)]="courseAbbr"
         />
       </div>
     </div>

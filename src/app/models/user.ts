@@ -19,23 +19,22 @@ export class User {
   getID(scan: NfcScan) {} //? doesnt really make sense, but ok
 
   constructor(
-    public firstname?: String,
-    public lastname?: String,
-    public dhbwLocation?: String,
-    public course?: String,
-    public specialization?: String,
-    public courseAbbr?: String,
-    public pwhash?: String,
-    public emailprefix?: String,
-    public email?: String,
-
-    public city?: String,
-    public bio?: String,
-    public contacts?: Array<User>,
-    public skills?: Array<Tag>,
-    public rfidid?: String,
     public userId?: string,
-    public isVerified?: boolean,
-    public tmsCreated?: String
+    public firstname?: string,
+    public lastname?: string,
+    public email?: string,
+    public dhbwLocation?: string,
+    public courseAbbr?: string,
+    public course?: string,
+    public specialization?: string,
+    public city?: string,
+    public biography?: string,
+    public registered?: boolean,
+    public createdAt?: string,
+    
+    public rfidId?: string,
+
+    public contacts?: User[],
+    public skills?: Tag[],
   ) {}
 }

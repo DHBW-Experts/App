@@ -33,20 +33,7 @@ export class ProfilePage implements OnInit {
     private persistence: PersistenceService,
     private auth: AuthService,
     private userState: UserStateService
-  ) {
-    this.route.events.subscribe((e) => {
-      // if (e instanceof NavigationEnd) {
-      //   this.persistence.user.getById(this.userState.userId).then((user) => {
-      //     this.user = user;
-      //     this.isDataAvailable = true;
-      //   });
-
-      //   this.persistence.tag.getByUser(this.userState.userId).then((tags) => {
-      //     this.tags = tags;
-      //   });
-      // }
-    });
-  }
+  ) {}
 
   ngOnInit(): void {}
 
@@ -157,8 +144,8 @@ export class ProfilePage implements OnInit {
         .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
         .join(':');
 
-      const user = LoginPage.user;
-      user.rfidid = tagId;
+      const user = this.userState.user;
+      user.rfidId = tagId;
 
       this.persistence.user.edit(user);
     }, this.nfcErrHandler);

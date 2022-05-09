@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService, User as Auth0User } from '@auth0/auth0-angular';
 import { BehaviorSubject } from 'rxjs';
+import { callbackUri } from 'src/app/auth.config';
 import { LoginPage } from 'src/app/auth/login/login.page';
 import { Tag } from 'src/app/models/tag';
 import { User } from 'src/app/models/user';
@@ -26,6 +27,8 @@ export class UserStateService{
     this.isUserInfoAvailable$ = new BehaviorSubject(false);
     this.auth.isAuthenticated$.subscribe(this.isAuthenticated$);
 
+    console.log(callbackUri);
+
     this.auth.user$.subscribe( val => {
       this.auth0User = val;
       if(val !== null){
@@ -37,7 +40,7 @@ export class UserStateService{
     });
   }
 
-  private fetchUserInfo(){
+  public fetchUserInfo(){
     this.isUserInfoAvailable$.next(false);
 
     Promise.all([

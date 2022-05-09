@@ -19,15 +19,15 @@ import { LoginPage } from '../login/login.page';
 })
 export class RegisterPage implements OnInit {
   form: FormGroup;
-  firstname: String;
-  lastname: String;
-  email: String;
-  dhbw: String;
-  course: String;
-  specialization: String;
-  courseAbr: String;
-  password: String;
-  passwordwdh: String;
+  firstname: string;
+  lastname: string;
+  email: string;
+  dhbwLocation: string;
+  courseAbbr: string;
+  course: string;
+  specialization: string;
+  city: string;
+  biography: string;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -63,23 +63,22 @@ export class RegisterPage implements OnInit {
    */
   async register() {
     const email = (<HTMLInputElement>document.getElementById('mail')).value; //ngmodel doesnt work here, because text is set by js
-    if (this.password !== this.passwordwdh) {
-      const alert = await alertController.create({
-        header: 'Fehler',
-        message: 'Die Passwörter stimmen nicht überein!',
-        buttons: ['Ok'],
-      });
-      await alert.present();
-      return;
-    }
+    // if (this.password !== this.passwordwdh) {
+    //   const alert = await alertController.create({
+    //     header: 'Fehler',
+    //     message: 'Die Passwörter stimmen nicht überein!',
+    //     buttons: ['Ok'],
+    //   });
+    //   await alert.present();
+    //   return;
+    // }
     const user = new User(
       this.firstname,
       this.lastname,
-      this.dhbw,
+      this.dhbwLocation,
       this.course,
       this.specialization,
-      this.courseAbr,
-      this.password,
+      this.courseAbbr,
       email
     );
 

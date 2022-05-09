@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { PersistenceService } from 'src/app/services/persistence/persistence.service';
+import { UserStateService } from 'src/app/services/user-state/user-state.service';
 import { LoginPage } from '../../auth/login/login.page';
 import { User } from '../../models/user';
 
@@ -19,12 +20,10 @@ export class EditProfilePage implements OnInit {
   constructor(
     private router: Router,
     private toastController: ToastController,
-    private persistence: PersistenceService
+    private persistence: PersistenceService,
+    private userState: UserStateService
   ) {
-    this.persistence.user.getById(LoginPage.user.userId).then((user) => {
-      this.user = user;
-      this.isDataAvailable = true;
-    });
+    this.user = this.userState.user;
   }
 
   ngOnInit(): void {}
@@ -45,6 +44,8 @@ export class EditProfilePage implements OnInit {
     this.buttonVisibility = 'visible';
   }
 
+
+  //ACHTUNG!!! FUNKTIONIERT MIT NEUER AUTH LÖSUNG NICHT!
   async delete() {
     const alert = await alertController.create({
       header: 'Achtung',

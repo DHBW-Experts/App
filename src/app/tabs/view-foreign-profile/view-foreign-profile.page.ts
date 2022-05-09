@@ -5,6 +5,7 @@ import { LoginPage } from 'src/app/auth/login/login.page';
 import { Tag } from 'src/app/models/tag';
 import { User } from 'src/app/models/user';
 import { PersistenceService } from 'src/app/services/persistence/persistence.service';
+import { UserStateService } from 'src/app/services/user-state/user-state.service';
 
 @Component({
   selector: 'app-view-foreign-profile',
@@ -24,7 +25,8 @@ export class ViewForeignProfilePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private persistence: PersistenceService
+    private persistence: PersistenceService,
+    private userState: UserStateService
   ) {}
 
   ngOnInit(): void {}
@@ -37,11 +39,11 @@ export class ViewForeignProfilePage implements OnInit {
       this.isDataAvailable = true;
 
       const contactsPromise = this.persistence.contact
-        .getByUserId(LoginPage.user.userId)
+        .getByUserId(this.userState.userId)
         .then((contacts) => {
           this.contacts = contacts;
 
-          if (LoginPage.user.userId === this.user.userId) {
+          if (this.userState.userId === this.user.userId) {
             this.isUserLoggedInUser = true;
             return;
           }
@@ -67,11 +69,11 @@ export class ViewForeignProfilePage implements OnInit {
   }
 
   addContact() {
-    this.persistence.contact.add(LoginPage.user.userId, this.user.userId);
+    this.persistence.contact.add(this.userState.userId, this.user.userId);
   }
 
   removeContact() {
-    this.persistence.contact.remove(LoginPage.user.userId, this.user.userId);
+    this.persistence.contact.remove(this.userState.userId, this.user.userId);
   }
 
   async addValidation() {
