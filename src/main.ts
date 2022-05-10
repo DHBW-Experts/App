@@ -2,8 +2,8 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import { LoginPage } from './app/auth/login/login.page';
-import { User } from './app/models/user';
+import { LoginPage } from './app/shared/modules/login/login.page';
+import { User } from './app/shared/models/user';
 import { environment } from './environments/environment';
 
 if (environment.production) {

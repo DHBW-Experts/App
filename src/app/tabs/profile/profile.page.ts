@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LoginPage } from '../../auth/login/login.page';
-import { Tag } from '../../models/tag';
+import { LoginPage } from '../../shared/modules/login/login.page';
+import { Tag } from '../../shared/models/tag';
 import { alertController } from '@ionic/core';
-import { User } from '../../models/user';
+import { User } from '../../shared/models/user';
 import { NFC } from '@ionic-native/nfc/ngx';
 import { Subscription } from 'rxjs';
-import { PersistenceService } from 'src/app/services/persistence/persistence.service';
+import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { callbackUri } from 'src/app/auth.config';
-import { UserStateService } from 'src/app/services/user-state/user-state.service';
+import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,8 +31,7 @@ export class ProfilePage implements OnInit {
     private route: Router,
     private nfc: NFC,
     private persistence: PersistenceService,
-    private auth: AuthService,
-    private userState: UserStateService
+    public userState: UserStateService
   ) {}
 
   ngOnInit(): void {}
@@ -149,10 +148,6 @@ export class ProfilePage implements OnInit {
 
       this.persistence.user.edit(user);
     }, this.nfcErrHandler);
-  }
-
-  logout(){
-    this.auth.logout({ returnTo: callbackUri });
   }
 
   nfcErrHandler(err: any) {

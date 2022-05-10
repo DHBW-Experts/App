@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ContactsPageRoutingModule } from './contacts-routing.module';
 
 import { ContactsPage } from './contacts.page';
-import { ContactPreviewComponent } from '../contact-preview/contact-preview.component';
+import { ContactPreviewComponent } from './components/contact-preview/contact-preview.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, ContactsPageRoutingModule],

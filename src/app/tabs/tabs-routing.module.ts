@@ -47,7 +47,7 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     loadChildren: () =>
-      import('./edit-profile/edit-profile.module').then(
+      import('./profile/edit-profile/edit-profile.module').then(
         (m) => m.EditProfilePageModule
       ),
     canActivate: [AuthGuard],
@@ -55,7 +55,7 @@ const routes: Routes = [
   {
     path: 'view-foreign-profile',
     loadChildren: () =>
-      import('./view-foreign-profile/view-foreign-profile.module').then(
+      import('../shared/modules/view-foreign-profile/view-foreign-profile.module').then(
         (m) => m.ViewForeignProfilePageModule
       ),
     canActivate: [AuthGuard],

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { CallbackComponent } from './auth/login/callback/callback.component';
+import { CallbackComponent } from './shared/components/callback/callback.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
     path: 'register',
     loadChildren: () =>
-      import('./auth/register/register.module').then(
+      import('./shared/modules/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
     canActivate: [AuthGuard],
@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: 'callback',
@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: '',

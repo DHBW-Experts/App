@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Tag } from 'src/app/models/tag';
-import { User } from 'src/app/models/user';
-import { PersistenceService } from 'src/app/services/persistence/persistence.service';
+import { Tag } from 'src/app/shared/models/tag';
+import { User } from 'src/app/shared/models/user';
+import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-search',
@@ -66,6 +66,6 @@ export class SearchPage {
   }
 
   openForeignProfile(userId) {
-    this.route.navigate(['../view-foreign-profile', { id: userId }]);
+    this.route.navigate(['../view-foreign-profile'], { queryParams: { id: userId }});
   }
 }
