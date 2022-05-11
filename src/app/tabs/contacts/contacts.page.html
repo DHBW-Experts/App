@@ -2,11 +2,11 @@
   <div id="Kontakte">
     <div id="Meine_Kontakte"><span>Meine Kontakte</span></div>
     <div id="Contact_Group">
-      <app-contact-preview
+      <app-profile-preview
         *ngFor="let user of contacts"
         [user]="user"
         (click)="openForeignProfile(user.userId)"
-      ></app-contact-preview>
+      ></app-profile-preview>
     </div>
   </div>
 </body>

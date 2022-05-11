@@ -5,10 +5,10 @@ export class Tag {
   tagValidations: Array<TagValidation>;
 
   tagId: number;
-  tag: String;
+  tag: string;
   user: number;
-  tmsCreated: String;
-  userNavigation: String;
+  tmsCreated: string;
+  userNavigation: string;
 
   constructor(
     private persistence: PersistenceService,

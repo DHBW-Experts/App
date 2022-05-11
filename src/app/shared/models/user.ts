@@ -2,7 +2,7 @@ import { Tag } from './tag';
 import { NfcScan } from './nfc-scan';
 
 export class User {
-  createSkillTag(tagText: String) {
+  createSkillTag(tagText: string) {
     //this.skills.push(new Tag(tagText));
   }
 
@@ -31,7 +31,7 @@ export class User {
     public biography?: string,
     public registered?: boolean,
     public createdAt?: string,
-    
+
     public rfidId?: string,
 
     public contacts?: User[],

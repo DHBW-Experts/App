@@ -46,7 +46,7 @@ export class ScanPage {
           return;
         }
 
-        this.route.navigate(['../view-foreign-profile'], { queryParams: { id: user.userId }});
+        this.route.navigate(['../profile'], { queryParams: { id: user.userId }});
         this.presentScanSucceeded();
       });
     }, this.nfcErrHandler);
@@ -66,7 +66,7 @@ export class ScanPage {
     console.log(`NFC: ${tagId}`);
 
     this.persistence.user.getByRfid('TEST-RFID-ID-0815').then(user => {
-      this.route.navigate(['../view-foreign-profile'], { queryParams: { id: user.userId }}); //Problem: cant acces router due to "this". solution: arrow func. (see nfc.readerMode(flags).subscribe)
+      this.route.navigate(['../profile'], { queryParams: { id: user.userId }}); //Problem: cant acces router due to "this". solution: arrow func. (see nfc.readerMode(flags).subscribe)
     });
   }
 

@@ -15,7 +15,7 @@ import { User } from '../../../shared/models/user';
 export class EditProfilePage implements OnInit {
   isDataAvailable: boolean = false;
   user: User = null;
-  buttonVisibility: String = 'hidden';
+  buttonVisibility: string = 'hidden';
 
   constructor(
     private router: Router,
@@ -33,7 +33,7 @@ export class EditProfilePage implements OnInit {
       if (!String(code).startsWith('2')) {
         this.presentChangesFailed();
       } else {
-        LoginPage.user = this.user;
+        this.userState.user = this.user;
         this.backToProfilePage();
         this.presentChanged();
       }
@@ -63,9 +63,8 @@ export class EditProfilePage implements OnInit {
           text: 'Ja',
           handler: () => {
             this.persistence.user.delete(this.user.userId);
+            this.userState.logout();
             this.router.navigate(['/login']);
-
-            LoginPage.user = null;
           },
         },
       ],

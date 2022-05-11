@@ -53,9 +53,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'view-foreign-profile',
+    path: 'profile',
     loadChildren: () =>
-      import('../shared/modules/view-foreign-profile/view-foreign-profile.module').then(
+      import('../shared/modules/foreign-profile/foreign-profile.module').then(
         (m) => m.ViewForeignProfilePageModule
       ),
     canActivate: [AuthGuard],

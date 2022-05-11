@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PersistenceService } from './shared/services/persistence/persistence.service';
 import { UserStateService } from './shared/services/user-state/user-state.service';
+import {ProfilePreviewModule} from "./shared/components/profile-preview/profile-preview.module";
 
 const config: AuthConfig = {
   domain,

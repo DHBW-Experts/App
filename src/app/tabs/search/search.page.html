@@ -38,11 +38,11 @@
           ></app-tag-preview>
         </div>
         <div class="user_result">
-          <app-contact-preview
+          <app-profile-preview
             *ngFor="let user of resultsUser"
             [user]="user"
             (click)="openForeignProfile(user.userId)"
-          ></app-contact-preview>
+          ></app-profile-preview>
         </div>
       </div>
     </div>

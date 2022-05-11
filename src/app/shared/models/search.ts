@@ -7,5 +7,5 @@ export class Search {
 
   constructor() {}
 
-  search(keyword: String) {}
+  search(keyword: string) {}
 }
