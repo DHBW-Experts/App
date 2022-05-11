@@ -33,11 +33,7 @@ export class EditProfilePage implements OnInit {
       if (!String(code).startsWith('2')) {
         this.presentChangesFailed();
       } else {
-<<<<<<< HEAD
         this.userState.fetchUserInfo();
-=======
-        this.userState.user = this.user;
->>>>>>> 9e7e5c03e909308888bfcf59a27833b14b02c056
         this.backToProfilePage();
         this.presentChanged();
       }
