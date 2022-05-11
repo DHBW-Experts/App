@@ -33,7 +33,7 @@ export class EditProfilePage implements OnInit {
       if (!String(code).startsWith('2')) {
         this.presentChangesFailed();
       } else {
-        LoginPage.user = this.user;
+        this.userState.fetchUserInfo();
         this.backToProfilePage();
         this.presentChanged();
       }
@@ -43,7 +43,6 @@ export class EditProfilePage implements OnInit {
   async detectChanges() {
     this.buttonVisibility = 'visible';
   }
-
 
   //ACHTUNG!!! FUNKTIONIERT MIT NEUER AUTH LÖSUNG NICHT!
   async delete() {
