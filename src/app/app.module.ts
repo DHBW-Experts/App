@@ -5,7 +5,6 @@ import { RouteReuseStrategy } from '@angular/router';
 import { AuthHttpInterceptor, AuthConfig, AuthModule, AuthState } from '@auth0/auth0-angular';
 import { domain, clientId, callbackUri } from './auth.config';
 import { NFC } from '@ionic-native/nfc/ngx';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -35,7 +34,6 @@ const config: AuthConfig = {
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     AuthModule.forRoot(config),
   ],
