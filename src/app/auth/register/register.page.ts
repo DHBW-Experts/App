@@ -33,7 +33,7 @@ export class RegisterPage implements OnInit {
     public formBuilder: FormBuilder,
     private router: Router,
     private persistence: PersistenceService
-  ) { }
+  ) {}
 
   ngOnInit() {
     // Validation der Inputs aufsetzen
@@ -82,8 +82,8 @@ export class RegisterPage implements OnInit {
       this.password,
       email
     );
-    
-    this.persistence.auth.register(user);
+
+    this.persistence.auth0.register(user); //this page become obsolete so who cares...
     this.router.navigate(['../../tabs/search']);
   }
 

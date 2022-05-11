@@ -24,35 +24,35 @@ export class ViewForeignProfilePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private persistence: PersistenceService,
+    private persistence: PersistenceService
   ) {}
-  
+
   ngOnInit(): void {}
 
   ionViewWillEnter() {
-    const userId = +this.route.snapshot.paramMap.get('id');
+    const userId = this.route.snapshot.paramMap.get('id');
 
-    this.persistence.user.getById(userId).then(user => {
+    this.persistence.user.getById(userId).then((user) => {
       this.user = user;
       this.isDataAvailable = true;
-      
-      const contactsPromise = this.persistence.contact.getByUserId(
-        LoginPage.user.userId
-      ).then(contacts => {
-        this.contacts = contacts;
 
-        if (LoginPage.user.userId === this.user.userId) {
-          this.isUserLoggedInUser = true;
-          return;
-        }
-        
-        this.isUserInContacts = this.contacts.some(
-          e => e.userId === this.user.userId
-        );
-      });
+      const contactsPromise = this.persistence.contact
+        .getByUserId(LoginPage.user.userId)
+        .then((contacts) => {
+          this.contacts = contacts;
+
+          if (LoginPage.user.userId === this.user.userId) {
+            this.isUserLoggedInUser = true;
+            return;
+          }
+
+          this.isUserInContacts = this.contacts.some(
+            (e) => e.userId === this.user.userId
+          );
+        });
     });
 
-    this.persistence.tag.getByUser(userId).then(tags => {
+    this.persistence.tag.getByUser(userId).then((tags) => {
       this.tags = tags;
     });
   }
@@ -60,16 +60,16 @@ export class ViewForeignProfilePage implements OnInit {
   tagSelected(tag: Tag) {
     this.isTagSelected = true;
     this.selectedTag = tag;
-    
-    this.persistence.tag.getValidations(tag.tagId).then(validations => {
-      this.tagValidations = validations.map(validation => validation.comment);
+
+    this.persistence.tag.getValidations(tag.tagId).then((validations) => {
+      this.tagValidations = validations.map((validation) => validation.comment);
     });
   }
-  
+
   addContact() {
     this.persistence.contact.add(LoginPage.user.userId, this.user.userId);
   }
-  
+
   removeContact() {
     this.persistence.contact.remove(LoginPage.user.userId, this.user.userId);
   }

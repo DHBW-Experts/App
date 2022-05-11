@@ -16,7 +16,7 @@
       <div id="main_info_tab">
         <div>
           <span id="name" *ngIf="isDataAvailable"
-            >{{user.firstName}} {{user.lastName}}</span
+            >{{user.firstname}} {{user.lastname}}</span
           >
         </div>
         <div class="info_second_line">
@@ -26,7 +26,7 @@
         </div>
         <div class="info_second_line">
           <span id="standort" *ngIf="isDataAvailable"
-            >{{user.courseAbr}} - DHBW {{user.dhbw}}</span
+            >{{user.courseAbbr}} - DHBW {{user.dhbwLocation}}</span
           >
         </div>
       </div>

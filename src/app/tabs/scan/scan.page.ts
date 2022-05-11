@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NFC, NfcTag } from '@ionic-native/nfc/ngx';
+import { ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { Subscription } from 'rxjs';
 import { PersistenceService } from 'src/app/services/persistence.service';
@@ -17,6 +18,7 @@ export class ScanPage {
     private nfc: NFC,
     private route: Router,
     private persistence: PersistenceService,
+    private toastController: ToastController
   ) { }
 
   ionViewDidEnter() {
@@ -45,6 +47,7 @@ export class ScanPage {
         }
 
         this.route.navigate(['../view-foreign-profile', { id: user.userId }]);
+        this.presentScanSucceeded();
       });
     }, this.nfcErrHandler);
   }
@@ -69,6 +72,29 @@ export class ScanPage {
 
   nfcErrHandler(err: any) {
     console.log('Error reading tag', err);
-    // TODO: show error in UI
+    this.presentScanFailed();
+  }
+
+  async presentScanSucceeded() {
+    const toast = await this.toastController.create({
+      message: '<ion-icon name="checkmark-outline"></ion-icon>  Folgendes Profil wurde gefunden',
+      position: 'top',
+      color: 'success',
+      duration: 800
+    });
+    toast.present();
+  }
+
+  async presentScanFailed() {
+    const toast = await this.toastController.create({
+      header: 'Scan fehlgeschlagen!',
+      message: '\nBitte versuche es erneut oder wende dich an unseren Support.',
+      position: 'top',
+      color: 'danger',
+      duration: 3000
+    });
+    toast.present();
   }
 }
+
+
