@@ -13,7 +13,7 @@ export class TagComponent implements OnInit {
 
   @Output() tagSelected = new EventEmitter<any>();
 
-  private tagValidationCount: number;
+  public tagValidationCount: number;
 
   constructor(
     private persistence: PersistenceService,

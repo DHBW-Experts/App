@@ -7,8 +7,9 @@ import { SearchPage } from './search.page';
 import { ExploreContainerComponentModule } from '../../shared/components/explore-container/explore-container.module';
 
 import { SearchPageRoutingModule } from './search-routing.module';
-import { ContactPreviewComponent } from '../contacts/components/contact-preview/contact-preview.component';
+import { ProfilePreviewComponent } from '../../shared/components/profile-preview/profile-preview.component';
 import { TagPreviewComponent } from '../../shared/components/tag-preview/tag-preview.component';
+import {ProfilePreviewModule} from '../../shared/components/profile-preview/profile-preview.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TagPreviewComponent } from '../../shared/components/tag-preview/tag-pre
     FormsModule,
     ExploreContainerComponentModule,
     SearchPageRoutingModule,
+    ProfilePreviewModule,
   ],
-  declarations: [SearchPage, ContactPreviewComponent, TagPreviewComponent],
+  declarations: [SearchPage, TagPreviewComponent],
 })
 export class SearchPageModule {}

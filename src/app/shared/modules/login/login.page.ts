@@ -18,9 +18,8 @@ import { Subscription } from 'rxjs';
 })
 export class LoginPage implements OnInit, OnDestroy{
   form: FormGroup;
-  static user: User; // this is the global user object
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 
   authSub: Subscription;
 

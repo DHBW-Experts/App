@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ViewForeignProfilePage } from './view-foreign-profile.page';
+import { ProfilePreviewComponent } from './profile-preview.component';
 
-describe('ViewForeignProfilePage', () => {
-  let component: ViewForeignProfilePage;
-  let fixture: ComponentFixture<ViewForeignProfilePage>;
+describe('ProfilePreviewComponent', () => {
+  let component: ProfilePreviewComponent;
+  let fixture: ComponentFixture<ProfilePreviewComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewForeignProfilePage ],
+      declarations: [ ProfilePreviewComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewForeignProfilePage);
+    fixture = TestBed.createComponent(ProfilePreviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

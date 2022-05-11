@@ -8,11 +8,11 @@ import { PersistenceService } from 'src/app/shared/services/persistence/persiste
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 
 @Component({
-  selector: 'app-view-foreign-profile',
-  templateUrl: './view-foreign-profile.page.html',
-  styleUrls: ['./view-foreign-profile.page.scss'],
+  selector: 'app-foreign-profile',
+  templateUrl: './foreign-profile.page.html',
+  styleUrls: ['./foreign-profile.page.scss'],
 })
-export class ViewForeignProfilePage implements OnInit {
+export class ForeignProfilePage implements OnInit {
   user: User;
   tags: Tag[];
   tagValidations = [];

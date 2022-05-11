@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ViewForeignProfilePage } from './view-foreign-profile.page';
+import { ForeignProfilePage } from './foreign-profile.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ViewForeignProfilePage
+    component: ForeignProfilePage
   }
 ];
 

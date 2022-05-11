@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { alertController } from '@ionic/core';
-import { Storage } from '@ionic/storage';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
 import { User } from '../../models/user';
@@ -34,7 +32,7 @@ const user = {
     });
   },
 
-  getByEmail: async (email: String) => {
+  getByEmail: async (email: string) => {
     return getData(`login/${email}`).then((res) => {
       return res as User;
     });
