@@ -21,7 +21,7 @@
         </div>
         <div class="info_second_line">
           <span id="studiengang" *ngIf="isDataAvailable"
-            >{{user.course}} - {{user.specialization}}</span
+            >{{user.course + (user.specialization ? ' - ' + user.specialization : '')}}</span
           >
         </div>
         <div class="info_second_line">

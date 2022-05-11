@@ -48,9 +48,6 @@ export class LoginPage implements OnInit, OnDestroy{
     if(this.userState.user.registered){
       this.router.navigate(["/tabs/profile"]);
     } else {
-      console.log("info? "+ this.userState.isUserInfoAvailable$.getValue());
-      console.log("regi? " + this.userState.user.registered);
-      console.log("redir register");
       this.router.navigate(["/register"]);
     }
   }

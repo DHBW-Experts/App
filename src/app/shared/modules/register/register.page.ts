@@ -56,8 +56,6 @@ export class RegisterPage implements OnInit {
     user.biography = this.biography;
     user.city = this.city;
 
-    console.log(user);
-
     this.persistence.user.register(user, user.userId)
       .then((user) => {
         this.userState.user = user;

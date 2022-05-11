@@ -21,7 +21,7 @@
         </div>
         <div class="info_second_line">
           <span id="studiengang" *ngIf="(this.userState.isUserInfoAvailable$ | async)"
-            >{{this.userState.user.course}} - {{this.userState.user.specialization}}</span
+            >{{this.userState.user.course + (this.userState.user.specialization ? ' - ' + this.userState.user.specialization : '')}}</span
           >
         </div>
         <div class="info_second_line">
