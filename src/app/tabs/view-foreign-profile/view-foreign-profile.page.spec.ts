@@ -80,6 +80,7 @@ describe('ViewForeignProfilePage', () => {
       isVerified: true,
       tmsCreated: '2022-04-24T21:37:07.183',
     };
+    component.isUserInContacts = true;
     component.ionViewWillEnter();
     fixture.detectChanges();
     expect(de.query(By.css('#remove_btn')).nativeElement.innerText).toBe(
