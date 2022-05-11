@@ -69,13 +69,9 @@ export class ProfilePage implements OnInit {
           text: 'Ok',
           handler: (alertData) => {
             this.persistence.tag
-              .create(this.user, alertData.tagText)
+              .create(this.userState.user, alertData.tagText)
               .then(() => {
-                this.persistence.tag
-                  .getByUser(this.userState.userId)
-                  .then((tags) => {
-                    this.tags = tags;
-                  });
+                this.userState.fetchUserInfo();
               });
           },
         },
@@ -115,11 +111,7 @@ export class ProfilePage implements OnInit {
             this.persistence.tag
               .delete(this.currentSelectedTag.tagId, this.userState.userId)
               .then(() => {
-                this.persistence.tag
-                  .getByUser(this.userState.userId)
-                  .then((tags) => {
-                    this.tags = tags;
-                  });
+                this.userState.fetchUserInfo();
               });
           },
         },
