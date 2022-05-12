@@ -23,7 +23,7 @@ export class UserStateService{
 
   constructor(private auth: AuthService, private persistence: PersistenceService,) {
     this.auth0User = null;
-    this.userId = "not signed in";
+    this.userId = null;
     this.isAuthenticated$ = new BehaviorSubject(false);
     this.isUserInfoAvailable$ = new BehaviorSubject(false);
     this.auth.isAuthenticated$.subscribe(this.isAuthenticated$);
@@ -35,13 +35,14 @@ export class UserStateService{
         this.userId = val.sub.split('|')[1];
         this.fetchUserInfo();
       } else {
-        this.userId = "not signed in"
+        this.userId = null;
       }
     });
   }
 
   async handleAuthError(error: Error): Promise<void> {
-    if(error.message === "user_not_verified"){
+    console.log(error.message);
+    if(error.message === 'user_not_verified'){
       const alert = await alertController.create({
         header: 'Ein letzter Schritt...',
         message: 'Bitte verfiziere deine Email-Adresse',
@@ -53,18 +54,19 @@ export class UserStateService{
         }],
       });
       await alert.present();
+    } else {
+      console.log('logging out...');
+      this.logout();
     }
   }
 
   public fetchUserInfo(): Promise<void> {
     this.isUserInfoAvailable$.next(false);
-    console.log("fetch gestartet" + this.isUserInfoAvailable$.getValue())
     return Promise.all([
       this.persistence.user.getById(this.userId).then( val => this.user = val),
       this.persistence.tag.getByUser(this.userId).then( val => this.tags = val),
     ]).then(() => {
       this.isUserInfoAvailable$.next(true);
-      console.log("info ist da" + this.isUserInfoAvailable$.getValue())
     });
   }
 

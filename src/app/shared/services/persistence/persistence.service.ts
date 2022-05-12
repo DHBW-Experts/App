@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { alertController } from '@ionic/core';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
 import { User } from '../../models/user';
+import {AuthService} from '@auth0/auth0-angular';
+import {HttpClient} from '@angular/common/http';
+import {async} from "rxjs";
 
 const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
@@ -10,251 +12,244 @@ const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
   providedIn: 'root',
 })
 export class PersistenceService {
-  public readonly user = user;
-  public readonly tag = tag;
-  public readonly contact = contact;
-}
 
-const user = {
-  register: async (user: User, userId: string) => {
-    return postData(`register/${userId}`, user) as Promise<User>;
-  },
+  public readonly user;
+  public readonly tag;
+  public readonly contact;
+  public readonly search;
 
-  getById: async (userId: string) => {
-    return getData(`users/${userId}`).then((res) => {
-      return res as User;
-    });
-  },
+  constructor(public auth: AuthService, private http: HttpClient) {
+    this.user = {
+      register: async (user: User, userId: string) => {
+        return this.http.post<User>(`${API_BASE}/register/${userId}`, user).toPromise();
+      },
 
-  getByTag: async (searchText: string) => {
-    return getData(`search/users/tags/${searchText}`).then((res) => {
-      return res as User[];
-    });
-  },
+      getById: async (userId: string) => {
+        return this.http.get<User>(`${API_BASE}/users/${userId}`).toPromise();
+      },
 
-  getByEmail: async (email: string) => {
-    return getData(`login/${email}`).then((res) => {
-      return res as User;
-    });
-  },
+      edit: async (user: User) => {
+        return this.http.patch(`${API_BASE}/users/${user.userId}`, user).toPromise();
+      },
 
-  getByRfid: async (rfid: string) => {
-    return getData(`users/rfid/${rfid}`).then((res) => {
-      return res as User;
-    });
-  },
+      delete: async (userId: string) => {
+        return this.http.delete(`${API_BASE}/users/${userId}`).toPromise();
+      },
+    };
+    this.tag = {
+      create: async (user: User, text: string) => {
+        return this.http.post<Tag>(`${API_BASE}/users/${user.userId}/tags/${text}`, null).toPromise();
+      },
 
-  getByName: async (name: string) => {
-    return getData(`users/??/${name}`).then((res) => {
-      return res as User[];
-    });
-  },
+      getByUser: async (userId: string) => {
+        return this.http.get<Tag[]>(`${API_BASE}/users/${userId}/tags`).toPromise();
+      },
 
-  getByCourse: async (course: string) => {
-    return getData(`users/??/${course}`).then((res) => {
-      return res as User[];
-    });
-  },
-  getByCourseAbr: async (abr: string) => {
-    return getData(`users/??/${abr}`).then((res) => {
-      return res as User[];
-    });
-  },
-  getByLocation: async (location: string) => {
-    return getData(`users/??/${location}`).then((res) => {
-      return res as User[];
-    });
-  },
+      getValidations: async (tagId: number) => {
+        return this.http.get<TagValidation[]>(`${API_BASE}/tags/${tagId}/validations`).toPromise();
+      },
 
-  edit: async (user: User) => {
-    return patchData(`users/${user.userId}`, user);
-  },
+      delete: async (tagId: number, userId: string) => {
+        return this.http.delete(`${API_BASE}/users/${userId}/tags/${tagId}`).toPromise();
+      },
+      getById: async (id: string) => {
+        return this.http.get<Tag>(`${API_BASE}/tags/${id}`).toPromise();
+      },
+    };
+    this.contact = {
+      add: async (userId: string, toAddUserId: string) => {
+        return this.http.post<Tag[]>(`${API_BASE}/users/${userId}/contacts/${toAddUserId}`, null).toPromise();
+      },
 
-  delete: async (userId: string) => {
-    return deleteData(`users/${userId}`);
-  },
-};
+      remove: async (userId: string, toRemoveUserId: string) => {
+        return this.http.delete<Tag[]>(`${API_BASE}/users/${userId}/contacts/${toRemoveUserId}`).toPromise();
+      },
 
-const tag = {
-  create: async (user: User, text: string) => {
-    return postData(`users/${user.userId}/tags/${text}`, user);
-  },
+      getByUserId: async (userId: string) => {
+        return this.http.get<Tag[]>(`${API_BASE}/users/${userId}/contacts`).toPromise();
+      },
+    };
+    this.search = {
+      searchUsersByTag: async (tag: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/tags/${tag}`).toPromise();
+      },
 
-  getByUser: async (userId: string) => {
-    return getData(`users/${userId}/tags`).then((res) => {
-      return res as Tag[];
-    });
-  },
+      searchUsersByEmail: async (email: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/email/${email}`).toPromise();
+      },
 
-  getDistinctByText: async (searchText: string) => {
-    return getData(`search/tags/${searchText}`).then((res) => {
-      return res as Tag[];
-    });
-  },
+      searchUserByRfid: async (rfidId: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/rfid/${rfidId}`).toPromise();
+      },
 
-  getValidations: async (tagId: number) => {
-    return getData(`tags/${tagId}/validations`).then((res) => {
-      return res as TagValidation[];
-    });
-  },
+      searchUsersByName: async (name: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/name/${name}`).toPromise();
+      },
 
-  delete: async (tagId: number, userId: string) => {
-    return deleteData(`users/${userId}/tags/${tagId}`);
-  },
-  getById: async (id: string) => {
-    return getData(`tags/${id}`).then((res) => {
-      return res as Tag;
-    });
-  },
-};
+      searchUsersByCourse: async (course: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/course/${course}`).toPromise();
+      },
 
-const contact = {
-  add: async (userId: string, toAddUserId: string) => {
-    return postData(`users/${userId}/contacts/${toAddUserId}`);
-  },
+      searchUsersByCourseAbbr: async (abbr: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/course-abbr/${abbr}`).toPromise();
+      },
 
-  remove: async (userId: string, toRemoveUserId: string) => {
-    return deleteData(`users/${userId}/contacts/${toRemoveUserId}`);
-  },
-
-  getByUserId: async (userId: string) => {
-    return getData(`users/${userId}/contacts`).then((res) => {
-      return res as User[];
-    });
-  },
-};
-
-// ========================================================
-// ========================================================
-
-async function getData(path = '') {
-  return fetch(`${API_BASE}/${path}`).then((res) => res.json());
-}
-
-async function postData(path = '', data = {}) {
-  const response = await fetch(`${API_BASE}/${path}`, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(data),
-  });
-
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while posting data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-    return Promise.reject(status);
-  } else {
-    console.log('success with status ' + status);
-  }
-  return response.json();
-}
-
-async function putData(path = '', data = {}) {
-  const response = await fetch(`${API_BASE}/${path}`, {
-    method: 'PUT',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(data),
-  });
-
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while putting data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-  } else {
-    console.log('success' + status);
+      searchUsersByLocation: async (location: string) => {
+        return this.http.get<User[]>(`${API_BASE}/search/users/location/${location}`).toPromise();
+      },
+      searchTags: async (searchText: string) => {
+        return this.http.get<Tag[]>(`${API_BASE}/search/tags/${searchText}`).toPromise();
+      },
+    };
   }
 
-  return response.json();
-}
-
-async function patchData(path = '', data = {}) {
-  const response = await fetch(`${API_BASE}/${path}`, {
-    method: 'PATCH',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(data),
-  });
-
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while patching data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-  } else {
-    console.log('success' + status);
-    return Promise.resolve(200);
-  }
-
-  return response.json();
-}
-
-async function deleteData(path = '') {
-  const response = await fetch(`${API_BASE}/${path}`, {
-    method: 'DELETE',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-  });
-
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while deleting data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-  } else {
-    console.log('success' + status);
-  }
-
-  return response.json();
+  // getData(path: string) {
+  //   return this.http.get(path)
+  //     .pipe(
+  //       catchError(async error => {
+  //         let errorMsg: string;
+  //         if (error.error instanceof ErrorEvent) {
+  //           errorMsg = `Error: ${error.error.message}`;
+  //         } else {
+  //           errorMsg = `Error: ${error.status}`;
+  //         }
+  //         console.log(errorMsg);
+  //         const alert = await alertController.create({
+  //           header: error.status,
+  //           message: errorMsg,
+  //           buttons: ['Ok'],
+  //         });
+  //         await alert.present();
+  //         return throwError(errorMsg);
+  //       })
+  //   );
+  // }
+  //
+  // async postData(path = '', data = {}) {
+  //   const response = await fetch(`${API_BASE}/${path}`, {
+  //     method: 'POST',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     redirect: 'follow',
+  //     referrerPolicy: 'no-referrer',
+  //     body: JSON.stringify(data),
+  //   });
+  //
+  //   const status = String(response.status);
+  //
+  //   if (!status.startsWith('2')) {
+  //     console.log('Error while posting data, status code: ' + status);
+  //
+  //     const alert = await alertController.create({
+  //       header: 'Fehler',
+  //       message: 'Fehler ' + status,
+  //       buttons: ['Ok'],
+  //     });
+  //     await alert.present();
+  //     return Promise.reject(status);
+  //   } else {
+  //     console.log('success with status ' + status);
+  //   }
+  //   return response.json();
+  // }
+  //
+  // async putData(path = '', data = {}) {
+  //   const response = await fetch(`${API_BASE}/${path}`, {
+  //     method: 'PUT',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     redirect: 'follow',
+  //     referrerPolicy: 'no-referrer',
+  //     body: JSON.stringify(data),
+  //   });
+  //
+  //   const status = String(response.status);
+  //
+  //   if (!status.startsWith('2')) {
+  //     console.log('Error while putting data, status code: ' + status);
+  //
+  //     const alert = await alertController.create({
+  //       header: 'Fehler',
+  //       message: 'Fehler ' + status,
+  //       buttons: ['Ok'],
+  //     });
+  //     await alert.present();
+  //   } else {
+  //     console.log('success' + status);
+  //   }
+  //
+  //   return response.json();
+  // }
+  //
+  // async patchData(path = '', data = {}) {
+  //   const response = await fetch(`${API_BASE}/${path}`, {
+  //     method: 'PATCH',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     redirect: 'follow',
+  //     referrerPolicy: 'no-referrer',
+  //     body: JSON.stringify(data),
+  //   });
+  //
+  //   const status = String(response.status);
+  //
+  //   if (!status.startsWith('2')) {
+  //     console.log('Error while patching data, status code: ' + status);
+  //
+  //     const alert = await alertController.create({
+  //       header: 'Fehler',
+  //       message: 'Fehler ' + status,
+  //       buttons: ['Ok'],
+  //     });
+  //     await alert.present();
+  //   } else {
+  //     console.log('success' + status);
+  //     return Promise.resolve(200);
+  //   }
+  //
+  //   return response.json();
+  // }
+  //
+  // async deleteData(path = '') {
+  //   const response = await fetch(`${API_BASE}/${path}`, {
+  //     method: 'DELETE',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     redirect: 'follow',
+  //     referrerPolicy: 'no-referrer',
+  //   });
+  //
+  //   const status = String(response.status);
+  //
+  //   if (!status.startsWith('2')) {
+  //     console.log('Error while deleting data, status code: ' + status);
+  //
+  //     const alert = await alertController.create({
+  //       header: 'Fehler',
+  //       message: 'Fehler ' + status,
+  //       buttons: ['Ok'],
+  //     });
+  //     await alert.present();
+  //   } else {
+  //     console.log('success' + status);
+  //   }
+  //
+  //   return response.json();
+  // }
 }

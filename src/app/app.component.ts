@@ -6,6 +6,7 @@ import { Browser } from '@capacitor/browser';
 import { App } from '@capacitor/app';
 import { callbackUri } from './auth.config';
 import { Router } from '@angular/router';
+import {isPlatform} from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -27,11 +28,17 @@ export class AppComponent implements OnInit {
           ) {
             this.auth
               .handleRedirectCallback(url)
-              .pipe(mergeMap(() => Browser.close()))
+              .pipe(mergeMap(() => {
+                if( isPlatform('ios') || isPlatform('android') ) {
+                  return Browser.close();
+                }
+                return Promise.resolve();
+              }))
               .subscribe();
           } else {
-            Browser.close();
-            //this.router.navigate(["/"]);
+            if( isPlatform('ios') || isPlatform('android') ) {
+              return Browser.close();
+            }
           }
         }
       });

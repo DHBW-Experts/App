@@ -2,22 +2,6 @@ import { Tag } from './tag';
 import { NfcScan } from './nfc-scan';
 
 export class User {
-  createSkillTag(tagText: string) {
-    //this.skills.push(new Tag(tagText));
-  }
-
-  deleteSkillTag(index: number) {
-    this.skills.splice(index, 1);
-  }
-
-  addContact(user: User) {}
-
-  deleteContact(user: User) {}
-
-  verify(id: number) {}
-
-  getID(scan: NfcScan) {} //? doesnt really make sense, but ok
-
   constructor(
     public userId?: string,
     public firstname?: string,
