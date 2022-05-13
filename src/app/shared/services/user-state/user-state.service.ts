@@ -7,6 +7,9 @@ import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from '../persistence/persistence.service';
 import { alertController } from '@ionic/core';
+import { Browser } from '@capacitor/browser';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +24,7 @@ export class UserStateService{
   isAuthenticated$: BehaviorSubject<boolean>;
   isUserInfoAvailable$: BehaviorSubject<boolean>;
 
-  constructor(private auth: AuthService, private persistence: PersistenceService,) {
+  constructor(private auth: AuthService, private persistence: PersistenceService,private route:Router) {
     this.auth0User = null;
     this.userId = null;
     this.isAuthenticated$ = new BehaviorSubject(false);
@@ -76,7 +79,18 @@ export class UserStateService{
     this.userId = "not signed in"
     this.tags = [];
     this.tagValidations = [];
-    this.auth.logout({ returnTo: callbackUri });
+    this.auth
+      .buildLogoutUrl({ returnTo : callbackUri })
+      .pipe(
+        tap((url) => {
+          // Call the logout fuction, but only log out locally
+          this.auth.logout({ localOnly: true });
+          // Redirect to Auth0 using the Browser plugin, to clear the user's session
+          Browser.open({ url });
+        })
+      )
+      .subscribe();
+      this.route.navigate(['/']);
   }
 
 }
