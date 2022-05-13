@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LoginPage } from '../../auth/login/login.page';
-import { Tag } from '../../models/tag';
+import { LoginPage } from '../../shared/modules/login/login.page';
+import { Tag } from '../../shared/models/tag';
 import { alertController } from '@ionic/core';
-import { User } from '../../models/user';
+import { User } from '../../shared/models/user';
 import { NFC } from '@ionic-native/nfc/ngx';
 import { Subscription } from 'rxjs';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { callbackUri } from 'src/app/auth.config';
+import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,21 +30,9 @@ export class ProfilePage implements OnInit {
   constructor(
     private route: Router,
     private nfc: NFC,
-    private persistence: PersistenceService
-  ) {
-    this.route.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        this.persistence.user.getById(LoginPage.user.userId).then((user) => {
-          this.user = user;
-          this.isDataAvailable = true;
-        });
-
-        this.persistence.tag.getByUser(LoginPage.user.userId).then((tags) => {
-          this.tags = tags;
-        });
-      }
-    });
-  }
+    private persistence: PersistenceService,
+    public userState: UserStateService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -78,13 +69,9 @@ export class ProfilePage implements OnInit {
           text: 'Ok',
           handler: (alertData) => {
             this.persistence.tag
-              .create(this.user, alertData.tagText)
+              .create(this.userState.user, alertData.tagText)
               .then(() => {
-                this.persistence.tag
-                  .getByUser(LoginPage.user.userId)
-                  .then((tags) => {
-                    this.tags = tags;
-                  });
+                this.userState.fetchUserInfo();
               });
           },
         },
@@ -122,13 +109,9 @@ export class ProfilePage implements OnInit {
           text: 'Ja',
           handler: () => {
             this.persistence.tag
-              .delete(this.currentSelectedTag.tagId, LoginPage.user.userId)
+              .delete(this.currentSelectedTag.tagId, this.userState.userId)
               .then(() => {
-                this.persistence.tag
-                  .getByUser(LoginPage.user.userId)
-                  .then((tags) => {
-                    this.tags = tags;
-                  });
+                this.userState.fetchUserInfo();
               });
           },
         },
@@ -152,8 +135,8 @@ export class ProfilePage implements OnInit {
         .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
         .join(':');
 
-      const user = LoginPage.user;
-      user.rfidid = tagId;
+      const user = this.userState.user;
+      user.rfidId = tagId;
 
       this.persistence.user.edit(user);
     }, this.nfcErrHandler);

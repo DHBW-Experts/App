@@ -5,7 +5,7 @@ RUN npm i -g @ionic/cli
 RUN npm i --force
 
 COPY ./ /app/
-RUN npm run-script build
+RUN npm run build:prod
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/www/ /usr/share/nginx/html/

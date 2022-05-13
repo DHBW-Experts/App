@@ -4,7 +4,7 @@ import { NFC, NfcTag } from '@ionic-native/nfc/ngx';
 import { ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { Subscription } from 'rxjs';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-scan',
@@ -42,11 +42,11 @@ export class ScanPage {
           });
 
           await alert.present();
-        
+
           return;
         }
 
-        this.route.navigate(['../view-foreign-profile', { id: user.userId }]);
+        this.route.navigate(['../profile'], { queryParams: { id: user.userId }});
         this.presentScanSucceeded();
       });
     }, this.nfcErrHandler);
@@ -64,9 +64,9 @@ export class ScanPage {
       .join(':');
 
     console.log(`NFC: ${tagId}`);
-  
+
     this.persistence.user.getByRfid('TEST-RFID-ID-0815').then(user => {
-      this.route.navigate(['../view-foreign-profile', { id: user.userId }]); //Problem: cant acces router due to "this". solution: arrow func. (see nfc.readerMode(flags).subscribe)
+      this.route.navigate(['../profile'], { queryParams: { id: user.userId }}); //Problem: cant acces router due to "this". solution: arrow func. (see nfc.readerMode(flags).subscribe)
     });
   }
 

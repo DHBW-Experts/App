@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ScanPage } from './scan.page';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+import { ExploreContainerComponentModule } from '../../shared/components/explore-container/explore-container.module';
 
 import { ScanPageRoutingModule } from './scan-routing.module';
 

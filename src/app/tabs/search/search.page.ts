@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Tag } from 'src/app/models/tag';
-import { User } from 'src/app/models/user';
-import { PersistenceService } from 'src/app/services/persistence.service';
+import { Tag } from 'src/app/shared/models/tag';
+import { User } from 'src/app/shared/models/user';
+import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 
 @Component({
   selector: 'app-search',
@@ -23,23 +23,23 @@ export class SearchPage {
       this.resultTags = [];
       return;
     }
-    if (this.selectedOption == 'tag') {
+    if (this.selectedOption === 'tag') {
       this.persistence.user
         .getByTag(this.searchText)
         .then((res) => (this.resultsUser = res));
-    } else if (this.selectedOption == 'nutzer') {
+    } else if (this.selectedOption === 'nutzer') {
       this.persistence.user
         .getByName(this.searchText)
         .then((res) => (this.resultsUser = res));
-    } else if (this.selectedOption == 'standort') {
+    } else if (this.selectedOption === 'standort') {
       this.persistence.user
         .getByLocation(this.searchText)
         .then((res) => (this.resultsUser = res));
-    } else if (this.selectedOption == 'kurs') {
+    } else if (this.selectedOption === 'kurs') {
       this.persistence.user
         .getByCourseAbr(this.searchText)
         .then((res) => (this.resultsUser = res));
-    } else if (this.selectedOption == 'studiengang') {
+    } else if (this.selectedOption === 'studiengang') {
       this.persistence.user
         .getByCourse(this.searchText)
         .then((res) => (this.resultsUser = res));
@@ -47,9 +47,9 @@ export class SearchPage {
   }
 
   onTextChange() {
-    if (this.selectedOption == 'tag') {
+    if (this.selectedOption === 'tag') {
       if (this.searchText.length > 0) {
-        this.persistence.tag.getDistinctByText(this.searchText).then((tags) => {
+        this.persistence.search.searchTags(this.searchText).then((tags) => {
           this.resultTags = tags;
         });
       } else {
@@ -66,6 +66,6 @@ export class SearchPage {
   }
 
   openForeignProfile(userId) {
-    this.route.navigate(['../view-foreign-profile', { id: userId }]);
+    this.route.navigate(['../profile'], { queryParams: { id: userId }});
   }
 }

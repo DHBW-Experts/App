@@ -8,25 +8,25 @@
       </div>
       <div class="profile_image_div">
         <img
-          src="assets/icon/contact_default.png"
+          src="../../../assets/icon/contact_default.png"
           alt="profile picture"
           class="profile_image"
         />
       </div>
       <div id="main_info_tab">
         <div>
-          <span id="name" *ngIf="isDataAvailable"
-            >{{user.firstname}} {{user.lastname}}</span
+          <span id="name" *ngIf="(this.userState.isUserInfoAvailable$ | async)"
+            >{{this.userState.user.firstname}} {{this.userState.user.lastname}}</span
           >
         </div>
         <div class="info_second_line">
-          <span id="studiengang" *ngIf="isDataAvailable"
-            >{{user.course}} - {{user.specialization}}</span
+          <span id="studiengang" *ngIf="(this.userState.isUserInfoAvailable$ | async)"
+            >{{this.userState.user.course + (this.userState.user.specialization ? ' - ' + this.userState.user.specialization : '')}}</span
           >
         </div>
         <div class="info_second_line">
-          <span id="standort" *ngIf="isDataAvailable"
-            >{{user.courseAbbr}} - DHBW {{user.dhbwLocation}}</span
+          <span id="standort" *ngIf="(this.userState.isUserInfoAvailable$ | async)"
+            >{{this.userState.user.courseAbbr}} - DHBW {{this.userState.user.dhbwLocation}}</span
           >
         </div>
       </div>
@@ -34,14 +34,14 @@
     <div id="bio" class="content">
       <div class="content_header"><span>Biographie</span></div>
       <div id="bio_content">
-        <span *ngIf="isDataAvailable">{{user.biography}}</span>
+        <span *ngIf="(this.userState.isUserInfoAvailable$ | async)">{{this.userState.user.biography}}</span>
       </div>
     </div>
     <div id="tags" class="content">
       <div class="content_header"><span>Skill-Tags</span></div>
-      <div class="tags_content">
+      <div *ngIf="(this.userState.isUserInfoAvailable$ | async)" class="tags_content">
         <app-tag
-          *ngFor="let tag of tags"
+          *ngFor="let tag of this.userState.tags"
           [tag]="tag"
           [selected]="currentSelectedTag"
           (tagSelected)="tagSelected($event)"
@@ -77,6 +77,9 @@
     </button>
     <button id="Scan_Button" class="Default_Button" (click)="openScanPage()">
       Eigenen Studentenausweis scannen
+    </button>
+    <button id="Logout_Button" class="Default_Button" (click)="userState.logout()">
+      Abmelden
     </button>
   </div>
 </body>
