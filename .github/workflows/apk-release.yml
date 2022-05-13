@@ -34,10 +34,13 @@ jobs:
         run: npm install -g @ionic/cli
 
       - name: Install app dependencies
-        run: npm i --force
+        run: npm install
+
+      - name: Copy Web Assets
+        run: ionic capacitor copy
 
       - name: Build Android App
-        run: ionic capacitor build android --no-open --configuration=production"
+        run: ionic capacitor build android --no-open --configuration=production
 
       - name: Generate Android APK
         working-directory: ./android/
