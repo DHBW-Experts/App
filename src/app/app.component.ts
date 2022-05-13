@@ -1,12 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
-
-import { mergeMap } from 'rxjs/operators';
-import { Browser } from '@capacitor/browser';
-import { App } from '@capacitor/app';
-import { callbackUri } from './auth.config';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {isPlatform} from '@ionic/angular';
+import { AuthService } from '@auth0/auth0-angular';
+import { App } from '@capacitor/app';
+import { Browser } from '@capacitor/browser';
+import { isPlatform } from '@ionic/angular';
+import { mergeMap } from 'rxjs/operators';
+import { callbackUri } from './auth.config';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +13,13 @@ import {isPlatform} from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(public auth: AuthService, private ngZone: NgZone, private router: Router) {}
+  constructor(public auth: AuthService, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     App.addListener('appUrlOpen', ({ url }) => {
       // Must run inside an NgZone for Angular to pick up the changes
       // https://capacitorjs.com/docs/guides/angular
+
       this.ngZone.run(() => {
         if (url?.startsWith(callbackUri)) {
           if (
@@ -28,15 +28,17 @@ export class AppComponent implements OnInit {
           ) {
             this.auth
               .handleRedirectCallback(url)
-              .pipe(mergeMap(() => {
-                if( isPlatform('ios') || isPlatform('android') ) {
-                  return Browser.close();
-                }
-                return Promise.resolve();
-              }))
+              .pipe(
+                mergeMap(() => {
+                  if (isPlatform('ios') || isPlatform('android')) {
+                    return Browser.close();
+                  }
+                  return Promise.resolve();
+                })
+              )
               .subscribe();
           } else {
-            if( isPlatform('ios') || isPlatform('android') ) {
+            if (isPlatform('ios') || isPlatform('android')) {
               return Browser.close();
             }
           }
