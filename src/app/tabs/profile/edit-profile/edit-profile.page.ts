@@ -13,7 +13,6 @@ import { User } from '../../../shared/models/user';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-  isDataAvailable: boolean = false;
   user: User = null;
   buttonVisibility: string = 'hidden';
 
@@ -22,11 +21,11 @@ export class EditProfilePage implements OnInit {
     private toastController: ToastController,
     private persistence: PersistenceService,
     private userState: UserStateService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.user = this.userState.user;
   }
-
-  ngOnInit(): void {}
 
   async edit() {
     this.persistence.user.edit(this.user).then((code) => {

@@ -11,49 +11,41 @@
         <div class="Default_Input_Text"><span>Vorname</span></div>
         <input
           type="text"
-          placeholder="{{user.firstname}}"
+          placeholder="{{this.user.firstname}}"
           class="Default_Input_Field"
           id="firstname_input"
           disabled
-          *ngIf="isDataAvailable"
         />
       </div>
       <div class="Default_Input" id="lastname">
         <div class="Default_Input_Text"><span>Nachname</span></div>
         <input
           type="text"
-          placeholder="{{user.lastname}}"
+          placeholder="{{this.user.lastname}}"
           class="Default_Input_Field"
           id="lastname_input"
           disabled
-          *ngIf="isDataAvailable"
         />
       </div>
-      <div class="Splitted_Input" id="DHBW-Mail_Standort">
-        <div class="Default_Input_Text"><span>DHBW-E-Mail-Adresse</span></div>
+      <div class="Default_Input" id="email">
+        <div class="Default_Input_Text"><span>DHBW-Email-Adresse</span></div>
         <input
           type="text"
-          placeholder="{{user.email.split('@', 1)[0]}}"
-          class="Splitted_Input_Field"
-          id="mail"
-          *ngIf="isDataAvailable"
+          placeholder="{{this.user.email}}"
+          class="Default_Input_Field"
+          id="email_input"
           disabled
         />
+      </div>
+      <div class="Default_Input" id="dhbwLocation">
+        <div class="Default_Input_Text"><span>DHBW-Standort</span></div>
         <input
           type="text"
-          list="standorte"
-          id="standort"
-          class="Splitted_Dropdown_Field"
-          placeholder="Karlsruhe"
-          value="{{user.dhbwLocation}}"
-          *ngIf="isDataAvailable"
+          placeholder="{{this.user.dhbwLocation}}"
+          class="Default_Input_Field"
+          id="dhbwLocation_input"
           disabled
         />
-        <div class="email_preview_div">
-          <span id="email_preview_text" *ngIf="isDataAvailable"
-            >{{user.email}}</span
-          >
-        </div>
       </div>
       <div class="Default_Input" id="Bio">
         <div class="Default_Input_Text"><span>Biographie</span></div>
@@ -63,19 +55,17 @@
           id="bio_textarea"
           maxlength="1000"
           rows="4"
-          *ngIf="isDataAvailable"
-          [(ngModel)]="user.biography"
+          [(ngModel)]="this.user.biography"
         >
-{{user.biography}}</textarea
-        >
+          {{user.biography}}
+        </textarea>
       </div>
       <div class="Default_Input" id="Studiengang">
         <div class="Default_Input_Text"><span>Studiengang</span></div>
         <input
           type="text"
           class="Default_Input_Field"
-          *ngIf="isDataAvailable"
-          [(ngModel)]="user.course"
+          [(ngModel)]="this.user.course"
         />
       </div>
       <div class="Default_Input" id="Fachrichtung">
@@ -84,7 +74,6 @@
           type="text"
           placeholder="optional"
           class="Default_Input_Field"
-          *ngIf="isDataAvailable"
           [(ngModel)]="user.specialization"
         />
       </div>
@@ -93,8 +82,7 @@
         <input
           type="text"
           class="Default_Input_Field"
-          *ngIf="isDataAvailable"
-          [(ngModel)]="user.courseAbbr"
+          [(ngModel)]="this.user.courseAbbr"
         />
       </div>
       <div class="Default_Input" id="Stadt">
@@ -102,8 +90,7 @@
         <input
           type="text"
           class="Default_Input_Field"
-          *ngIf="isDataAvailable"
-          [(ngModel)]="user.city"
+          [(ngModel)]="this.user.city"
         />
       </div>
       <button id="Delete_Button" class="Default_Button" (click)="delete()">
