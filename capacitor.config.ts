@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'de.dhexp.app',
+  appId: 'de.dhbw-experts.app',
   appName: 'DHBW-Experts',
   webDir: 'www',
   plugins: {},

@@ -1,4 +1,4 @@
-package de.dhexp.app;
+package de.dhbwexperts.app;
 
 import com.getcapacitor.BridgeActivity;
 

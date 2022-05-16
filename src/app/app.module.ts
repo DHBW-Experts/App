@@ -17,18 +17,14 @@ const config: AuthConfig = {
   clientId,
   redirectUri: callbackUri,
   audience: 'https://dhbw-experts-api.azurewebsites.net/',
-  scope: '' +
-    'read:users write:users ' +
-    'read:tags write:tags ' +
-    'read:tag-verifications write:tag-verifications ' +
-    'read:contacts write:contacts',
+  scope: 'read:profile write:profile ',
   httpInterceptor: {
     allowedList: [
       {
         uri: 'https://dhbw-experts-api.azurewebsites.net/*',
         tokenOptions: {
           audience: 'https://dhbw-experts-api.azurewebsites.net/',
-          scope: 'read:users',
+          scope: 'read:profile write:profile',
         }
       }
     ]
