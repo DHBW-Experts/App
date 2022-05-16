@@ -3,6 +3,7 @@
 This repository contains the source code of the DHBW-Experts Ionic App.
 
 ![build](https://img.shields.io/github/workflow/status/DHBW-Experts/app/Build%20and%20deploy%20container%20app%20to%20Azure%20Web%20App%20-%20DHBW-Experts)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DHBW-Experts_app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DHBW-Experts_app)
 
 
 ## Setup
