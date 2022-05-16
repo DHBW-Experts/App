@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LoginPage } from '../../auth/login/login.page';
-import { Persistence } from '../../models/persistence';
-import { Tag } from '../../models/tag';
+import { LoginPage } from '../../shared/modules/login/login.page';
+import { Tag } from '../../shared/models/tag';
 import { alertController } from '@ionic/core';
-import { User } from '../../models/user';
+import { User } from '../../shared/models/user';
+import { NFC } from '@ionic-native/nfc/ngx';
+import { Subscription } from 'rxjs';
+import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { callbackUri } from 'src/app/auth.config';
+import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,31 +25,22 @@ export class ProfilePage implements OnInit {
   isTagSelected = false;
   currentSelectedTag: Tag;
 
-  constructor(private route: Router) {
-    const persistence = new Persistence();
-    const userPromise = persistence.getUserById(LoginPage.user.userId);
-    userPromise.then((result) => {
-      this.user = result;
-      this.isDataAvailable = true;
-    });
-        const tagPromise = persistence.getTags(LoginPage.user.userId);
+  private nfcSub: Subscription;
 
-    tagPromise.then((result) => {
-      this.tags = result;
-    });
-  }
+  constructor(
+    private route: Router,
+    private nfc: NFC,
+    private persistence: PersistenceService,
+    public userState: UserStateService
+  ) {}
+
   ngOnInit(): void {}
 
   openEditPage() {
     this.route.navigate(['../edit-profile']);
   }
-  tagClicked(e) {
-    console.log(e);
-    e.className = 'another-class';
-  }
 
   async addTag() {
-    const persistence = new Persistence();
     const alertController = new AlertController();
     const alert = await alertController.create({
       cssClass: 'my-custom-class',
@@ -72,12 +68,11 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ok',
           handler: (alertData) => {
-            persistence.addTag(this.user, alertData.tagText).then(() => {
-              const tagPromise2 = persistence.getTags(LoginPage.user.userId);
-              tagPromise2.then((result) => {
-                this.tags = result;
+            this.persistence.tag
+              .create(this.userState.user, alertData.tagText)
+              .then(() => {
+                this.userState.fetchUserInfo();
               });
-            });
           },
         },
       ],
@@ -88,14 +83,13 @@ export class ProfilePage implements OnInit {
   tagSelected(tag: Tag) {
     this.isTagSelected = true;
     this.currentSelectedTag = tag;
-    let persistence = new Persistence();
-    const tagValidationsPromise = persistence.getTagValidation(tag.tagId);
-    tagValidationsPromise.then((result) => {
-      this.tagValidations = result.map((validation) => validation.comment);
+
+    this.persistence.tag.getValidations(tag.tagId).then((validations) => {
+      this.tagValidations = validations.map((validation) => validation.comment);
     });
   }
+
   async deleteTag() {
-    const persistence = new Persistence();
     const alert = await alertController.create({
       header: 'Achtung',
       message:
@@ -114,16 +108,46 @@ export class ProfilePage implements OnInit {
         {
           text: 'Ja',
           handler: () => {
-            persistence.deleteTag(this.currentSelectedTag.tagId);
-            //todo: not async
-            const tagPromise2 = persistence.getTags(LoginPage.user.userId);
-            tagPromise2.then((result) => {
-              this.tags = result;
-            });
+            this.persistence.tag
+              .delete(this.currentSelectedTag.tagId, this.userState.userId)
+              .then(() => {
+                this.userState.fetchUserInfo();
+              });
           },
         },
       ],
     });
     await alert.present();
+  }
+
+  async openScanPage() {
+    const alert = await alertController.create({
+      header: 'Information',
+      message: 'Scanne nun deinen Ausweis',
+      buttons: ['Ok'],
+    });
+    await alert.present();
+
+    const flags = this.nfc.FLAG_READER_NFC_A | this.nfc.FLAG_READER_NFC_V;
+
+    this.nfcSub = this.nfc.readerMode(flags).subscribe((tag) => {
+      const tagId = tag.id
+        .map((i) => Math.abs(i).toString(16).toUpperCase().padStart(2, '0'))
+        .join(':');
+
+      const user = this.userState.user;
+      user.rfidId = tagId;
+
+      this.persistence.user.edit(user);
+    }, this.nfcErrHandler);
+  }
+
+  nfcErrHandler(err: any) {
+    console.log('Error reading tag', err);
+  }
+
+  ionViewDidLeave() {
+    // Unsubscribe NFC reader
+    this.nfcSub.unsubscribe();
   }
 }

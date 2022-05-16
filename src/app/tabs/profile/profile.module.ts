@@ -4,11 +4,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfilePage } from './profile.page';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
-
+import { ExploreContainerComponentModule } from '../../shared/components/explore-container/explore-container.module';
 import { ProfilePageRoutingModule } from './profile-routing.module';
-import { TagComponent } from '../tag/tag.component';
-import { TabsPageModule } from '../tabs.module';
+import {TagModule} from '../../shared/components/tag/tag.module';
 
 @NgModule({
   imports: [
@@ -18,7 +16,8 @@ import { TabsPageModule } from '../tabs.module';
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: ProfilePage }]),
     ProfilePageRoutingModule,
+    TagModule
   ],
-  declarations: [ProfilePage, TagComponent],
+  declarations: [ProfilePage],
 })
 export class ProfilePageModule {}

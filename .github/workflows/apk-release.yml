@@ -34,16 +34,19 @@ jobs:
         run: npm install -g @ionic/cli
 
       - name: Install app dependencies
-        run: npm i --force
+        run: npm install
+
+      - name: Copy Web Assets
+        run: ionic capacitor copy
 
       - name: Build Android App
-        run: ionic capacitor build android --no-open
+        run: ionic capacitor build android --no-open --configuration=production
 
       - name: Generate Android APK
         working-directory: ./android/
         run: ./gradlew assembleDebug
-      
-      - name: Rename file 
+
+      - name: Rename file
         run: mv ./android/app/build/outputs/apk/debug/app-debug.apk ./android/app/build/outputs/apk/dhbw-experts_${{ env.RELEASE_VERSION }}.apk
 
       - name: Release

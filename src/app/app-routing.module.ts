@@ -1,34 +1,35 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CallbackComponent } from './shared/components/callback/callback.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
     path: 'register',
     loadChildren: () =>
-      import('./auth/register/register.module').then(
+      import('./shared/modules/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'callback',
+    component: CallbackComponent,
   },
   {
     path: '',
     loadChildren: () =>
-      //import('./tabs/tabs.module').then((m) => m.TabsPageModule),
-      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: '',
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
-  },
-  {
-    path: 'verify',
-    loadChildren: () =>
-      import('./auth/verify/verify.module').then((m) => m.VerifyPageModule),
   },
 ];
 @NgModule({

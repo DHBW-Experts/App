@@ -1,0 +1,106 @@
+<body>
+  <div id="Bearbeiten" (change)="detectChanges()">
+    <div id="top-nav">
+      <button id="backArrowButton" (click)="backToProfilePage()">
+        <img src="../../../../assets/icon/arrow_back.svg" alt="back" id="back" />
+      </button>
+      <div id="RegistrierenText"><span>Profil</span></div>
+    </div>
+    <div id="sign-up">
+      <div class="Default_Input" id="firstname">
+        <div class="Default_Input_Text"><span>Vorname</span></div>
+        <input
+          type="text"
+          placeholder="{{this.user.firstname}}"
+          class="Default_Input_Field"
+          id="firstname_input"
+          disabled
+        />
+      </div>
+      <div class="Default_Input" id="lastname">
+        <div class="Default_Input_Text"><span>Nachname</span></div>
+        <input
+          type="text"
+          placeholder="{{this.user.lastname}}"
+          class="Default_Input_Field"
+          id="lastname_input"
+          disabled
+        />
+      </div>
+      <div class="Default_Input" id="email">
+        <div class="Default_Input_Text"><span>DHBW-Email-Adresse</span></div>
+        <input
+          type="text"
+          placeholder="{{this.user.email}}"
+          class="Default_Input_Field"
+          id="email_input"
+          disabled
+        />
+      </div>
+      <div class="Default_Input" id="dhbwLocation">
+        <div class="Default_Input_Text"><span>DHBW-Standort</span></div>
+        <input
+          type="text"
+          placeholder="{{this.user.dhbwLocation}}"
+          class="Default_Input_Field"
+          id="dhbwLocation_input"
+          disabled
+        />
+      </div>
+      <div class="Default_Input" id="Bio">
+        <div class="Default_Input_Text"><span>Biographie</span></div>
+        <textarea
+          type="text"
+          class="Default_Input_Field"
+          id="bio_textarea"
+          maxlength="1000"
+          rows="4"
+          [(ngModel)]="this.user.biography"
+        >
+          {{user.biography}}
+        </textarea>
+      </div>
+      <div class="Default_Input" id="Studiengang">
+        <div class="Default_Input_Text"><span>Studiengang</span></div>
+        <input
+          type="text"
+          class="Default_Input_Field"
+          [(ngModel)]="this.user.course"
+        />
+      </div>
+      <div class="Default_Input" id="Fachrichtung">
+        <div class="Default_Input_Text"><span>Fachrichtung</span></div>
+        <input
+          type="text"
+          placeholder="optional"
+          class="Default_Input_Field"
+          [(ngModel)]="user.specialization"
+        />
+      </div>
+      <div class="Default_Input" id="Kurs">
+        <div class="Default_Input_Text"><span>Kurs</span></div>
+        <input
+          type="text"
+          class="Default_Input_Field"
+          [(ngModel)]="this.user.courseAbbr"
+        />
+      </div>
+      <div class="Default_Input" id="Stadt">
+        <div class="Default_Input_Text"><span>Stadt</span></div>
+        <input
+          type="text"
+          class="Default_Input_Field"
+          [(ngModel)]="this.user.city"
+        />
+      </div>
+      <button id="Delete_Button" class="Default_Button" (click)="delete()">
+        Profil löschen
+      </button>
+    </div>
+    <div id="bottom-nav" [style.visibility]="buttonVisibility">
+      <button id="Register_Button" class="Default_Button" (click)="edit()">
+        Änderungen Speichern
+      </button>
+    </div>
+  </div>
+</body>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
@@ -35,25 +36,29 @@ const routes: Routes = [
         pathMatch: 'full',
       },
     ],
+    canActivate: [AuthGuard],
   },
   {
     path: '',
     redirectTo: '/tabs/profile',
     pathMatch: 'full',
+    canActivate: [AuthGuard],
   },
   {
     path: 'edit-profile',
     loadChildren: () =>
-      import('./edit-profile/edit-profile.module').then(
+      import('./profile/edit-profile/edit-profile.module').then(
         (m) => m.EditProfilePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
-    path: 'view-foreign-profile',
+    path: 'profile',
     loadChildren: () =>
-      import('./view-foreign-profile/view-foreign-profile.module').then(
+      import('../shared/modules/foreign-profile/foreign-profile.module').then(
         (m) => m.ViewForeignProfilePageModule
       ),
+    canActivate: [AuthGuard],
   },
 ];
 
