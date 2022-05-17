@@ -21,7 +21,8 @@
         </div>
         <div class="info_second_line">
           <span id="studiengang" *ngIf="isDataAvailable"
-            >{{user.course + (user.specialization ? ' - ' + user.specialization : '')}}</span
+            >{{user.course + (user.specialization ? ' - ' + user.specialization
+            : '')}}</span
           >
         </div>
         <div class="info_second_line">
@@ -57,7 +58,7 @@
       </div>
       <button
         class="Default_Button"
-        *ngIf="!isUserLoggedInUser && isTagSelected"
+        *ngIf="!isUserLoggedInUser && isTagSelected && !hasUserAddedValidationToSelectedTag"
         (click)="addValidation()"
       >
         Validierung hinzufügen

@@ -20,6 +20,7 @@ export class ForeignProfilePage implements OnInit {
   isUserInContacts: boolean = false;
   isUserLoggedInUser: boolean;
   isTagSelected: boolean = false;
+  hasUserAddedValidationToSelectedTag = false;
   selectedTag: Tag;
 
   constructor(
@@ -39,6 +40,9 @@ export class ForeignProfilePage implements OnInit {
     this.selectedTag = tag;
 
     this.persistence.tag.getValidations(tag.tagId).then((validations) => {
+      this.hasUserAddedValidationToSelectedTag = validations.some(
+        (val) => val.validatedBy === this.userState.userId
+      );
       this.tagValidations = validations.map((validation) => validation.comment);
     });
   }
