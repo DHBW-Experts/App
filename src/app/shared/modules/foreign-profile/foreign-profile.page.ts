@@ -71,13 +71,13 @@ export class ForeignProfilePage implements OnInit {
   addContact() {
     this.persistence.contact
       .add(this.userState.userId, this.user.userId)
-      .then(this.userState.fetchUserInfo);
+      .then(() => this.userState.fetchUserInfo());
   }
 
   removeContact() {
     this.persistence.contact
       .remove(this.userState.userId, this.user.userId)
-      .then(this.userState.fetchUserInfo);
+      .then(() => this.userState.fetchUserInfo());
   }
 
   async addValidation() {
