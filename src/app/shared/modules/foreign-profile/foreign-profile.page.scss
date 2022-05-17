@@ -12,6 +12,12 @@ body {
   top: 0;
   left: 0;
 }
+#top_bar_button {
+  position: relative;
+}
+#back_button {
+  position: absolute 8px; 
+}
 .top_svg_div {
   position: relative;
   width: 100%;

@@ -1,17 +1,24 @@
 <body>
   <div id="Profil">
     <div class="top_bar">
-      <div class="top_svg_div">
-        <svg class="top_svg" viewBox="0 0 345 215" preserveAspectRatio="none">
-          <path d="M 0,0 H 345 V 150.00004 L 172.5,215 0,150.00004 Z" />
-        </svg>
+      <div id="top_bar_button">
+        <div id="back_button">
+        <button id="backArrowButton" (click)="goBackToPreviousPage()">
+          <img src="assets/icon/arrow_back.svg" alt="back" id="back" />
+        </button>
+        </div>
+        <div class="top_svg_div">
+          <svg class="top_svg" viewBox="0 0 345 215" preserveAspectRatio="none">
+            <path d="M 0,0 H 345 V 150.00004 L 172.5,215 0,150.00004 Z" />
+          </svg>      
+        </div>
       </div>
       <div class="profile_image_div">
         <img
-          src="../../../../assets/icon/contact_default.png"
+          src="assets/icon/contact_default.png"
           alt="profile picture"
           class="profile_image"
-        />
+         />
       </div>
       <div id="main_info_tab">
         <div>
