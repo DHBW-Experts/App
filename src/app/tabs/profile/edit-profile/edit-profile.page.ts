@@ -71,7 +71,7 @@ export class EditProfilePage implements OnInit {
   }
 
   backToProfilePage() {
-    this.router.navigate(['tabs/profile']);
+    this.router.navigate(['/tabs/profile']);
   }
 
   async presentChanged() {

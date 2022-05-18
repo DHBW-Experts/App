@@ -66,6 +66,6 @@ export class SearchPage {
   }
 
   openForeignProfile(userId) {
-    this.route.navigate(['../profile'], { queryParams: { id: userId }});
+    this.route.navigate(['/tabs/search/profile'], { queryParams: { id: userId }});
   }
 }

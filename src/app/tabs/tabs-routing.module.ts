@@ -10,25 +10,44 @@ const routes: Routes = [
     children: [
       {
         path: 'scan',
-        loadChildren: () =>
-          import('./scan/scan.module').then((m) => m.ScanPageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./scan/scan.module').then((m) => m.ScanPageModule)
+          }
+        ],
       },
       {
         path: 'search',
-        loadChildren: () =>
-          import('./search/search.module').then((m) => m.SearchPageModule),
-      },
-      {
-        path: 'profile',
-        loadChildren: () =>
-          import('./profile/profile.module').then((m) => m.ProfilePageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./search/search.module').then((m) => m.SearchPageModule),
+          }
+        ],
       },
       {
         path: 'contacts',
-        loadChildren: () =>
-          import('./contacts/contacts.module').then(
-            (m) => m.ContactsPageModule
-          ),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./contacts/contacts.module').then(
+                (m) => m.ContactsPageModule),
+          }
+        ],
+      },
+      {
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./profile/profile.module').then((m) => m.ProfilePageModule),
+          }
+        ],
       },
       {
         path: '',
@@ -36,28 +55,6 @@ const routes: Routes = [
         pathMatch: 'full',
       },
     ],
-    canActivate: [AuthGuard],
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/profile',
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'edit-profile',
-    loadChildren: () =>
-      import('./profile/edit-profile/edit-profile.module').then(
-        (m) => m.EditProfilePageModule
-      ),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'profile',
-    loadChildren: () =>
-      import('../shared/modules/foreign-profile/foreign-profile.module').then(
-        (m) => m.ViewForeignProfilePageModule
-      ),
     canActivate: [AuthGuard],
   },
 ];

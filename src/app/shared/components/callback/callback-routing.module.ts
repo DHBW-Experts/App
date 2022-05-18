@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { ForeignProfilePage } from './foreign-profile.page';
+import {CallbackComponent} from './callback.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ForeignProfilePage
+    component: CallbackComponent
   }
 ];
 
@@ -14,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ForeignProfilePageRoutingModule {}
+export class CallbackRoutingModule {}

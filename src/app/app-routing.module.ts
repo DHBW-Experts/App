@@ -19,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'callback',
-    component: CallbackComponent,
+    loadChildren: () =>
+      import('./shared/components/callback/callback.module').then((m) => m.CallbackModule),
   },
   {
     path: '',
