@@ -13,6 +13,7 @@ const routes: Routes = [
       import('../../shared/modules/foreign-profile/foreign-profile.module').then(
         (m) => m.ForeignProfilePageModule
       ),
+    pathMatch: 'full',
   },
 ];
 

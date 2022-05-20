@@ -6,7 +6,8 @@ import { ForeignProfilePage } from './foreign-profile.page';
 const routes: Routes = [
   {
     path: '',
-    component: ForeignProfilePage
+    component: ForeignProfilePage,
+    pathMatch: 'full',
   }
 ];
 

@@ -5,49 +5,30 @@ import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
         path: 'scan',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('./scan/scan.module').then((m) => m.ScanPageModule)
-          }
-        ],
+        loadChildren: () =>
+          import('./scan/scan.module').then((m) => m.ScanPageModule),
+          pathMatch: 'full',
       },
       {
         path: 'search',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('./search/search.module').then((m) => m.SearchPageModule),
-          }
-        ],
+        loadChildren: () =>
+          import('./search/search.module').then((m) => m.SearchPageModule)
       },
       {
         path: 'contacts',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('./contacts/contacts.module').then(
-                (m) => m.ContactsPageModule),
-          }
-        ],
+        loadChildren: () =>
+          import('./contacts/contacts.module').then((m) => m.ContactsPageModule)
       },
       {
         path: 'profile',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('./profile/profile.module').then((m) => m.ProfilePageModule),
-          }
-        ],
+        loadChildren: () =>
+          import('./profile/profile.module').then((m) => m.ProfilePageModule),
+        pathMatch: 'full',
       },
       {
         path: '',

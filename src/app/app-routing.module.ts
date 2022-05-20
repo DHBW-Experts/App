@@ -5,6 +5,16 @@ import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () =>
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
     path: 'register',
     loadChildren: () =>
       import('./shared/modules/register/register.module').then(
@@ -13,29 +23,24 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'login',
-    loadChildren: () =>
-      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
-  },
-  {
     path: 'callback',
     loadChildren: () =>
       import('./shared/components/callback/callback.module').then((m) => m.CallbackModule),
   },
   {
-    path: '',
-    loadChildren: () =>
-      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
-  },
-  {
-    path: '',
+    path: 'tabs',
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, enableTracing: true }),
   ],
   exports: [RouterModule],
 })

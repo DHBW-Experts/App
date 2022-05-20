@@ -6,7 +6,8 @@ import { EditProfilePage } from './edit-profile.page';
 const routes: Routes = [
   {
     path: '',
-    component: EditProfilePage
+    component: EditProfilePage,
+    pathMatch: 'full',
   }
 ];
 
