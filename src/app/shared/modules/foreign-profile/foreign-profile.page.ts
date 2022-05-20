@@ -6,6 +6,7 @@ import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-foreign-profile',
@@ -26,7 +27,8 @@ export class ForeignProfilePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private persistence: PersistenceService,
-    private userState: UserStateService
+    private userState: UserStateService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {}
@@ -78,6 +80,10 @@ export class ForeignProfilePage implements OnInit {
     this.persistence.contact
       .remove(this.userState.userId, this.user.userId)
       .then(this.userState.fetchUserInfo);
+  }
+
+  goBackToPreviousPage() {
+    this.location.back();
   }
 
   async addValidation() {
