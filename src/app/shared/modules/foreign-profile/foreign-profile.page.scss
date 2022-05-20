@@ -12,11 +12,13 @@ body {
   top: 0;
   left: 0;
 }
-#top_bar_button {
-  position: relative;
+.back_button_div {
+  position: absolute; 
+  margin-top: 5%;
+  z-index: 2;
 }
-#back_button {
-  position: absolute 8px; 
+#backArrowButton {
+  background-color: rgba(178, 0, 45, 1);
 }
 .top_svg_div {
   position: relative;
