@@ -12,6 +12,14 @@ body {
   top: 0;
   left: 0;
 }
+.back_button_div {
+  position: absolute; 
+  margin-top: 5%;
+  z-index: 2;
+}
+#backArrowButton {
+  background-color: rgba(178, 0, 45, 1);
+}
 .top_svg_div {
   position: relative;
   width: 100%;

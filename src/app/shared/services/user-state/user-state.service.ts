@@ -20,6 +20,7 @@ export class UserStateService{
   user: User;
   tags: Tag[];
   tagValidations = [];
+  contacts: User [];
   userId: string;
   isAuthenticated$: BehaviorSubject<boolean>;
   isUserInfoAvailable$: BehaviorSubject<boolean>;
@@ -65,9 +66,11 @@ export class UserStateService{
 
   public fetchUserInfo(): Promise<void> {
     this.isUserInfoAvailable$.next(false);
+  
     return Promise.all([
       this.persistence.user.getById(this.userId).then( val => this.user = val),
       this.persistence.tag.getByUser(this.userId).then( val => this.tags = val),
+      this.persistence.contact.getByUserId(this.userId).then(val => this.contacts = val)
     ]).then(() => {
       this.isUserInfoAvailable$.next(true);
     });
@@ -78,6 +81,7 @@ export class UserStateService{
     this.auth0User = null;
     this.userId = "not signed in"
     this.tags = [];
+    this.contacts = []
     this.tagValidations = [];
     this.auth
       .buildLogoutUrl({ returnTo : callbackUri })

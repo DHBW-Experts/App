@@ -1,10 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
 import { User } from '../../models/user';
-import {AuthService} from '@auth0/auth0-angular';
-import {HttpClient} from '@angular/common/http';
-import {async} from "rxjs";
 
 const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
 
@@ -47,6 +46,14 @@ export class PersistenceService {
 
       getValidations: async (tagId: number) => {
         return this.http.get<TagValidation[]>(`${API_BASE}/tags/${tagId}/validations`).toPromise();
+      },
+
+      addValidation: async (tagId: number, validation: string, validatedBy:number) =>{
+        return this.http.post<TagValidation>(`${API_BASE}/tags/${tagId}/validations`,{
+          "tag": tagId,
+          "validatedBy": validatedBy ,
+          "comment": validation
+        }).toPromise();
       },
 
       delete: async (tagId: number, userId: string) => {

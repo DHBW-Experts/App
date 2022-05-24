@@ -24,8 +24,8 @@ export class SearchPage {
       return;
     }
     if (this.selectedOption === 'tag') {
-      this.persistence.user
-        .getByTag(this.searchText)
+      this.persistence.search
+        .searchUsersByTag(this.searchText)
         .then((res) => (this.resultsUser = res));
     } else if (this.selectedOption === 'nutzer') {
       this.persistence.user

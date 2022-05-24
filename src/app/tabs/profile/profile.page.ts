@@ -148,6 +148,8 @@ export class ProfilePage implements OnInit {
 
   ionViewDidLeave() {
     // Unsubscribe NFC reader
-    this.nfcSub.unsubscribe();
+    if (this.nfcSub) {
+      this.nfcSub.unsubscribe();
+    }
   }
 }
