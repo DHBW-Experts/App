@@ -19,9 +19,9 @@ export class ForeignProfilePage implements OnInit {
   tagValidations = [];
   isDataAvailable: boolean = false;
   isUserInContacts: boolean = false;
-  contacts: User[];
   isUserLoggedInUser: boolean;
   isTagSelected: boolean = false;
+  hasUserAddedValidationToSelectedTag = false;
   selectedTag: Tag;
 
   constructor(
@@ -34,31 +34,7 @@ export class ForeignProfilePage implements OnInit {
   ngOnInit(): void {}
 
   ionViewWillEnter() {
-    const userId = this.route.snapshot.queryParamMap.get('id');
-
-    this.persistence.user.getById(userId).then((user) => {
-      this.user = user;
-      this.isDataAvailable = true;
-
-      const contactsPromise = this.persistence.contact
-        .getByUserId(this.userState.userId)
-        .then((contacts) => {
-          this.contacts = contacts;
-
-          if (this.userState.userId === this.user.userId) {
-            this.isUserLoggedInUser = true;
-            return;
-          }
-
-          this.isUserInContacts = this.contacts.some(
-            (e) => e.userId === this.user.userId
-          );
-        });
-    });
-
-    this.persistence.tag.getByUser(userId).then((tags) => {
-      this.tags = tags;
-    });
+    this.fetchInfo();
   }
 
   tagSelected(tag: Tag) {
@@ -66,6 +42,9 @@ export class ForeignProfilePage implements OnInit {
     this.selectedTag = tag;
 
     this.persistence.tag.getValidations(tag.tagId).then((validations) => {
+      this.hasUserAddedValidationToSelectedTag = validations.some(
+        (val) => val.validatedBy === this.userState.userId
+      );
       this.tagValidations = validations.map((validation) => validation.comment);
     });
   }
@@ -73,13 +52,13 @@ export class ForeignProfilePage implements OnInit {
   addContact() {
     this.persistence.contact
       .add(this.userState.userId, this.user.userId)
-      .then(this.userState.fetchUserInfo);
+      .then(() => this.userState.fetchUserInfo());
   }
 
   removeContact() {
     this.persistence.contact
       .remove(this.userState.userId, this.user.userId)
-      .then(this.userState.fetchUserInfo);
+      .then(() => this.userState.fetchUserInfo());
   }
 
   goBackToPreviousPage() {
@@ -92,9 +71,9 @@ export class ForeignProfilePage implements OnInit {
       header: 'Kommentar eingeben',
       inputs: [
         {
-          name: 'tagText',
+          name: 'validationComment',
           type: 'text',
-          label: 'tagText',
+          label: 'validationComment',
         },
       ],
       buttons: [
@@ -109,11 +88,40 @@ export class ForeignProfilePage implements OnInit {
         {
           text: 'Ok',
           handler: (alertData) => {
-            //todo persistence.addTagValidatio();
+            this.persistence.tag
+              .addValidation(
+                this.selectedTag.tagId,
+                alertData.validationComment,
+                this.userState.userId
+              )
+              .then(() => {
+                this.fetchInfo();
+              });
           },
         },
       ],
     });
     await alert.present();
+  }
+
+  async fetchInfo() {
+    await this.userState.fetchUserInfo();
+    const userId = this.route.snapshot.queryParamMap.get('id');
+
+    if (this.userState.userId === userId) {
+      this.isUserLoggedInUser = true;
+    }
+
+    this.isUserInContacts = this.userState.contacts.some(
+      (contact) => contact.userId === userId
+    );
+
+    this.persistence.tag.getByUser(userId).then((tags) => {
+      this.tags = tags;
+    });
+    this.persistence.user.getById(userId).then((val) => {
+      this.user = val;
+      this.isDataAvailable = true;
+    });
   }
 }

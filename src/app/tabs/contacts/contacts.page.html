@@ -3,7 +3,7 @@
     <div id="Meine_Kontakte"><span>Meine Kontakte</span></div>
     <div id="Contact_Group">
       <app-profile-preview
-        *ngFor="let user of contacts"
+        *ngFor="let user of this.userState.contacts"
         [user]="user"
         (click)="openForeignProfile(user.userId)"
       ></app-profile-preview>

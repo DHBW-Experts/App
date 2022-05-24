@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginPage } from 'src/app/shared/modules/login/login.page';
-import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 
@@ -11,8 +9,6 @@ import { UserStateService } from 'src/app/shared/services/user-state/user-state.
   styleUrls: ['./contacts.page.scss'],
 })
 export class ContactsPage implements OnInit {
-  contacts: User[];
-
   constructor(
     private route: Router,
     private persistence: PersistenceService,
@@ -21,12 +17,7 @@ export class ContactsPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewWillEnter() {
-    this.persistence.contact.getByUserId(this.userState.userId)
-      .then(contacts => this.contacts = contacts);
-  }
-
   openForeignProfile(userId) {
-    this.route.navigate(['../profile'], { queryParams: { id: userId }});
+    this.route.navigate(['../profile'], { queryParams: { id: userId } });
   }
 }
