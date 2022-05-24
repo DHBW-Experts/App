@@ -27,6 +27,6 @@ export class ContactsPage implements OnInit {
   }
 
   openForeignProfile(userId) {
-    this.route.navigate(['../profile'], { queryParams: { id: userId }});
+    this.route.navigate(['/tabs/contacts/profile'], { queryParams: { id: userId }});
   }
 }

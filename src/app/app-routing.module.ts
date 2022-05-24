@@ -1,9 +1,18 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { CallbackComponent } from './shared/components/callback/callback.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () =>
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
+  },
   {
     path: 'register',
     loadChildren: () =>
@@ -13,24 +22,20 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'login',
-    loadChildren: () =>
-      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
-  },
-  {
     path: 'callback',
-    component: CallbackComponent,
-  },
-  {
-    path: '',
     loadChildren: () =>
-      import('./shared/modules/login/login.module').then((m) => m.LoginPageModule),
+      import('./shared/components/callback/callback.module').then((m) => m.CallbackModule),
   },
   {
-    path: '',
+    path: 'tabs',
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 @NgModule({
   imports: [
