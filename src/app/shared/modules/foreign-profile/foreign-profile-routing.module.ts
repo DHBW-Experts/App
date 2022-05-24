@@ -6,7 +6,8 @@ import { ForeignProfilePage } from './foreign-profile.page';
 const routes: Routes = [
   {
     path: '',
-    component: ForeignProfilePage
+    component: ForeignProfilePage,
+    pathMatch: 'full',
   }
 ];
 
@@ -14,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ViewForeignProfilePageRoutingModule {}
+export class ForeignProfilePageRoutingModule {}

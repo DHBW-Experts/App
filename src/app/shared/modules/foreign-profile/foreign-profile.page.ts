@@ -105,7 +105,7 @@ export class ForeignProfilePage implements OnInit {
   }
 
   async fetchInfo() {
-    await this.userState.fetchUserInfo();
+    //await this.userState.fetchUserInfo();
     const userId = this.route.snapshot.queryParamMap.get('id');
 
     if (this.userState.userId === userId) {

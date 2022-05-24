@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
   ngOnInit(): void {}
 
   openEditPage() {
-    this.route.navigate(['../edit-profile']);
+    this.route.navigate(['/tabs/profile/edit']);
   }
 
   async addTag() {
