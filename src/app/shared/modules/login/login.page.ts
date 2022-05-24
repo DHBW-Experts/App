@@ -55,7 +55,7 @@ export class LoginPage implements OnInit, OnDestroy{
 
   async login() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: 'Lädt...'
     });
     await loading.present();
     this.auth
