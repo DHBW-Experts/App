@@ -12,7 +12,7 @@ export class ContactsPage implements OnInit {
   constructor(
     private route: Router,
     private persistence: PersistenceService,
-    private userState: UserStateService
+    public userState: UserStateService
   ) {}
 
   ngOnInit() {}
