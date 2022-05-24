@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { alertController } from '@ionic/core';
 import { Storage } from '@ionic/storage';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
