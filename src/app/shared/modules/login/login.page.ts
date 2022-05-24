@@ -62,6 +62,5 @@ export class LoginPage implements OnInit, OnDestroy{
       .buildAuthorizeUrl()
       .pipe(mergeMap((url) => Browser.open({ url, windowName: '_self' })))
       .subscribe();
-    loading.dismiss();
   }
 }
