@@ -10,6 +10,7 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { Browser } from '@capacitor/browser';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 import { Subscription } from 'rxjs';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit, OnDestroy{
   constructor(
     private router: Router,
     private auth: AuthService,
-    private userState: UserStateService
+    private userState: UserStateService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,10 @@ export class LoginPage implements OnInit, OnDestroy{
   }
 
   async login() {
+    const loading = await this.loadingController.create({
+      message: 'Lädt...'
+    });
+    await loading.present();
     this.auth
       .buildAuthorizeUrl()
       .pipe(mergeMap((url) => Browser.open({ url, windowName: '_self' })))
