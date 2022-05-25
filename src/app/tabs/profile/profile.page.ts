@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { LoginPage } from '../../shared/modules/login/login.page';
-import { Tag } from '../../shared/models/tag';
-import { alertController } from '@ionic/core';
-import { User } from '../../shared/models/user';
+import { Router } from '@angular/router';
 import { NFC } from '@ionic-native/nfc/ngx';
+import { AlertController } from '@ionic/angular';
+import { alertController } from '@ionic/core';
 import { Subscription } from 'rxjs';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
-import { AuthService } from '@auth0/auth0-angular';
-import { callbackUri } from 'src/app/auth.config';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
+import { Tag } from '../../shared/models/tag';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-profile',
