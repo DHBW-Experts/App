@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { alertController } from '@ionic/core';
 import { Storage } from '@ionic/storage';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
@@ -173,24 +172,6 @@ async function postData(path = '', data = {}) {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
   });
-
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while posting data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-  } else {
-    console.log('success with status ' + status);
-
-    return Promise.resolve(200);
-  }
-
   return response.json();
 }
 
@@ -208,21 +189,6 @@ async function putData(path = '', data = {}) {
     body: JSON.stringify(data),
   });
 
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while putting data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-  } else {
-    console.log('success' + status);
-  }
-
   return response.json();
 }
 
@@ -238,21 +204,5 @@ async function deleteData(path = '') {
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
   });
-
-  const status = String(response.status);
-
-  if (!status.startsWith('2')) {
-    console.log('Error while deleting data, status code: ' + status);
-
-    const alert = await alertController.create({
-      header: 'Fehler',
-      message: 'Fehler ' + status,
-      buttons: ['Ok'],
-    });
-    await alert.present();
-  } else {
-    console.log('success' + status);
-  }
-
   return response.json();
 }

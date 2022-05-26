@@ -1,16 +1,13 @@
-import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Auth0ClientService, AuthService } from '@auth0/auth0-angular';
-import { alertController } from '@ionic/core';
-import { User } from 'src/app/shared/models/user';
-import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
-
-import { mergeMap, tap } from 'rxjs/operators';
+import { AuthService } from '@auth0/auth0-angular';
 import { Browser } from '@capacitor/browser';
-import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 import { Subscription } from 'rxjs';
 import { LoadingController } from '@ionic/angular';
+import { mergeMap } from 'rxjs/operators';
+import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
+
 
 @Component({
   selector: 'app-login',
