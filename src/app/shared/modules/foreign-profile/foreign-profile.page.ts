@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { alertController } from '@ionic/core';
-import { LoginPage } from 'src/app/shared/modules/login/login.page';
 import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
@@ -13,7 +12,7 @@ import { Location } from '@angular/common';
   templateUrl: './foreign-profile.page.html',
   styleUrls: ['./foreign-profile.page.scss'],
 })
-export class ForeignProfilePage implements OnInit {
+export class ForeignProfilePage {
   user: User;
   tags: Tag[];
   tagValidations = [];
@@ -30,8 +29,6 @@ export class ForeignProfilePage implements OnInit {
     private userState: UserStateService,
     private location: Location
   ) {}
-
-  ngOnInit(): void {}
 
   ionViewWillEnter() {
     this.fetchInfo();
