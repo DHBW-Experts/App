@@ -57,8 +57,8 @@ export class RegisterPage implements OnInit {
     user.city = this.city;
 
     this.persistence.user.register(user, user.userId)
-      .then((user) => {
-        this.userState.user = user;
+      .then((u) => {
+        this.userState.user = u;
         this.router.navigate(['/tabs/profile']);
       });
   }
