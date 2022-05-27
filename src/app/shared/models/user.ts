@@ -1,5 +1,4 @@
 import { Tag } from './tag';
-import { NfcScan } from './nfc-scan';
 
 export class User {
   constructor(
