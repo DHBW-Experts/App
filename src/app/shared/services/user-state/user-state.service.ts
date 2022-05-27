@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AuthService, User as Auth0User } from '@auth0/auth0-angular';
 import { BehaviorSubject } from 'rxjs';
 import { callbackUri } from 'src/app/auth.config';
-import { LoginPage } from 'src/app/shared/modules/login/login.page';
 import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from '../persistence/persistence.service';
