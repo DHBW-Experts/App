@@ -27,6 +27,8 @@ export class EditProfilePage implements OnInit {
     this.user = this.userState.user;
   }
 
+  //ACHTUNG!!! FUNKTIONIERT MIT NEUER AUTH LÖSUNG NICHT!
+  //Status-code wird nicht übergeben (?)
   async edit() {
     this.persistence.user.edit(this.user).then((code) => {
       if (!String(code).startsWith('2')) {
