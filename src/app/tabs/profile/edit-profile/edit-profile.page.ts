@@ -30,8 +30,8 @@ export class EditProfilePage implements OnInit {
   //ACHTUNG!!! FUNKTIONIERT MIT NEUER AUTH LÖSUNG NICHT!
   //Status-code wird nicht übergeben (?)
   async edit() {
-    this.persistence.user.edit(this.user).then((code) => {
-      if (!String(code).startsWith('2')) {
+    this.persistence.user.edit(this.user).then((response) => {
+      if (response instanceof Error) {
         this.presentChangesFailed();
       } else {
         this.userState.fetchUserInfo();

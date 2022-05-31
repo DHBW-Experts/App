@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { catchError } from 'rxjs/internal/operators/catchError';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
 import { User } from '../../models/user';
@@ -28,7 +30,17 @@ export class PersistenceService {
       },
 
       edit: async (user: User) => {
-        return this.http.patch(`${API_BASE}/users/${user.userId}`, user).toPromise();
+        this.http.patch(`${API_BASE}/users/${user.userId}`, user).pipe(
+          catchError(async error => {
+            let errorMsg: string;
+              if (error.error instanceof ErrorEvent) {
+                errorMsg = `Error: ${error.error.message}`;
+              } else {
+                errorMsg = `${error.status}`;
+              }
+                return throwError(errorMsg);
+              })
+          ).toPromise();
       },
 
       delete: async (userId: string) => {
