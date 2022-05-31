@@ -7,6 +7,7 @@ import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 import { Location } from '@angular/common';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-foreign-profile',
@@ -28,7 +29,8 @@ export class ForeignProfilePage implements OnInit {
     private route: ActivatedRoute,
     private persistence: PersistenceService,
     private userState: UserStateService,
-    private location: Location
+    private location: Location,
+    private toastController: ToastController
   ) {}
 
   ngOnInit(): void {}
@@ -53,6 +55,8 @@ export class ForeignProfilePage implements OnInit {
     this.persistence.contact
       .add(this.userState.userId, this.user.userId)
       .then(() => this.userState.fetchUserInfo());
+    this.goBackToPreviousPage();
+    this.presentAddedContact();
   }
 
   removeContact() {
@@ -123,5 +127,16 @@ export class ForeignProfilePage implements OnInit {
       this.user = val;
       this.isDataAvailable = true;
     });
+  }
+
+  async presentAddedContact() {
+    const toast = await this.toastController.create({
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich hinzugefügt.',
+      position: 'top',
+      color: 'success',
+      duration: 800,
+    });
+    toast.present();
   }
 }
