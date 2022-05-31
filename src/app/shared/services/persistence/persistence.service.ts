@@ -32,13 +32,7 @@ export class PersistenceService {
       edit: async (user: User) => {
         this.http.patch(`${API_BASE}/users/${user.userId}`, user).pipe(
           catchError(async error => {
-            let errorMsg: string;
-              if (error.error instanceof ErrorEvent) {
-                errorMsg = `Error: ${error.error.message}`;
-              } else {
-                errorMsg = `${error.status}`;
-              }
-                return throwError(errorMsg);
+                return throwError(String(error));
               })
           ).toPromise();
       },
