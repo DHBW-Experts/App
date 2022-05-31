@@ -63,6 +63,8 @@ export class ForeignProfilePage implements OnInit {
     this.persistence.contact
       .remove(this.userState.userId, this.user.userId)
       .then(() => this.userState.fetchUserInfo());
+    this.goBackToPreviousPage();
+    this.presentRemovedContact();
   }
 
   goBackToPreviousPage() {
@@ -135,6 +137,17 @@ export class ForeignProfilePage implements OnInit {
         '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich hinzugefügt.',
       position: 'top',
       color: 'success',
+      duration: 800,
+    });
+    toast.present();
+  }
+
+  async presentRemovedContact() {
+    const toast = await this.toastController.create({
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich entfernt.',
+      position: 'top',
+      color: 'danger',
       duration: 800,
     });
     toast.present();
