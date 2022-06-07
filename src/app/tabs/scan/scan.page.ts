@@ -46,8 +46,8 @@ export class ScanPage {
           return;
         }
 
-        this.route.navigate(['/tabs/scan/profile'], {
-          queryParams: { id: user.userId },
+        this.route.navigate(['/tabs/search/profile'], { 
+          queryParams: { id: user.userId }
         });
         this.presentScanSucceeded();
       });
