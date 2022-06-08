@@ -11,8 +11,7 @@ const routes: Routes = [
       {
         path: 'scan',
         loadChildren: () =>
-          import('./scan/scan.module').then((m) => m.ScanPageModule),
-          pathMatch: 'full',
+          import('./scan/scan.module').then((m) => m.ScanPageModule)
       },
       {
         path: 'search',
