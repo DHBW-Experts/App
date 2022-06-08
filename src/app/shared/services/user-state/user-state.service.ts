@@ -64,15 +64,19 @@ export class UserStateService{
     }
   }
 
-  public fetchUserInfo(): Promise<void> {
+  public async fetchUserInfo(): Promise<void> {
     this.isUserInfoAvailable$.next(false);
-  
+    const loading = await this.loadingController.create({
+      message: 'Lädt...'
+    });
+    await loading.present();
     return Promise.all([
       this.persistence.user.getById(this.userId).then( val => this.user = val),
       this.persistence.tag.getByUser(this.userId).then( val => this.tags = val),
       this.persistence.contact.getByUserId(this.userId).then(val => this.contacts = val)
     ]).then(() => {
       this.isUserInfoAvailable$.next(true);
+      loading.dismiss();
     });
   }
 
