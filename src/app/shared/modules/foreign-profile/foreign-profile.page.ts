@@ -6,6 +6,7 @@ import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 import { Location } from '@angular/common';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-foreign-profile',
@@ -27,7 +28,8 @@ export class ForeignProfilePage {
     private route: ActivatedRoute,
     private persistence: PersistenceService,
     private userState: UserStateService,
-    private location: Location
+    private location: Location,
+    private toastController: ToastController
   ) {}
 
   ionViewWillEnter() {
@@ -50,12 +52,16 @@ export class ForeignProfilePage {
     this.persistence.contact
       .add(this.userState.userId, this.user.userId)
       .then(() => this.userState.fetchUserInfo());
+    this.goBackToPreviousPage();
+    this.presentAddedContact();
   }
 
   removeContact() {
     this.persistence.contact
       .remove(this.userState.userId, this.user.userId)
       .then(() => this.userState.fetchUserInfo());
+    this.goBackToPreviousPage();
+    this.presentRemovedContact();
   }
 
   goBackToPreviousPage() {
@@ -120,5 +126,27 @@ export class ForeignProfilePage {
       this.user = val;
       this.isDataAvailable = true;
     });
+  }
+
+  async presentAddedContact() {
+    const toast = await this.toastController.create({
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich hinzugefügt.',
+      position: 'top',
+      color: 'success',
+      duration: 800,
+    });
+    toast.present();
+  }
+
+  async presentRemovedContact() {
+    const toast = await this.toastController.create({
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich entfernt.',
+      position: 'top',
+      color: 'danger',
+      duration: 800,
+    });
+    toast.present();
   }
 }

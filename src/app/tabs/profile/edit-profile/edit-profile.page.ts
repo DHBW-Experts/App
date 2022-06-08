@@ -27,8 +27,8 @@ export class EditProfilePage implements OnInit {
   }
 
   async edit() {
-    this.persistence.user.edit(this.user).then((code) => {
-      if (!String(code).startsWith('2')) {
+    this.persistence.user.edit(this.user).then((response) => {
+      if (response instanceof Error) {
         this.presentChangesFailed();
       } else {
         this.userState.fetchUserInfo();
