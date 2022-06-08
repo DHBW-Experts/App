@@ -103,6 +103,7 @@ export class UserStateService{
       )
       .subscribe();
       this.route.navigate(['/']);
+      loading.dismiss();
   }
 
 }
