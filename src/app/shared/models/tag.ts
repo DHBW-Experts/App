@@ -1,4 +1,3 @@
-import { PersistenceService } from '../services/persistence/persistence.service';
 import { TagValidation } from './tag-validation';
 
 export class Tag {

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { alertController } from '@ionic/core';
-import { LoginPage } from 'src/app/shared/modules/login/login.page';
 import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 import { Location } from '@angular/common';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-foreign-profile',
   templateUrl: './foreign-profile.page.html',
   styleUrls: ['./foreign-profile.page.scss'],
 })
-export class ForeignProfilePage implements OnInit {
+export class ForeignProfilePage {
   user: User;
   tags: Tag[];
   tagValidations = [];
@@ -28,10 +28,9 @@ export class ForeignProfilePage implements OnInit {
     private route: ActivatedRoute,
     private persistence: PersistenceService,
     private userState: UserStateService,
-    private location: Location
+    private location: Location,
+    private toastController: ToastController
   ) {}
-
-  ngOnInit(): void {}
 
   ionViewWillEnter() {
     this.fetchInfo();
@@ -53,12 +52,16 @@ export class ForeignProfilePage implements OnInit {
     this.persistence.contact
       .add(this.userState.userId, this.user.userId)
       .then(() => this.userState.fetchUserInfo());
+    this.goBackToPreviousPage();
+    this.presentAddedContact();
   }
 
   removeContact() {
     this.persistence.contact
       .remove(this.userState.userId, this.user.userId)
       .then(() => this.userState.fetchUserInfo());
+    this.goBackToPreviousPage();
+    this.presentRemovedContact();
   }
 
   goBackToPreviousPage() {
@@ -123,5 +126,27 @@ export class ForeignProfilePage implements OnInit {
       this.user = val;
       this.isDataAvailable = true;
     });
+  }
+
+  async presentAddedContact() {
+    const toast = await this.toastController.create({
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich hinzugefügt.',
+      position: 'top',
+      color: 'success',
+      duration: 800,
+    });
+    toast.present();
+  }
+
+  async presentRemovedContact() {
+    const toast = await this.toastController.create({
+      message:
+        '<ion-icon name="checkmark-outline"></ion-icon>  Kontakt erfolgreich entfernt.',
+      position: 'top',
+      color: 'danger',
+      duration: 800,
+    });
+    toast.present();
   }
 }

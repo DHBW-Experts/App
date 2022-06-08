@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AuthService, User as Auth0User } from '@auth0/auth0-angular';
 import { BehaviorSubject } from 'rxjs';
 import { callbackUri } from 'src/app/auth.config';
-import { LoginPage } from 'src/app/shared/modules/login/login.page';
 import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from '../persistence/persistence.service';
@@ -10,6 +9,7 @@ import { alertController } from '@ionic/core';
 import { Browser } from '@capacitor/browser';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class UserStateService{
   isAuthenticated$: BehaviorSubject<boolean>;
   isUserInfoAvailable$: BehaviorSubject<boolean>;
 
-  constructor(private auth: AuthService, private persistence: PersistenceService,private route:Router) {
+  constructor(private auth: AuthService, private persistence: PersistenceService,private route:Router, private loadingController: LoadingController) {
     this.auth0User = null;
     this.userId = null;
     this.isAuthenticated$ = new BehaviorSubject(false);
@@ -76,7 +76,11 @@ export class UserStateService{
     });
   }
 
-  public logout(){
+  public async logout(){
+    const loading = await this.loadingController.create({
+      message: 'Lädt...'
+    });
+    await loading.present();
     this.user = null;
     this.auth0User = null;
     this.userId = "not signed in"

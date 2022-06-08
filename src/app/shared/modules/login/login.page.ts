@@ -1,15 +1,13 @@
-import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Auth0ClientService, AuthService } from '@auth0/auth0-angular';
-import { alertController } from '@ionic/core';
-import { User } from 'src/app/shared/models/user';
-import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
-
-import { mergeMap, tap } from 'rxjs/operators';
+import { AuthService } from '@auth0/auth0-angular';
 import { Browser } from '@capacitor/browser';
-import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 import { Subscription } from 'rxjs';
+import { LoadingController } from '@ionic/angular';
+import { mergeMap } from 'rxjs/operators';
+import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
+
 
 @Component({
   selector: 'app-login',
@@ -26,7 +24,8 @@ export class LoginPage implements OnInit, OnDestroy{
   constructor(
     private router: Router,
     private auth: AuthService,
-    private userState: UserStateService
+    private userState: UserStateService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +51,10 @@ export class LoginPage implements OnInit, OnDestroy{
   }
 
   async login() {
+    const loading = await this.loadingController.create({
+      message: 'Lädt...'
+    });
+    await loading.present();
     this.auth
       .buildAuthorizeUrl()
       .pipe(mergeMap((url) => Browser.open({ url, windowName: '_self' })))

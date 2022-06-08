@@ -8,14 +8,12 @@ import { UserStateService } from 'src/app/shared/services/user-state/user-state.
   templateUrl: './contacts.page.html',
   styleUrls: ['./contacts.page.scss'],
 })
-export class ContactsPage implements OnInit {
+export class ContactsPage {
   constructor(
     private route: Router,
     private persistence: PersistenceService,
     public userState: UserStateService
   ) {}
-
-  ngOnInit() {}
 
   openForeignProfile(userId) {
     this.route.navigate(['/tabs/contacts/profile'], { queryParams: { id: userId }});

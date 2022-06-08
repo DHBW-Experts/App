@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
-import { LoginPage } from '../../../shared/modules/login/login.page';
 import { User } from '../../../shared/models/user';
 
 @Component({
@@ -28,8 +27,8 @@ export class EditProfilePage implements OnInit {
   }
 
   async edit() {
-    this.persistence.user.edit(this.user).then((code) => {
-      if (!String(code).startsWith('2')) {
+    this.persistence.user.edit(this.user).then((response) => {
+      if (response instanceof Error) {
         this.presentChangesFailed();
       } else {
         this.userState.fetchUserInfo();
