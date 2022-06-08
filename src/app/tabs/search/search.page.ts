@@ -27,21 +27,21 @@ export class SearchPage {
       this.persistence.search
         .searchUsersByTag(this.searchText)
         .then((res) => (this.resultsUser = res));
-    } else if (this.selectedOption === 'nutzer') {
-      this.persistence.user
-        .getByName(this.searchText)
+    } else if (this.selectedOption === 'user') {
+      this.persistence.search
+        .searchUsersByName(this.searchText)
         .then((res) => (this.resultsUser = res));
     } else if (this.selectedOption === 'standort') {
-      this.persistence.user
-        .getByLocation(this.searchText)
+      this.persistence.search
+        .searchUsersByLocation(this.searchText)
         .then((res) => (this.resultsUser = res));
     } else if (this.selectedOption === 'kurs') {
-      this.persistence.user
-        .getByCourseAbr(this.searchText)
+      this.persistence.search
+        .searchUsersByCourseAbbr(this.searchText)
         .then((res) => (this.resultsUser = res));
     } else if (this.selectedOption === 'studiengang') {
-      this.persistence.user
-        .getByCourse(this.searchText)
+      this.persistence.search
+        .searchUsersByCourse(this.searchText)
         .then((res) => (this.resultsUser = res));
     }
   }
@@ -66,6 +66,8 @@ export class SearchPage {
   }
 
   openForeignProfile(userId) {
-    this.route.navigate(['/tabs/search/profile'], { queryParams: { id: userId }});
+    this.route.navigate(['/tabs/search/profile'], {
+      queryParams: { id: userId },
+    });
   }
 }

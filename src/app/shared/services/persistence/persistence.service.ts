@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { catchError } from 'rxjs/internal/operators/catchError';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
 import { User } from '../../models/user';
@@ -30,11 +28,7 @@ export class PersistenceService {
       },
 
       edit: async (user: User) => {
-        this.http.patch(`${API_BASE}/users/${user.userId}`, user).pipe(
-          catchError(async error => {
-                return throwError(String(error));
-              })
-          ).toPromise();
+        return this.http.patch(`${API_BASE}/users/${user.userId}`, user).toPromise();
       },
 
       delete: async (userId: string) => {
@@ -54,10 +48,10 @@ export class PersistenceService {
         return this.http.get<TagValidation[]>(`${API_BASE}/tags/${tagId}/validations`).toPromise();
       },
 
-      addValidation: async (tagId: number, validation: string, validatedBy:number) =>{
+      addValidation: async (tagId: number, validation: string, validatedBy: string) => {
         return this.http.post<TagValidation>(`${API_BASE}/tags/${tagId}/validations`,{
           "tag": tagId,
-          "validatedBy": validatedBy ,
+          "validatedBy": validatedBy,
           "comment": validation
         }).toPromise();
       },
@@ -84,34 +78,30 @@ export class PersistenceService {
     };
     this.search = {
       searchUsersByTag: async (tag: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/tags/${tag}`).toPromise();
-      },
-
-      searchUsersByEmail: async (email: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/email/${email}`).toPromise();
+        return this.http.get<User[]>(`${API_BASE}/users`, { params: { tag } }).toPromise();
       },
 
       searchUserByRfid: async (rfidId: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/rfid/${rfidId}`).toPromise();
+        return this.http.get<User[]>(`${API_BASE}/users`, { params: { rfid: rfidId } }).toPromise();
       },
 
       searchUsersByName: async (name: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/name/${name}`).toPromise();
+        return this.http.get<User[]>(`${API_BASE}/users`, { params: { name } }).toPromise();
       },
 
       searchUsersByCourse: async (course: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/course/${course}`).toPromise();
+        return this.http.get<User[]>(`${API_BASE}/users`, { params: { course } }).toPromise();
       },
 
-      searchUsersByCourseAbbr: async (abbr: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/course-abbr/${abbr}`).toPromise();
+      searchUsersByCourseAbbr: async (courseAbbr: string) => {
+        return this.http.get<User[]>(`${API_BASE}/users`, { params: { courseAbbr } }).toPromise();
       },
 
       searchUsersByLocation: async (location: string) => {
-        return this.http.get<User[]>(`${API_BASE}/search/users/location/${location}`).toPromise();
+        return this.http.get<User[]>(`${API_BASE}/users`, { params: { location } }).toPromise();
       },
-      searchTags: async (searchText: string) => {
-        return this.http.get<Tag[]>(`${API_BASE}/search/tags/${searchText}`).toPromise();
+      searchTags: async (tag: string) => {
+        return this.http.get<Tag[]>(`${API_BASE}/tags`, { params: { tag } }).toPromise();
       },
     };
   }
