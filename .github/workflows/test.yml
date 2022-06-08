@@ -3,7 +3,7 @@ name: Test
 on: push
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,4 +18,4 @@ jobs:
         run: npm install
 
       - name: Run Jasmine Tests
-        run: npm test
+        run: npm run test:ci
