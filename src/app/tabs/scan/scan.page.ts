@@ -33,7 +33,7 @@ export class ScanPage {
 
       console.log(`NFC: ${tagId}`);
 
-      this.persistence.user.getByRfid(tagId).then(async (user) => {
+      this.persistence.search.searchUserByRfid(tagId).then(async (user) => {
         if (!user.userId) {
           const alert = await alertController.create({
             header: 'Fehler',
@@ -43,9 +43,8 @@ export class ScanPage {
           await alert.present();
           return;
         }
-
-        this.route.navigate(['/tabs/scan/profile'], {
-          queryParams: { id: user.userId },
+        this.route.navigate(['/tabs/scan/profile'], { 
+          queryParams: { id: user.userId }
         });
         this.presentScanSucceeded();
       });

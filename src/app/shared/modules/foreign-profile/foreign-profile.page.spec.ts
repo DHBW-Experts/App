@@ -12,10 +12,6 @@ xdescribe('ViewForeignProfilePage', () => {
   let component: ForeignProfilePage;
   let fixture: ComponentFixture<ForeignProfilePage>;
   let de: DebugElement;
-  // PLS FIX MEEE :(
-  // LoginPage.user = {
-  //   userId: '626db5fc4105f20069997435',
-  // };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
