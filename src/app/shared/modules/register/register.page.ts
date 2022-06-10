@@ -75,7 +75,7 @@ export class RegisterPage implements OnInit {
       user.course = this.course;
     }
     user.specialization = this.specialization;
-    if(this.courseAbbr == "" || this.courseAbbr.length > 10) {
+    if(this.courseAbbr == "") {
       this.checkCourseAbbr = 'rgb(178, 0, 45)';
       this.validationPassed = false;
     } else {
