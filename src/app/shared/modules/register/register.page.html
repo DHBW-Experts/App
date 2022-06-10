@@ -16,6 +16,7 @@
           class="Default_Input_Field"
           id="firstname_input"
           [(ngModel)]="firstname"
+          [style.border-color]="checkFirstname"
         />
       </div>
       <div class="Default_Input" id="lastname">
@@ -26,6 +27,7 @@
           class="Default_Input_Field"
           id="lastname_input"
           [(ngModel)]="lastname"
+          [style.border-color]="checkLastname"
         />
       </div>
       <div class="Default_Input" id="email">
@@ -55,6 +57,7 @@
           placeholder="Informatik"
           class="Default_Input_Field"
           [(ngModel)]="course"
+          [style.border-color]="checkCourse"
         />
       </div>
       <div class="Default_Input" id="Fachrichtung">
@@ -73,6 +76,7 @@
           placeholder="TINF20B2"
           class="Default_Input_Field"
           [(ngModel)]="courseAbbr"
+          [style.border-color]="checkCourseAbbr"
         />
       </div>
       <div class="Default_Input" id="Wohnort">

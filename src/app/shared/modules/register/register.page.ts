@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { PersistenceService } from 'src/app/shared/services/persistence/persistence.service';
 import { UserStateService } from 'src/app/shared/services/user-state/user-state.service';
 
@@ -17,18 +18,24 @@ import { UserStateService } from 'src/app/shared/services/user-state/user-state.
 export class RegisterPage implements OnInit {
   form: FormGroup;
   firstname: string;
+  checkFirstname: string = 'rgb(170, 170, 170)';
   lastname: string;
+  checkLastname: string = 'rgb(170, 170, 170)';
   courseAbbr: string;
+  checkCourseAbbr: string = 'rgb(170, 170, 170)';
   course: string;
+  checkCourse: string = 'rgb(170, 170, 170)';
   specialization: string;
   city: string;
   biography: string;
+  validationPassed: boolean = true;
 
   constructor(
     public formBuilder: FormBuilder,
     private router: Router,
     private persistence: PersistenceService,
-    public userState: UserStateService
+    public userState: UserStateService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -47,14 +54,41 @@ export class RegisterPage implements OnInit {
 
   async register() {
     const user = this.userState.user;
+    this.resetBorderColors();
 
-    user.firstname = this.firstname;
-    user.lastname = this.lastname;
-    user.course = this.course;
+    if(this.firstname == "" || /\d/.test(this.firstname)) {
+      this.checkFirstname = 'rgb(178, 0, 45)';
+      this.validationPassed = false;
+    } else {
+      user.firstname = this.firstname;
+    }
+    if(this.lastname == "" || /\d/.test(this.lastname)) {
+      this.checkLastname = 'rgb(178, 0, 45)';
+      this.validationPassed = false;
+    } else {
+      user.lastname = this.lastname;
+    }
+    if(this.course == "" || /\d/.test(this.course)) {
+      this.checkCourse = 'rgb(178, 0, 45)';
+      this.validationPassed = false;
+    } else {
+      user.course = this.course;
+    }
     user.specialization = this.specialization;
-    user.courseAbbr = this.courseAbbr;
+    if(this.courseAbbr == "" || this.courseAbbr.length > 10) {
+      this.checkCourseAbbr = 'rgb(178, 0, 45)';
+      this.validationPassed = false;
+    } else {
+      user.courseAbbr = this.courseAbbr;
+    }
     user.biography = this.biography;
     user.city = this.city;
+
+    if(!this.validationPassed) {
+      this.presentRegisteringFailed();
+      this.validationPassed = true;
+      return;
+    }
 
     this.persistence.user.register(user, user.userId)
       .then((u) => {
@@ -65,5 +99,24 @@ export class RegisterPage implements OnInit {
 
   backToLoginPage() {
     this.userState.logout();
+  }
+
+  async presentRegisteringFailed() {
+    const toast = await this.toastController.create({
+      header: 'Etwas ist schiefgelaufen!',
+      message:
+        '\nBitte überprüfe deine Angaben und versuche es erneut.',
+      position: 'top',
+      color: 'danger',
+      duration: 3200,
+    });
+    toast.present();
+  }
+
+  async resetBorderColors() {
+    this.checkFirstname = 'rgb(170, 170, 170)';
+    this.checkLastname = 'rgb(170, 170, 170)';
+    this.checkCourse = 'rgb(170, 170, 170)';
+    this.checkCourseAbbr = 'rgb(170, 170, 170)';
   }
 }
