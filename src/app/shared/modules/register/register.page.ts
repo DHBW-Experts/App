@@ -39,43 +39,33 @@ export class RegisterPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Validation der Inputs aufsetzen
-    this.form = this.formBuilder.group({
-      firstname: new FormControl(
-        '',
-        Validators.compose([Validators.required, Validators.maxLength(32)])
-      ),
-      lastname: new FormControl(
-        '',
-        Validators.compose([Validators.required, Validators.maxLength(32)])
-      ),
-    });
+
   }
 
   async register() {
     const user = this.userState.user;
     this.resetBorderColors();
 
-    if(this.firstname == "" || /\d/.test(this.firstname)) {
+    if(this.firstname == null || /\d/.test(this.firstname)) {
       this.checkFirstname = 'rgb(178, 0, 45)';
       this.validationPassed = false;
     } else {
       user.firstname = this.firstname;
     }
-    if(this.lastname == "" || /\d/.test(this.lastname)) {
+    if(this.lastname == null || /\d/.test(this.lastname)) {
       this.checkLastname = 'rgb(178, 0, 45)';
       this.validationPassed = false;
     } else {
       user.lastname = this.lastname;
     }
-    if(this.course == "" || /\d/.test(this.course)) {
+    if(this.course == null || /\d/.test(this.course)) {
       this.checkCourse = 'rgb(178, 0, 45)';
       this.validationPassed = false;
     } else {
       user.course = this.course;
     }
     user.specialization = this.specialization;
-    if(this.courseAbbr == "") {
+    if(this.courseAbbr == null ){
       this.checkCourseAbbr = 'rgb(178, 0, 45)';
       this.validationPassed = false;
     } else {
