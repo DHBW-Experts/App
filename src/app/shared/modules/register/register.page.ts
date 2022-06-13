@@ -15,7 +15,7 @@ import { UserStateService } from 'src/app/shared/services/user-state/user-state.
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
   form: FormGroup;
   firstname: string;
   checkFirstname: string = 'rgb(170, 170, 170)';
@@ -37,10 +37,6 @@ export class RegisterPage implements OnInit {
     public userState: UserStateService,
     private toastController: ToastController
   ) {}
-
-  ngOnInit() {
-
-  }
 
   async register() {
     const user = this.userState.user;
