@@ -1,24 +1,50 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { RouterTestingModule } from '@angular/router/testing';
 import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PersistenceServiceStub } from '../../services/persistence/persistence.service.mock';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthConfig, AuthModule } from '@auth0/auth0-angular';
+import { IonicModule } from '@ionic/angular';
+import { callbackUri, clientId, domain } from 'src/app/auth.config';
 import { PersistenceService } from '../../services/persistence/persistence.service';
+import { PersistenceServiceStub } from '../../services/persistence/persistence.service.mock';
+import { UserStateService } from '../../services/user-state/user-state.service';
+import { UserStateServiceStub } from '../../services/user-state/user-state.service.mock';
 import { ForeignProfilePage } from './foreign-profile.page';
-import { LoginPage } from '../login/login.page';
 
-xdescribe('ViewForeignProfilePage', () => {
+const config: AuthConfig = {
+  domain,
+  clientId,
+  redirectUri: callbackUri,
+  audience: 'https://dhbw-experts-api.azurewebsites.net/',
+  scope: 'read:profile write:profile ',
+  httpInterceptor: {
+    allowedList: [
+      {
+        uri: 'https://dhbw-experts-api.azurewebsites.net/*',
+        tokenOptions: {
+          audience: 'https://dhbw-experts-api.azurewebsites.net/',
+          scope: 'read:profile write:profile',
+        },
+      },
+    ],
+  },
+};
+
+describe('ViewForeignProfilePage', () => {
   let component: ForeignProfilePage;
   let fixture: ComponentFixture<ForeignProfilePage>;
   let de: DebugElement;
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ForeignProfilePage],
-      imports: [IonicModule.forRoot(), RouterTestingModule],
+      imports: [
+        IonicModule.forRoot(),
+        RouterTestingModule,
+        AuthModule.forRoot(config),
+      ],
       providers: [
         { provide: PersistenceService, useClass: PersistenceServiceStub },
+        { provide: UserStateService, useClass: UserStateServiceStub },
       ],
     }).compileComponents();
 
@@ -78,7 +104,6 @@ xdescribe('ViewForeignProfilePage', () => {
       createdAt: '2022-04-24T21:37:07.183',
     };
     component.isUserInContacts = true;
-    component.ionViewWillEnter();
     fixture.detectChanges();
     expect(de.query(By.css('#remove_btn')).nativeElement.innerText).toBe(
       'AUS KONTAKTEN ENTFERNEN'
