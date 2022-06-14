@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, User as Auth0User } from '@auth0/auth0-angular';
+import { AuthService } from '@auth0/auth0-angular';
 import { LoadingController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { BehaviorSubject } from 'rxjs';
@@ -87,7 +87,6 @@ export class UserStateServiceStub {
       });
       await alert.present();
     } else {
-      console.log('logging out...');
       this.logout();
     }
   }
@@ -110,5 +109,7 @@ export class UserStateServiceStub {
     });
   }
 
-  public async logout() {}
+  public async logout() {
+    console.log('logging out...');
+  }
 }
