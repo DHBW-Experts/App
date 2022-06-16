@@ -4,8 +4,9 @@ import { AuthService } from '@auth0/auth0-angular';
 import { Tag } from '../../models/tag';
 import { TagValidation } from '../../models/tag-validation';
 import { User } from '../../models/user';
+import { environment as env} from '../../../../environments/environment';
 
-const API_BASE = 'https://dhbw-experts-api.azurewebsites.net';
+const API_BASE = env.api_domain;
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,6 @@
 ### BUILD COMMAND ###
 # docker build --build-arg -t dhbw-experts-app .
-# docker build --build-arg build_env=development -t dhbw-experts-app .
+# docker build --build-arg BUILD_ENV=XXXX -t dhbw-experts-app .
 
 ### RUN COMMAND ###
 # docker run -p 4200:80 dhbw-experts-app
@@ -11,7 +11,7 @@
 # This is needed to build and compile our code 
 # while generating the docker image
 FROM node:16.15.0-alpine AS build
-ARG build_env=production
+ARG BUILD_ENV=azure
 
 # Create a Virtual directory inside the docker image
 WORKDIR /dist/src/app
@@ -24,8 +24,8 @@ COPY . .
 RUN npm install -g @ionic/cli
 RUN npm install
 
-RUN if [ "$build_env" = "production" ] ; then npm run build:prod ; fi
-RUN if [ "$build_env" = "development" ] ; then npm run build ; fi
+RUN if [ "$BUILD_ENV" = "azure" ] ; then ionic build --configuration=azure ; fi
+RUN if [ "$BUILD_ENV" = "docker" ] ; then ionic build --configuration=docker; fi
 
 
 ### STAGE 2:RUN ###

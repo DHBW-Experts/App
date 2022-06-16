@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthConfig, AuthModule } from '@auth0/auth0-angular';
 import { IonicModule } from '@ionic/angular';
-import { callbackUri, clientId, domain } from 'src/app/auth.config';
+import { environment as env } from 'src/environments/environment';
 import { PersistenceService } from '../../services/persistence/persistence.service';
 import { PersistenceServiceStub } from '../../services/persistence/persistence.service.mock';
 import { UserStateService } from '../../services/user-state/user-state.service';
@@ -12,15 +12,15 @@ import { UserStateServiceStub } from '../../services/user-state/user-state.servi
 import { ForeignProfilePage } from './foreign-profile.page';
 
 const config: AuthConfig = {
-  domain,
-  clientId,
-  redirectUri: callbackUri,
+  domain: env.api_domain,
+  clientId: env.auth0_clientId,
+  redirectUri: env.auth0_callbackURI,
   audience: 'https://dhbw-experts-api.azurewebsites.net/',
   scope: 'read:profile write:profile ',
   httpInterceptor: {
     allowedList: [
       {
-        uri: 'https://dhbw-experts-api.azurewebsites.net/*',
+        uri: `${env.api_domain}/*`,
         tokenOptions: {
           audience: 'https://dhbw-experts-api.azurewebsites.net/',
           scope: 'read:profile write:profile',

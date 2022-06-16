@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService, User as Auth0User } from '@auth0/auth0-angular';
 import { BehaviorSubject } from 'rxjs';
-import { callbackUri } from 'src/app/auth.config';
+import { environment as env } from 'src/environments/environment';
 import { Tag } from 'src/app/shared/models/tag';
 import { User } from 'src/app/shared/models/user';
 import { PersistenceService } from '../persistence/persistence.service';
@@ -92,7 +92,7 @@ export class UserStateService{
     this.contacts = []
     this.tagValidations = [];
     this.auth
-      .buildLogoutUrl({ returnTo : callbackUri })
+      .buildLogoutUrl({ returnTo : env.auth0_callbackURI })
       .pipe(
         tap((url) => {
           // Call the logout fuction, but only log out locally

@@ -1,3 +1,4 @@
+import config from "../../capacitor.config";
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -5,11 +6,11 @@
 export const environment = {
   production: true,
 
-  mobile: false,
+  mobile: true,
 
   auth0_domain: "dhbw-experts.eu.auth0.com",
   auth0_clientId: "XLYPvlQsSiVxy178YXv3NoYEAruXHn3I",
-  auth0_callbackURI: "http://localhost:4200/callback",
+  auth0_callbackURI: `${config.appId}://dhbw-experts.eu.auth0.com/capacitor/${config.appId}/callback`,
   api_domain: "https://dhbw-experts-api.azurewebsites.net"
 };
 

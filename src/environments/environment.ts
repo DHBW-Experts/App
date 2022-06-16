@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  mobile: false,
+
+  auth0_domain: "dhbw-experts.eu.auth0.com",
+  auth0_clientId: "XLYPvlQsSiVxy178YXv3NoYEAruXHn3I",
+  auth0_callbackURI: "http://localhost:4200/callback",
+  api_domain: "https://dhbw-experts-api.azurewebsites.net"
 };
 
 /*

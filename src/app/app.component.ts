@@ -4,7 +4,7 @@ import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { isPlatform } from '@ionic/angular';
 import { mergeMap } from 'rxjs/operators';
-import { callbackUri } from './auth.config';
+import { environment as env} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       // https://capacitorjs.com/docs/guides/angular
 
       this.ngZone.run(() => {
-        if (url?.startsWith(callbackUri)) {
+        if (url?.startsWith(env.auth0_callbackURI)) {
           if (
             url.includes('state=') &&
             (url.includes('error=') || url.includes('code='))

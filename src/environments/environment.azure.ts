@@ -9,7 +9,7 @@ export const environment = {
 
   auth0_domain: "dhbw-experts.eu.auth0.com",
   auth0_clientId: "XLYPvlQsSiVxy178YXv3NoYEAruXHn3I",
-  auth0_callbackURI: "http://localhost:4200/callback",
+  auth0_callbackURI: "https://dhbw-experts.azurewebsites.net/callback",
   api_domain: "https://dhbw-experts-api.azurewebsites.net"
 };
 

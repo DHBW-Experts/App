@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { AuthHttpInterceptor, AuthConfig, AuthModule } from '@auth0/auth0-angular';
-import { domain, clientId, callbackUri } from './auth.config';
+import { environment as env } from '../environments/environment';
 import { NFC } from '@ionic-native/nfc/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -13,15 +13,15 @@ import { PersistenceService } from './shared/services/persistence/persistence.se
 import { UserStateService } from './shared/services/user-state/user-state.service';
 
 const config: AuthConfig = {
-  domain,
-  clientId,
-  redirectUri: callbackUri,
+  domain: env.auth0_domain,
+  clientId: env.auth0_clientId,
+  redirectUri: env.auth0_callbackURI,
   audience: 'https://dhbw-experts-api.azurewebsites.net/',
   scope: 'read:profile write:profile ',
   httpInterceptor: {
     allowedList: [
       {
-        uri: 'https://dhbw-experts-api.azurewebsites.net/*',
+        uri: `${env.api_domain}/*`,
         tokenOptions: {
           audience: 'https://dhbw-experts-api.azurewebsites.net/',
           scope: 'read:profile write:profile',
